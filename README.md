@@ -1,1 +1,0 @@
-# shopCorner-ecommerce-mern
