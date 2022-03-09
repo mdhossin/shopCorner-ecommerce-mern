@@ -1,9 +1,15 @@
+import { BrowserRouter } from "react-router-dom";
+import Home from "./containers/Home/Home";
+import Navigation from "./containers/Navigation/Navigation";
 import "./styles/styles.scss";
 
 function App() {
   return (
     <>
-      <h1>Hello</h1>
+      <BrowserRouter>
+        <Navigation />
+        <Home />
+      </BrowserRouter>
     </>
   );
 }

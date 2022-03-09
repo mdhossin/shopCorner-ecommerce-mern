@@ -1,22 +1,2 @@
-// Import utilities
-@import "core/utils/fonts";
-@import "core/utils/reset";
-
-// Import Bootstrap source files
-@import "node_modules/bootstrap/scss/bootstrap";
-
 // Import core styles
 @import "./core/core.scss";
-
-// // scss-docs-start grid-breakpoints
-// $grid-breakpoints: (
-//   xs: 0,
-//   sm: 576px,
-//   md: 768px,
-//   lg: 992px,
-//   xl: 1200px,
-//   xxl: 1400px
-// ) !default;
-
-// media-breakpoint-up(md) mane hocche upoer dike  evabe parameter pass kore dite hobe
-// media-breakpoint-down(md) mane hocche nicher dike  evabe parameter pass kore dite hobe

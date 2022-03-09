@@ -1,0 +1,571 @@
+@use "./utils" as *;
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+/* hide the scollbar when scrolling useing the mouse right side */
+// ::-webkit-scrollbar {
+//   width: 0.6rem;
+//   border-radius: 0.5rem;
+//   background-color: hsla(var(--second-hue), 8%, 38%);
+// }
+
+// ::-webkit-scrollbar-thumb {
+//   background-color: hsla(var(--second-hue), 8%, 26%);
+//   transition: var(--transition);
+
+//   &:hover {
+//     background-color: hsla(var(--second-hue), 8%, 20%);
+//   }
+// }
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: rem(14);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.7;
+
+  color: #000;
+  background-color: var(--color-white);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+/* ====== global styles any section can i use ====== */
+
+.container {
+  max-width: 968px;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  //min-width: 1024px
+  @include breakpoint-up("xlarge") {
+    margin: 1rem auto;
+  }
+  @include breakpoint-up("xxlarge") {
+    max-width: 1200px;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.main {
+  overflow: hidden;
+}
+
+/*-- Common Style --*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+
+  margin-top: 0;
+
+  color: var(--heading-color);
+}
+
+p {
+  font-size: rem(14);
+  font-weight: 400;
+  line-height: rem(24);
+
+  margin-bottom: rem(15);
+
+  color: #333;
+}
+
+h1 {
+  font-size: rem(36);
+  line-height: rem(42);
+}
+
+h2 {
+  font-size: rem(30);
+  line-height: rem(36);
+}
+
+h3 {
+  font-size: rem(24);
+  line-height: rem(30);
+}
+
+h4 {
+  font-size: rem(18);
+  line-height: 24px;
+}
+
+h5 {
+  font-size: rem(14);
+  line-height: rem(18);
+}
+
+h6 {
+  font-size: rem(12);
+  line-height: rem(14);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a,
+button {
+  line-height: inherit;
+
+  cursor: pointer;
+  text-decoration: none;
+
+  color: #000;
+}
+
+a,
+button,
+img,
+input,
+span {
+  transition: all 0.3s ease 0s;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+a:focus {
+  text-decoration: none;
+
+  color: inherit;
+  outline: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+button,
+input[type="submit"] {
+  cursor: pointer;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+
+  list-style: outside none none;
+}
+
+/*-- 
+    - Common Classes
+-----------------------------------------*/
+
+.fix {
+  overflow: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
+input {
+  font-size: rem(14);
+
+  width: 100%;
+  height: 45px;
+  padding-left: rem(10);
+
+  color: #333;
+  border: rem(2) solid #eceff8;
+  background: #eceff8;
+  box-shadow: none;
+}
+
+select {
+  font-size: rem(14);
+
+  width: 100%;
+
+  color: #333;
+  border: 0 solid #eceff8;
+  background: transparent;
+  box-shadow: none;
+}
+
+option {
+  font-size: rem(14);
+
+  padding-left: rem(10);
+
+  border: 0 solid #626262;
+  background: #fff;
+}
+
+input:focus {
+  background: transparent;
+}
+
+textarea {
+  font-size: rem(14);
+
+  width: 100%;
+  padding: rem(10);
+
+  resize: vertical;
+
+  border: rem(2) solid #eceff8;
+  background: #eceff8;
+}
+
+textarea:focus {
+  border: rem(2) solid #4fc1f0;
+  outline: none;
+  background: transparent;
+}
+
+.input-group.divcenter.input-group .form-control {
+  padding-left: 0;
+}
+
+.stick {
+  .mobile-menu-area {
+    &.white-mobile-menu {
+      a.meanmenu-reveal {
+        color: #333;
+        border: rem(1) solid #333;
+        span {
+          background-color: #333;
+        }
+      }
+    }
+  }
+}
+
+.mean-container a.meanmenu-reveal {
+  top: -30px;
+}
+
+#mobile-menu-active {
+  display: none;
+}
+
+.mobile-menu .mean-nav ul.menu-overflow {
+  overflow-y: auto;
+
+  height: 215px;
+  margin-top: 10;
+}
+
+.mobile-menu.mean-container .mean-nav ul {
+  margin: rem(14) 0 0;
+}
+
+/*-- 
+    Scroll Up 
+-----------------------------------------*/
+
+.scroll-top {
+  position: fixed;
+  z-index: 9811 !important;
+  right: 20px;
+  bottom: 60px;
+
+  visibility: hidden;
+  overflow: hidden;
+
+  width: 50px;
+  height: 50px;
+
+  text-align: center;
+
+  opacity: 0;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  background: none;
+  background-color: var(--theme-color);
+  &.show {
+    visibility: visible;
+
+    opacity: 1;
+  }
+
+  &:hover {
+    & i {
+      animation-name: fadeInUp;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+
+      animation-fill-mode: both;
+    }
+  }
+}
+
+.height-100 {
+  height: 100vh;
+}
+
+/*--
+    - Background Color
+------------------------------------------*/
+
+.bg-purple {
+  background-color: #f0e0ff;
+}
+.bg-purple-2 {
+  background-color: #cea1f8;
+}
+.bg-gray {
+  background-color: #f6f6f8;
+}
+.bg-gray-2 {
+  background-color: #f6f6f6;
+}
+
+.bg-gray-3 {
+  background-color: #f7f7f7;
+}
+
+.bg-gray-4 {
+  background-color: #f1f1f1;
+}
+.bg-gray-5 {
+  background-color: #f9f9f9;
+}
+
+.bg-gray-6 {
+  background-color: #e9e6e9;
+}
+
+.bg-gray-7 {
+  background-color: #f8f8f8;
+}
+
+.bg-black {
+  background-color: #000000;
+}
+.bg-glaucous {
+  background-color: #daedff;
+}
+.bg-aqua {
+  background-color: #dbfffb;
+}
+.bg-white {
+  background-color: #fff;
+}
+
+.default-overlay {
+  position: relative;
+  &:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    content: "";
+  }
+}
+
+.btn-hover {
+  a,
+  button {
+    position: relative;
+
+    transition: all 0.5s ease-in-out 0s;
+    &:hover {
+      color: #fff;
+      border: 1px solid var(--theme-color);
+    }
+    &::before,
+    &::after {
+      position: absolute;
+      z-index: -1;
+      bottom: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      content: "";
+      transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+    &::after {
+      right: 0;
+      left: auto;
+
+      width: 0;
+
+      background: var(--theme-color);
+    }
+    &:hover::after {
+      right: auto;
+      left: 0;
+
+      width: 100%;
+    }
+  }
+
+  &--blue {
+    a,
+    button {
+      &:hover {
+        border-color: #053399 !important;
+      }
+      &::after {
+        background: #053399;
+      }
+    }
+  }
+}
+
+a.default-btn {
+  font-size: 16px;
+  line-height: 1;
+
+  display: inline-block;
+
+  padding: 19px 50px 21px;
+
+  text-transform: uppercase;
+
+  color: #010101;
+  border: 1px solid #333;
+}
+
+/* slider img bounce */
+
+@-webkit-keyframes bounce-img {
+  0% {
+    transform: translateY(0);
+
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(20px);
+
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+
+    opacity: 1;
+  }
+}
+
+@keyframes bounce-img {
+  0% {
+    transform: translateY(0);
+
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(20px);
+
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+
+    opacity: 1;
+  }
+}
+
+@keyframes snow {
+  0% {
+    background-position: 0 0, 0 0, 0 0;
+  }
+  100% {
+    background-position: 500px 1000px, 400px 400px, 300px 300px;
+  }
+}
+.effect-snow {
+  animation: snow 20s linear infinite;
+}
+
+.body-effect {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.padding-10-row-col {
+  .row {
+    margin-right: -5px;
+    margin-left: -5px;
+    div[class^="col-"] {
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+  }
+}
+.padding-20-row-col {
+  .row {
+    margin-right: -10px;
+    margin-left: -10px;
+    div[class^="col-"] {
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+  }
+}
+
+[class*="ToastContainer"] {
+  overflow: hidden !important;
+}
+
+.fullpage-slider-wrapper {
+  .Navigation {
+    .Navigation-Anchor {
+      background-color: #333 !important;
+    }
+  }
+}
+
+.bg-white {
+  background-color: var(--color-white);
+}
+
+.rounden-btn {
+  overflow: hidden;
+
+  border-radius: 50px;
+  &:before,
+  &:after {
+    border-radius: 50px;
+  }
+}
+
+.bg-black-2 {
+  background-color: #1b1b1b;
+}
+
+.bg-black-3 {
+  background-color: #202022;
+}

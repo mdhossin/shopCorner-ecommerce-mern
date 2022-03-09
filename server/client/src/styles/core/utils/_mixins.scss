@@ -1,0 +1,50 @@
+@mixin flex($alignItem, $justifyContent) {
+  display: flex;
+  align-items: $alignItem;
+  justify-content: $justifyContent;
+}
+
+// // max-width = 1024px
+
+// @mixin tablet {
+//   @media only screen and (max-width: 64em) {
+//     @content;
+//   }
+// }
+
+// // max-width = 600px
+// @mixin mobile {
+//   @media only screen and (max-width: 37.5em) {
+//     @content;
+//   }
+// }
+
+// 576px, 767px, 1024px, 1200px / 1rem
+
+$breakpoints-up: (
+  "medium": "36em",
+  "large": "47.9375em",
+  "xlarge": "64em",
+  "xxlarge": "75em",
+);
+
+//320px,  639px, 1024px, 1399px
+
+$breakpoints-down: (
+  "xs": "20em",
+  "small": "36em",
+  "medium": "64em",
+);
+
+@mixin breakpoint-up($size) {
+  // map-get(key, value)
+  @media (min-width: map-get($breakpoints-up, $size)) {
+    @content;
+  }
+}
+
+@mixin breakpoints-down($size) {
+  @media (max-width: map-get($breakpoints-down, $size)) {
+    @content;
+  }
+}
