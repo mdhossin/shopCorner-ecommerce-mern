@@ -1,23 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import Input from "../../components/Common/Input/Input";
 
-const SignUp = () => {
+const SignIn = () => {
   return (
     <section className="section">
       <div className="contact">
         <div className="contact__container">
-          <h3 className="contact__title">Sign up</h3>
+          <h3 className="contact__title">Sign In</h3>
 
           <form action="" className="contact__form">
-            <div className="contact__form__div">
-              <label htmlFor="name" className="contact__form__div-tag">
-                Name
-              </label>
-              <Input type="text" placeholder="Your name" />
-            </div>
-
             <div className="contact__form__div">
               <label htmlFor="email" className="contact__form__div-tag">
                 Email
@@ -30,22 +22,17 @@ const SignUp = () => {
               </label>
               <Input type="password" placeholder="Your Password" />
             </div>
-
-            <div className="contact__form__div">
-              <label htmlFor="name" className="contact__form__div-tag">
-                Confirm Password
-              </label>
-              <Input type="password2" placeholder="Confirm Password" />
+            <div className="contact__form__forgot">
+              <Link to="/forgotpassword">Forgot your password?</Link>
             </div>
 
             <button className="button" type="button">
-              Sign Up
+              Sign In
             </button>
-
-            <Link to="/signin">
+            <Link to="/signup">
               {" "}
               <button className="button-primary" type="button">
-                Already have an account ? Sign in
+                Don't have an account ? Sign Up
               </button>
             </Link>
           </form>
@@ -55,4 +42,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;

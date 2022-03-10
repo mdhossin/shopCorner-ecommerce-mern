@@ -1,6 +1,10 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Footer from "./containers/Footer/Footer";
+import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import Home from "./containers/Home/Home";
 import Navigation from "./containers/Navigation/Navigation";
+import SignIn from "./containers/SignIn/SignIn";
+import SignUp from "./containers/Signup/SignUp";
 import "./styles/styles.scss";
 
 function App() {
@@ -8,7 +12,14 @@ function App() {
     <>
       <BrowserRouter>
         <Navigation />
-        <Home />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="forgotpassword" element={<ForgotPassword />}></Route>
+          <Route path="signup" element={<SignUp />}></Route>
+          <Route path="signin" element={<SignIn />}></Route>
+        </Routes>
+
+        <Footer />
       </BrowserRouter>
     </>
   );

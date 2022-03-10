@@ -8,7 +8,12 @@ import {
 import { HiX } from "react-icons/hi";
 import { BiMenuAltRight } from "react-icons/bi";
 import shop from "../../assets/images/shoLogo.PNG";
+import { Link, useNavigate } from "react-router-dom";
+import { NavDropdown } from "react-bootstrap";
+
 const Navigation = () => {
+  const navigate = useNavigate();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("#home");
   const headerRef = useRef(null);
@@ -31,7 +36,7 @@ const Navigation = () => {
   }, []);
   return (
     <header className="header" ref={headerRef}>
-      <nav className="nav container">
+      <nav className="nav container-div">
         <a href="#home" className="nav__logo">
           <img width="70" src={shop} alt="shop" />
         </a>
@@ -100,46 +105,41 @@ const Navigation = () => {
         <div className="nav__icons">
           <ul className="nav__list">
             <li className="nav__item">
-              <a
-                href="#home"
-                onClick={() => setActive("#home")}
-                className={`nav__mobileMenu nav__link ${
-                  active === "#home" ? "active" : ""
-                }`}
-              >
+              <Link to="/" className="nav__mobileMenu nav__link">
                 <AiOutlineHome />
-              </a>
+              </Link>
             </li>
-            <li className="nav__item">
-              <a
-                href="#about"
-                onClick={() => setActive("#about")}
-                className={`nav__link ${active === "#about" ? "active" : ""}`}
+
+            <NavDropdown
+              title={<AiOutlineUser className="nav__dropdown-icon" />}
+              id="collasible-nav-dropdown"
+            >
+              <NavDropdown.Item
+                className="nav__dropdown__item"
+                onClick={() => navigate("/signin")}
               >
-                <AiOutlineUser />
-              </a>
-            </li>
+                Sign in
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                className="nav__dropdown__item"
+                onClick={() => navigate("/signup")}
+              >
+                Sign Up
+              </NavDropdown.Item>
+            </NavDropdown>
 
             <li className="nav__item">
               <a
                 href="#services"
                 onClick={() => setActive("#services")}
-                className={`nav__wrapper nav__icons__heart nav__link ${
-                  active === "#services" ? "active" : ""
-                }`}
+                className="nav__wrapper nav__icons__heart nav__link"
               >
                 <AiOutlineHeart />
                 <span className="nav__icons__cart">1</span>
               </a>
             </li>
             <li className="nav__item">
-              <a
-                href="#contact"
-                onClick={() => setActive("#contact")}
-                className={`nav__wrapper nav__link ${
-                  active === "#contact" ? "active" : ""
-                }`}
-              >
+              <a href="#contact" className="nav__wrapper nav__link">
                 <AiOutlineShoppingCart />
                 <span className="nav__icons__cart">0</span>
               </a>

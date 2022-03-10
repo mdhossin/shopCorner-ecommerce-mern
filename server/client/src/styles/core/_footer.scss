@@ -1,0 +1,54 @@
+@use "./utils/" as *;
+.footer {
+  background-color: var(--color-grey);
+  color: #2c2c2c;
+  padding-bottom: 2rem;
+  padding-bottom: 8rem;
+
+  &__container {
+    row-gap: 2rem;
+  }
+
+  &__logo,
+  &__title {
+    font-size: var(--h3-font-size);
+    margin-bottom: 0.75rem;
+  }
+
+  &__logo {
+    display: inline-block;
+    font-weight: var(--font-semi-bold);
+    color: var(--title-color);
+  }
+
+  &__description,
+  &__links {
+    font-size: var(--small-font-size);
+  }
+
+  &__links {
+    display: grid;
+    row-gap: 0.5rem;
+  }
+
+  &__link {
+    color: var(--title-color);
+  }
+
+  &__social {
+    display: flex;
+    column-gap: 1.5rem;
+
+    &-link {
+      font-size: 1.25rem;
+      color: var(--title-color);
+    }
+  }
+
+  &__copyright {
+    margin-top: 5rem;
+    text-align: center;
+    font-size: var(--small-font-size);
+    color: var(--title-color);
+  }
+}

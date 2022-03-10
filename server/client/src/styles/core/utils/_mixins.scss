@@ -28,10 +28,11 @@ $breakpoints-up: (
   "xxlarge": "75em",
 );
 
-//320px,  639px, 1024px, 1399px
+//320px, 375px,  576px, 1024px, 1399px
 
 $breakpoints-down: (
   "xs": "20em",
+  "xm": "23.4375em",
   "small": "36em",
   "medium": "64em",
 );
@@ -47,4 +48,16 @@ $breakpoints-down: (
   @media (max-width: map-get($breakpoints-down, $size)) {
     @content;
   }
+}
+
+// dark overflow
+@mixin dark-overflow {
+  background-color: darkblue;
+  cursor: pointer;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
 }

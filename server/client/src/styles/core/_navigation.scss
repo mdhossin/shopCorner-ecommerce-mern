@@ -80,7 +80,7 @@
       bottom: 0;
       background-color: var(--color-grey);
       width: 100%;
-      box-shadow: 0 4px 4px hsla(0, 0%, 4%, 0.3);
+      box-shadow: 0 0 6px rgb(0 0 0 / 10%);
       padding: 1rem 2.5rem;
       left: 0;
       right: 0;
@@ -191,6 +191,18 @@
       color: #333;
     }
   }
+
+  &__dropdown {
+    &__item {
+      &:focus {
+        background-color: transparent !important;
+      }
+    }
+    &-icon {
+      color: #2c2c2c;
+      font-size: 1.2rem;
+    }
+  }
 }
 
 .scroll-header {
@@ -199,4 +211,22 @@
 /* Show menu */
 .show-menu {
   right: 0;
+}
+
+// override default style
+
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 0 10px 0 #e6e5ea;
+  padding: 10px;
+  color: #2c2c2c;
+}
+
+.nav-link {
+  color: #2c2c2c;
+  font-weight: 500;
+  font-size: 13px;
+}
+.dropdown-toggle::after {
+  visibility: hidden;
 }

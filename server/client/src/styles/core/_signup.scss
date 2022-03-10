@@ -1,0 +1,67 @@
+@use "../core/utils" as *;
+.contact {
+  width: 500px;
+  margin: 0 auto;
+  padding: 4rem 3.5rem 3rem 3.5rem;
+  box-shadow: 0 0 6px rgb(0 0 0 / 10%);
+
+  border-radius: 0.7rem;
+  @include breakpoints-down("small") {
+    width: 350px;
+    padding: 43px 20px 50px;
+  }
+  //extra medium 375px
+  @include breakpoints-down("xm") {
+    width: 300px;
+  }
+  @include breakpoints-down("xs") {
+    width: 280px;
+  }
+
+  &__title {
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    color: #2c2c2c;
+    text-align: center;
+  }
+  // forgot password forgot page
+  &__desc {
+    text-align: center;
+    color: #2c2c2c;
+    margin-bottom: 1.5rem;
+  }
+  &__form {
+    @include breakpoint-up("medium") {
+    }
+    &__div {
+      margin: 1rem 0;
+
+      &-tag {
+        display: block;
+        margin: 0.5rem 0;
+      }
+    }
+
+    // forgot text singup page
+    &__forgot {
+      text-align: end;
+      a {
+        transition: var(--transition);
+        &:hover {
+          color: var(--theme-color);
+        }
+      }
+    }
+
+    // reset password forgot page
+    &__reset {
+      display: flex;
+      gap: 1rem;
+
+      &-submit,
+      &-cancel {
+        flex: 1;
+      }
+    }
+  }
+}
