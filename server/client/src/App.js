@@ -8,10 +8,12 @@ import SignUp from "./containers/Signup/SignUp";
 
 import "swiper/swiper.min.css";
 import "./styles/styles.scss";
+import Contact from "./containers/Contact/Contact";
+import ScrollToTop from "./helpers/ScrollToTop";
 
 function App() {
   return (
-    <>
+    <ScrollToTop>
       <BrowserRouter>
         <Navigation />
 
@@ -20,11 +22,12 @@ function App() {
           <Route path="forgotpassword" element={<ForgotPassword />}></Route>
           <Route path="signup" element={<SignUp />}></Route>
           <Route path="signin" element={<SignIn />}></Route>
+          <Route path="contact" element={<Contact />}></Route>
         </Routes>
 
         <Footer />
       </BrowserRouter>
-    </>
+    </ScrollToTop>
   );
 }
 

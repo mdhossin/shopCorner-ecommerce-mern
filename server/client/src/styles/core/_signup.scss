@@ -1,11 +1,11 @@
 @use "../core/utils" as *;
 .contact {
+  margin-top: 4rem !important;
   width: 500px;
   margin: 0 auto;
   padding: 4rem 3.5rem 3rem 3.5rem;
   box-shadow: 0 0 6px rgb(0 0 0 / 10%);
-
-  border-radius: 0.7rem;
+  border-radius: 0.3rem;
   @include breakpoints-down("small") {
     width: 350px;
     padding: 43px 20px 50px;

@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import shop from "../../assets/images/shoLogo.PNG";
 import payment from "../../assets/images/payment.PNG";
+import { animateScroll } from "react-scroll";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { BsChevronDoubleUp } from "react-icons/bs";
 const Footer = () => {
+  const [scroll, setScroll] = useState(0);
+  const [top, setTop] = useState(0);
+
+  useEffect(() => {
+    setTop(100);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    animateScroll.scrollToTop();
+  };
+
+  const handleScroll = () => {
+    setScroll(window.scrollY);
+  };
   return (
     <footer className="footer section">
       <div className="footer__container container-div grid">
@@ -133,6 +153,13 @@ const Footer = () => {
       <p className="footer__copyright">
         &copy; QuickShop. All Right Reserved 2022
       </p>
+
+      <button
+        className={`scroll-top ${scroll > top ? "show" : ""}`}
+        onClick={() => scrollToTop()}
+      >
+        <BsChevronDoubleUp />
+      </button>
     </footer>
   );
 };

@@ -11,7 +11,25 @@ import watch3 from "./watch-3.jpg";
 import watch4 from "./watch-4.jpg";
 import watch5 from "./watch-5.jpg";
 import samsung from "./samsung.jpg";
+import smartwatch1 from "./smartwatch-1.webp";
+import smartwatch2 from "./smartwatch-2.webp";
+import smartwatch3 from "./smartwatch-3.webp";
+import smartwatch4 from "./smartwatch-4.webp";
+import smartwatch5 from "./smartwatch-5.webp";
+import smartwatch6 from "./smartwatch-6.webp";
+import smartwatch7 from "./smartwatch-7.webp";
+import smartwatch8 from "./smartwatch-8.webp";
+import entertained from "../images/entertained.jpg";
 export {
+  entertained,
+  smartwatch1,
+  smartwatch2,
+  smartwatch3,
+  smartwatch4,
+  smartwatch5,
+  smartwatch6,
+  smartwatch7,
+  smartwatch8,
   samsung,
   jogger1,
   jogger2,

@@ -1,10 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  AiOutlineHome,
-  AiOutlineUser,
-  AiOutlineHeart,
-  AiOutlineShoppingCart,
-} from "react-icons/ai";
+import { AiOutlineHome, AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
+import { BsHandbag } from "react-icons/bs";
 import { HiX } from "react-icons/hi";
 import { BiMenuAltRight } from "react-icons/bi";
 import shop from "../../assets/images/shoLogo.PNG";
@@ -71,23 +67,15 @@ const Navigation = () => {
                 Shop
               </a>
             </li>
+
             <li className="nav__item">
-              <a
-                href="#skills"
-                onClick={() => setMenuOpen(false)}
-                className="nav__link"
-              >
-                Products
-              </a>
-            </li>
-            <li className="nav__item">
-              <a
-                href="#services"
+              <Link
+                to="/contact"
                 onClick={() => setMenuOpen(false)}
                 className="nav__link"
               >
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
 
@@ -158,7 +146,7 @@ const Navigation = () => {
                   setCartOpen((prev) => !prev);
                 }}
               >
-                <AiOutlineShoppingCart />
+                <BsHandbag />
                 <span className="nav__icons__cart">0</span>
               </a>
             </li>

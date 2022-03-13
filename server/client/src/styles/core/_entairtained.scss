@@ -1,0 +1,68 @@
+@use "./utils/" as *;
+
+.entertained {
+  background-image: url("../../assets//images//entertained.jpg");
+  background-position: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &__content {
+    padding: 3rem 0;
+    color: #fff;
+
+    @include breakpoint-up("medium") {
+      padding: 5rem 0 4rem 5rem;
+    }
+    @include breakpoint-up("large") {
+      padding: 5rem 0 4rem 5rem;
+    }
+
+    &-title {
+      font-size: 1.3rem;
+      color: #fff;
+      font-weight: 500;
+      padding-bottom: 0.5rem;
+      letter-spacing: 1px;
+
+      span {
+        font-weight: 700;
+      }
+      @include breakpoint-up("medium") {
+        font-size: 1.5rem;
+      }
+    }
+
+    &-desc {
+      display: none;
+      @include breakpoint-up("large") {
+        display: block;
+        color: #fff;
+        font-size: 14px;
+        padding-bottom: 0.5rem;
+        width: 55%;
+      }
+    }
+  }
+}
+
+.shop-now {
+  width: 200px;
+  text-transform: capitalize;
+  font-size: 14px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 0;
+  height: 50px;
+  line-height: 50px;
+  transition: var(--transition);
+
+  &:hover {
+    background-color: #fff;
+    color: #2c2c2c;
+  }
+
+  @include breakpoints-down("small") {
+    width: 150px;
+  }
+}

@@ -8,13 +8,7 @@ const ProductRating = ({ ratingValue }) => {
   }
   if (ratingValue && ratingValue > 0) {
     for (let i = 0; i <= ratingValue - 1; i++) {
-      rating[i] = (
-        <AiOutlineStar
-          style={{ color: "yellow" }}
-          className="fa fa-star-o"
-          key={i}
-        />
-      );
+      rating[i] = <AiOutlineStar style={{ color: "#f3b632" }} key={i} />;
     }
   }
   return <Fragment>{rating}</Fragment>;

@@ -1,7 +1,10 @@
 import React from "react";
-import Loader from "../../components/Common/Loader/Loader";
+import Entertained from "../Entairtained/Entertained";
+
+import FeaturedProduct from "../FeaturedProduct/FeaturedProduct";
+import Gallery from "../Gallery/Gallery";
 import HeroSlide from "../HeroSlide/HeroSlide";
-import ProductTab from "../Product/ProductTab";
+
 import SupportArea from "../SupportArea/SupportArea";
 
 const Home = () => {
@@ -9,8 +12,11 @@ const Home = () => {
     <>
       <HeroSlide />
       <SupportArea />
-      <ProductTab spaceBottomClass="pb-60" category="smartphone" />
+
+      <FeaturedProduct />
       {/* <Loader /> */}
+      <Entertained />
+      <Gallery />
     </>
   );
 };

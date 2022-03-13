@@ -1,0 +1,30 @@
+@use "./utils/" as *;
+.gallery {
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-flow: dense;
+
+    > div {
+      figure {
+        overflow: hidden;
+        margin-bottom: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          -webkit-transform: scale(1);
+          transform: scale(1);
+          -webkit-transition: 0.3s ease-in-out;
+          transition: 0.3s ease-in-out;
+
+          &:hover {
+            -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+          }
+        }
+      }
+    }
+  }
+}

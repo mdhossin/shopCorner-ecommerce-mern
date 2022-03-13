@@ -13,6 +13,14 @@
 @use "./heroslide";
 @use "./supportarea";
 @use "./section-title";
-@use "./product-tab";
+
 @use "./loader";
-@use "./product-grid-single";
+
+@use "./featured-product";
+
+@use "./featured-single";
+@use "./entairtained";
+
+@use "./contact";
+
+@use "./gallery";
