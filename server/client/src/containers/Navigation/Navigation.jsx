@@ -10,14 +10,24 @@ import { BiMenuAltRight } from "react-icons/bi";
 import shop from "../../assets/images/shoLogo.PNG";
 import { Link, useNavigate } from "react-router-dom";
 import { NavDropdown } from "react-bootstrap";
+import Cart from "../Cart/Cart";
+import WishList from "../WishList/WishList";
 
 const Navigation = () => {
   const navigate = useNavigate();
-
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState("#home");
   const headerRef = useRef(null);
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isCartOpen, setCartOpen] = useState(false);
+  const [isWishListOpen, setisWishListOpen] = useState(false);
+
+  const toggleCart = () => {
+    setCartOpen(false);
+  };
+
+  const toogleWishList = () => {
+    setisWishListOpen(false);
+  };
   useEffect(() => {
     const shrinkHeader = () => {
       if (
@@ -44,19 +54,19 @@ const Navigation = () => {
         <div className={"nav__menu " + (menuOpen && "show-menu")}>
           <ul className="nav__list nav__menu__list">
             <li className="nav__item">
-              <a
-                href="#home"
-                className={`nav__link ${active === "#home" ? "active" : ""}`}
+              <Link
+                to="/"
+                className="nav__link"
                 onClick={() => setMenuOpen(false)}
               >
                 Home
-              </a>
+              </Link>
             </li>
             <li className="nav__item">
               <a
                 href="#about"
                 onClick={() => setMenuOpen(false)}
-                className={`nav__link ${active === "#about" ? "active" : ""}`}
+                className="nav__link"
               >
                 Shop
               </a>
@@ -65,7 +75,7 @@ const Navigation = () => {
               <a
                 href="#skills"
                 onClick={() => setMenuOpen(false)}
-                className={`nav__link ${active === "#skills" ? "active" : ""}`}
+                className="nav__link"
               >
                 Products
               </a>
@@ -74,9 +84,7 @@ const Navigation = () => {
               <a
                 href="#services"
                 onClick={() => setMenuOpen(false)}
-                className={`nav__link ${
-                  active === "#services" ? "active" : ""
-                }`}
+                className="nav__link"
               >
                 Contact
               </a>
@@ -131,15 +139,25 @@ const Navigation = () => {
             <li className="nav__item">
               <a
                 href="#services"
-                onClick={() => setActive("#services")}
                 className="nav__wrapper nav__icons__heart nav__link"
+                aria-expanded={isWishListOpen ? "true" : "false"}
+                onClick={() => {
+                  setisWishListOpen((prev) => !prev);
+                }}
               >
                 <AiOutlineHeart />
                 <span className="nav__icons__cart">1</span>
               </a>
             </li>
             <li className="nav__item">
-              <a href="#contact" className="nav__wrapper nav__link">
+              <a
+                href="#contact"
+                className="nav__wrapper nav__link"
+                aria-expanded={isCartOpen ? "true" : "false"}
+                onClick={() => {
+                  setCartOpen((prev) => !prev);
+                }}
+              >
                 <AiOutlineShoppingCart />
                 <span className="nav__icons__cart">0</span>
               </a>
@@ -147,6 +165,35 @@ const Navigation = () => {
           </ul>
         </div>
       </nav>
+
+      {/* hidden cart drawer */}
+      <div className={isCartOpen ? "mini-cart-open" : ""}>
+        <div className="mini-cart">
+          <Cart setCartOpen={setCartOpen} isCartOpen={isCartOpen} />
+        </div>
+        <div
+          className={
+            isCartOpen ? "drawer-backdrop dark-overflow" : "drawer-backdrop"
+          }
+          onClick={toggleCart}
+        />
+      </div>
+
+      {/* hidden wishlist drawer */}
+      <div className={isWishListOpen ? "mini-cart-open" : ""}>
+        <div className="mini-cart">
+          <WishList
+            setisWishListOpen={setisWishListOpen}
+            isWishListOpen={isWishListOpen}
+          />
+        </div>
+        <div
+          className={
+            isWishListOpen ? "drawer-backdrop dark-overflow" : "drawer-backdrop"
+          }
+          onClick={toogleWishList}
+        />
+      </div>
     </header>
   );
 };

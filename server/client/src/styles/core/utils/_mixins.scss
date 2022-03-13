@@ -6,22 +6,10 @@
 
 // // max-width = 1024px
 
-// @mixin tablet {
-//   @media only screen and (max-width: 64em) {
-//     @content;
-//   }
-// }
-
-// // max-width = 600px
-// @mixin mobile {
-//   @media only screen and (max-width: 37.5em) {
-//     @content;
-//   }
-// }
-
-// 576px, 767px, 1024px, 1200px / 1rem
+//375px, 576px, 767px, 1024px, 1200px / 1rem
 
 $breakpoints-up: (
+  "small": "23.4375em",
   "medium": "36em",
   "large": "47.9375em",
   "xlarge": "64em",
@@ -52,7 +40,7 @@ $breakpoints-down: (
 
 // dark overflow
 @mixin dark-overflow {
-  background-color: darkblue;
+  background-color: var(--dark-overflow-bg);
   cursor: pointer;
   height: 100%;
   left: 0;
@@ -60,4 +48,14 @@ $breakpoints-down: (
   top: 0;
   width: 100%;
   z-index: 999;
+}
+@mixin transition($speed: $layout-transition-speed) {
+  -webkit-transition: all $speed ease;
+  -moz-transition: all $speed ease;
+  -o-transition: all $speed ease;
+  transition: all $speed ease;
+}
+
+@mixin overlay {
+  background-color: rgba($color: #000000, $alpha: 0.6);
 }

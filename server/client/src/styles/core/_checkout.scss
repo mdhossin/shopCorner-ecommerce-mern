@@ -1,0 +1,20 @@
+@use "./utils/" as *;
+.easy-checkout {
+  .checkout-actions {
+    padding: 0 1.5rem 1rem 1.5rem;
+    text-align: center;
+
+    display: flex;
+    gap: 1rem;
+
+    @include breakpoints-down("small") {
+      flex-direction: column;
+
+      gap: 0;
+    }
+
+    button {
+      font-size: 14px;
+    }
+  }
+}

@@ -13,15 +13,18 @@
   --bg-grey: #f6f6f8;
   --bg-purple: #f0e0ff;
 
+  --theme-light-blue: #4a68aa;
   // Heading Color
   --heading-color: #000000;
 
   // Theme Color
-  // $theme-color: #a749ff;
-  // $theme-color: #ff9800;
+  // --theme-color: #a749ff;
+  // --theme-color: #ff9800;
   --theme-color: #f3b632;
 
   --header-height: 3.5rem;
+
+  --theme-white: #f6f7f8;
 
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
@@ -47,15 +50,12 @@
   /*========== Font and typography ==========*/
   /*.5rem = 8px | 1rem = 16px ...*/
   --body-font: "Raleway", sans-serif;
-  --biggest-font-size: 1.75rem;
-  --h1-font-size: 1.5rem;
+  --biggest-font-size: 2rem;
   --h2-font-size: 1.25rem;
-  --h3-font-size: 1rem;
+  --h3-font-size: 1.3rem;
   --normal-font-size: 0.938rem;
   --small-font-size: 0.813rem;
   --smaller-font-size: 0.75rem;
-  --tiny-font-size: 0.625rem;
-
   /*========== Font weight ==========*/
   --font-medium: 500;
   --font-semibold: 600;
@@ -64,4 +64,86 @@
   --transition: all 400ms ease;
   --z-tooltip: 10;
   --z-fixed: 100;
+
+  --font-size-x-small: 12px;
+  --font-size-small: 13px;
+  --font-size-medium: 14px;
+  --font-size-large: 15px;
+  --font-size-x-large: 16px;
+  --font-size-xx-large: 18px;
+  --font-size-huge: 20px;
+  --font-size-x-huge: 24px;
+  --font-size-heading-xsmall: 14px;
+  --font-size-heading-small: 16px;
+  --font-size-heading-medium: 18px;
+  --font-size-heading-large: 20px;
+  --font-size-heading-x-large: 24px;
+  --font-weight-normal: normal;
+  --font-weight-bold-one: 500;
+  --font-weight-bold-two: 600;
+  --font-weight-bold-three: 700;
+
+  --secondary-color: #f8f9fa;
+  --secondary-bg: #f8f9fa;
+
+  // layout variables
+  --btn-bg: --white;
+  --btn-bg-hover: --primary-bg;
+  --font-color: #65676b;
+  --font-light-color: #00000026;
+  --font-custom-color: --theme-black;
+  --font-custom-hover-color: --theme-blue;
+  --font-hover-color: --black;
+  --font-focus-color: --black;
+  --font-heading-color: #262626;
+  --border-color-default: #e4e6eb;
+  --border-color-primary: #eceef3;
+  --border-hover-color: #ced9de;
+  --border-focus-color: #bdcbd2;
+  --separator-color: #e6e5ea;
+  --dark-overflow-bg: #0006;
+  --transparent-bg: #3232321f;
+  --transparent-gray-bg: #f1f3f4f5;
+  --transparent-white-bg: #f1f1f170;
+  --hover-bg: #e3e8ea;
+  --badge: --red;
+  --stars: #adb5bd;
+  --stars-active: #ffb302;
+  --disabled-bg: #d9dbdea1;
+
+  --outline-color: #7aacfe;
+  --validation-color: #dc3545;
+  --outline-box-shadow: 0 0 0 3px #159ce466;
+  --box-shadow: 0 0 10px 0 #e6e5ea;
+  --box-shadow-custom: 0 1px #e6e5ea;
+  --box-shadow-primary: 0 1px 2px #00000033;
+  --box-shadow-secondary: 0 0 2px #00000033;
+  --border-radius-default: 3px;
+  --border-radius-primary: 5px;
+  --border-radius-circle: 50px;
+  --line-height: 1.5;
+  --letter-spacing: 0.5px;
+  --border-default: 1px solid #e4e6eb;
+  --border-primary: 1px solid #eceef3;
+  --layout-max-width: 1200px;
+  --layout-transition-speed: 0.3s;
+  --layout-transition-higher-speed: 0.6s;
+
+  // Responsive Variables
+  --xx-layout: "only screen and (min-width: 1366px) and (max-width: 1600px)";
+  --xl-layout: "only screen and (min-width: 1200px) and (max-width: 1365px)";
+  --lg-layout: "only screen and (min-width: 992px) and (max-width: 1199px)";
+  --md-layout: "only screen and (min-width: 768px) and (max-width: 991px)";
+  --xs-layout: "only screen and (max-width: 767px)";
+  --sm-layout: "only screen and (min-width: 576px) and (max-width: 767px)";
+  --xxs-layout: "only screen and (min-width: 320px) and (max-width: 479px)";
 }
+
+// Responsive Variables
+$xx-layout: "only screen and (min-width: 1366px) and (max-width: 1600px)";
+$xl-layout: "only screen and (min-width: 1200px) and (max-width: 1365px)";
+$lg-layout: "only screen and (min-width: 992px) and (max-width: 1199px)";
+$md-layout: "only screen and (min-width: 768px) and (max-width: 991px)";
+$xs-layout: "only screen and (max-width: 767px)";
+$sm-layout: "only screen and (min-width: 576px) and (max-width: 767px)";
+$xxs-layout: "only screen and (min-width: 320px) and (max-width: 479px)";

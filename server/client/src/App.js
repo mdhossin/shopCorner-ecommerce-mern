@@ -5,6 +5,8 @@ import Home from "./containers/Home/Home";
 import Navigation from "./containers/Navigation/Navigation";
 import SignIn from "./containers/SignIn/SignIn";
 import SignUp from "./containers/Signup/SignUp";
+
+import "swiper/swiper.min.css";
 import "./styles/styles.scss";
 
 function App() {
@@ -12,6 +14,7 @@ function App() {
     <>
       <BrowserRouter>
         <Navigation />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="forgotpassword" element={<ForgotPassword />}></Route>

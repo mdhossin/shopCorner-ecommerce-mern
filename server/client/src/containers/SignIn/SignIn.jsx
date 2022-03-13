@@ -31,7 +31,11 @@ const SignIn = () => {
             </button>
             <Link to="/signup">
               {" "}
-              <button className="button-primary" type="button">
+              <button
+                style={{ fontSize: "15px" }}
+                className="button-primary"
+                type="button"
+              >
                 Don't have an account ? Sign Up
               </button>
             </Link>

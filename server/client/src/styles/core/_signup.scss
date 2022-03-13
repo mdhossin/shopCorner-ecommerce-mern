@@ -23,6 +23,10 @@
     font-weight: 600;
     color: #2c2c2c;
     text-align: center;
+
+    @include breakpoint-up("xlarge") {
+      font-size: 2rem;
+    }
   }
   // forgot password forgot page
   &__desc {

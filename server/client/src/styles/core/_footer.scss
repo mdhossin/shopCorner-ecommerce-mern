@@ -7,6 +7,16 @@
 
   &__container {
     row-gap: 2rem;
+
+    @include breakpoint-up("medium") {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include breakpoint-up("large") {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @include breakpoint-up("xlarge") {
+      grid-template-columns: repeat(5, 1fr);
+    }
   }
 
   &__logo,
@@ -29,19 +39,58 @@
   &__links {
     display: grid;
     row-gap: 0.5rem;
+
+    li {
+      &:hover {
+        color: var(--theme-color);
+      }
+    }
   }
 
   &__link {
-    color: var(--title-color);
+    color: #2c2c2c;
   }
 
   &__social {
-    display: flex;
-    column-gap: 1.5rem;
+    display: grid;
+    row-gap: 0.5rem;
 
+    &__form {
+      width: 100%;
+
+      &__subscribe {
+        display: flex;
+      }
+
+      input {
+        flex: 3;
+      }
+
+      svg {
+        font-size: 1.2rem;
+      }
+
+      button {
+        flex: 1;
+        width: 100%;
+        text-transform: capitalize;
+        font-size: 16px;
+        background-color: #2c2c2c;
+        color: #fff;
+        padding: 0;
+        height: 50px;
+        line-height: 50px;
+        transition: var(--transition);
+        &:hover {
+          background-color: transparent;
+          border: 1px solid #2c2c2c;
+          color: #2c2c2c;
+        }
+      }
+    }
     &-link {
       font-size: 1.25rem;
-      color: var(--title-color);
+      color: #2c2c2c;
     }
   }
 
@@ -49,6 +98,6 @@
     margin-top: 5rem;
     text-align: center;
     font-size: var(--small-font-size);
-    color: var(--title-color);
+    color: #2c2c2c;
   }
 }
