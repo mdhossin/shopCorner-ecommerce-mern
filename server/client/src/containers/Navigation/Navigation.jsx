@@ -59,13 +59,13 @@ const Navigation = () => {
               </Link>
             </li>
             <li className="nav__item">
-              <a
-                href="#about"
+              <Link
+                to="shop"
                 onClick={() => setMenuOpen(false)}
                 className="nav__link"
               >
                 Shop
-              </a>
+              </Link>
             </li>
 
             <li className="nav__item">

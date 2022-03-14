@@ -10,6 +10,7 @@ import "swiper/swiper.min.css";
 import "./styles/styles.scss";
 import Contact from "./containers/Contact/Contact";
 import ScrollToTop from "./helpers/ScrollToTop";
+import Shop from "./containers/Shop/Shop";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="signup" element={<SignUp />}></Route>
           <Route path="signin" element={<SignIn />}></Route>
           <Route path="contact" element={<Contact />}></Route>
+          <Route path="shop" element={<Shop />}></Route>
         </Routes>
 
         <Footer />

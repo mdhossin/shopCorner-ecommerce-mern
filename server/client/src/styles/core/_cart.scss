@@ -106,7 +106,7 @@
 
       &__list {
         padding: 30px 20px 50px;
-        color: #707070;
+        color: #2c2c2c;
         &__item {
           display: flex;
           align-items: flex-start;
@@ -123,14 +123,14 @@
             background: transparent;
             svg {
               font-size: 16px;
-              color: #707070;
+              color: #2c2c2c;
             }
           }
           &-img {
             display: block;
             width: 60px;
             height: auto;
-            border: 1px solid #ebeeee;
+
             margin: 0 21px 0 0;
             padding: 0.5rem;
           }
@@ -144,13 +144,13 @@
               align-items: flex-start;
 
               &-title {
-                color: #707070;
-                font-size: 15px;
+                color: #2c2c2c;
+                font-size: 16px;
                 font-weight: 400;
               }
 
               &-delete {
-                color: #707070;
+                color: #2c2c2c;
                 font-size: 16px;
               }
             }
@@ -176,7 +176,7 @@
                 &-price {
                   font-weight: 400;
                   font-size: 16px;
-                  color: #707070;
+                  color: #2c2c2c;
                 }
               }
             }
@@ -190,14 +190,14 @@
 /* start cart common styles */
 .summary-item {
   .summary-label {
-    color: #707070;
+    color: #2c2c2c;
     font-weight: var(--font-weight-bold-one);
     text-transform: capitalize;
     font-size: 16px;
   }
 
   .summary-value {
-    color: #707070;
+    color: #2c2c2c;
     font-size: 20px;
     font-weight: var(--font-weight-bold-two);
   }

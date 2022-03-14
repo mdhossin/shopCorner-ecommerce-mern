@@ -1,0 +1,63 @@
+@use "./utils/" as *;
+.shop {
+  padding-top: 7rem;
+
+  &__heading {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 4rem;
+
+    @include breakpoints-down("small") {
+      flex-direction: column;
+      row-gap: 1rem;
+    }
+
+    &__showing {
+    }
+
+    &__filter {
+      &__product {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        &__select {
+          padding: 0.3rem 0.6rem;
+        }
+      }
+    }
+  }
+}
+
+// start input text styles
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: var(--border-default);
+  font-size: var(--font-size-medium);
+  color: var(--font-custom-color);
+  border-radius: var(--border-radius-default);
+  -webkit-transition: var(--layout-transition-speed);
+  transition: var(--layout-transition-speed);
+  cursor: text;
+  @include appearance();
+
+  &:focus {
+    outline: none;
+    color: var(--font-focus-color);
+    border-color: var(--border-focus-color) !important;
+    box-shadow: none;
+    -webkit-transition: var(--layout-transition-speed);
+    transition: var(--layout-transition-speed);
+  }
+
+  &:disabled {
+    background-color: var(--disabled-bg);
+    border: none !important;
+    cursor: not-allowed;
+  }
+}
