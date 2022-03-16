@@ -41,9 +41,8 @@ const authCtrl = {
 
     // check if user is in the database already
     try {
-      const email = req.body.email;
       // here useing the user model
-      const exist = await Users.exists({ email });
+      const exist = await Users.exists({ email: req.body.email });
 
       if (exist) {
         // here need to custom error send to the client side
@@ -52,15 +51,6 @@ const authCtrl = {
         );
       }
     } catch (err) {
-      // he takes the error message form errorHandler default message
-      // below this error he send to the front end
-      // let statusCode = 500;
-
-      // let data = {
-      //   message: "Internal server error",
-      //   ...(DEBUG_MODE === "true" && { originalError: err.message }),
-      // };
-
       return next(err);
     }
 
@@ -71,7 +61,7 @@ const authCtrl = {
       if (password?.length < 6) {
         return next(
           CustomErrorHandler.wrongValidation(
-            "Password must be at least 6 chars."
+            "Password must be at least 6 charactor."
           )
         );
       }
@@ -88,7 +78,9 @@ const authCtrl = {
 
       if (validateEmail(email)) {
         sendMail(email, url, "Verify your email address");
-        return res.json({ message: "Success! Please check your email." });
+        return res.json({
+          message: "Success! Please check your email and verify.",
+        });
       }
     } catch (err) {
       return next(err);
@@ -120,64 +112,83 @@ const authCtrl = {
       return next(err);
     }
   },
-  // login: async(req, res) => {
-  //   try {
-  //     const { account, password } = req.body
+  async login(req, res, next) {
+    try {
+      const { email, password } = req.body;
 
-  //     const user = await Users.findOne({account})
-  //     if(!user) return res.status(400).json({msg: 'This account does not exits.'})
+      const user = await Users.findOne({ email });
+      if (!user)
+        return next(
+          CustomErrorHandler.wrongValidation("This account does not exits.")
+        );
 
-  //     // if user exists
-  //     loginUser(user, password, res)
+      // if user exists
+      loginUser(user, password, res, next);
+    } catch (err) {
+      return next(err);
+    }
+  },
+  async logout(req, res, next) {
+    if (!req.user)
+      return next(
+        CustomErrorHandler.wrongValidation("Invalid Authentication.")
+      );
 
-  //   } catch (err) {
-  //     return res.status(500).json({msg: err.message})
-  //   }
-  // },
-  // logout: async(req, res) => {
-  //   if(!req.user)
-  //     return res.status(400).json({msg: "Invalid Authentication."})
+    try {
+      res.clearCookie("refreshtoken", { path: `/api/refresh_token` });
 
-  //   try {
-  //     res.clearCookie('refreshtoken', { path: `/api/refresh_token` })
+      await Users.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          rf_token: "",
+        }
+      );
 
-  //     await Users.findOneAndUpdate({_id: req.user._id}, {
-  //       rf_token: ''
-  //     })
+      return res.json({ message: "Logged out!" });
+    } catch (err) {
+      return next(err);
+    }
+  },
+  async refreshToken(req, res, next) {
+    try {
+      const rf_token = req.cookies.refreshtoken;
+      if (!rf_token)
+        return next(CustomErrorHandler.wrongValidation("Please login now!"));
 
-  //     return res.json({msg: "Logged out!"})
+      const decoded = jwt.verify(
+        rf_token,
+        `${process.env.REFRESH_TOKEN_SECRET}`
+      );
+      if (!decoded.id)
+        return next(CustomErrorHandler.wrongValidation("Please login now!"));
 
-  //   } catch (err) {
-  //     return res.status(500).json({msg: err.message})
-  //   }
-  // },
-  // refreshToken: async(req, res) => {
-  //   try {
-  //     const rf_token = req.cookies.refreshtoken
-  //     if(!rf_token) return res.status(400).json({msg: "Please login now!"})
+      const user = await Users.findById(decoded.id).select(
+        "-password +rf_token"
+      );
+      if (!user)
+        return next(
+          CustomErrorHandler.wrongValidation("This email does not exist.")
+        );
 
-  //     const decoded = jwt.verify(rf_token, `${process.env.REFRESH_TOKEN_SECRET}`)
-  //     if(!decoded.id) return res.status(400).json({msg: "Please login now!"})
+      if (rf_token !== user.rf_token)
+        return next(CustomErrorHandler.wrongValidation("Please login now!"));
 
-  //     const user = await Users.findById(decoded.id).select("-password +rf_token")
-  //     if(!user) return res.status(400).json({msg: "This account does not exist."})
+      const access_token = generateAccessToken({ id: user._id });
+      const refresh_token = generateRefreshToken({ id: user._id }, res);
 
-  //     if(rf_token !== user.rf_token)
-  //       return res.status(400).json({msg: "Please login now!"})
+      await Users.findOneAndUpdate(
+        { _id: user._id },
+        {
+          rf_token: refresh_token,
+        }
+      );
+      console.log(access_token, user, "reresh token router");
 
-  //     const access_token = generateAccessToken({id: user._id})
-  //     const refresh_token = generateRefreshToken({id: user._id}, res)
-
-  //     await Users.findOneAndUpdate({_id: user._id}, {
-  //       rf_token: refresh_token
-  //     })
-
-  //     res.json({ access_token, user })
-
-  //   } catch (err) {
-  //     return res.status(500).json({msg: err.message})
-  //   }
-  // },
+      res.json({ access_token, user });
+    } catch (err) {
+      return next(err);
+    }
+  },
   // googleLogin: async(req, res) => {
   //   try {
   //     const { id_token } = req.body
@@ -319,31 +330,35 @@ const authCtrl = {
   // },
 };
 
-// const loginUser = async (user, password, res) => {
-//   const isMatch = await bcrypt.compare(password, user.password)
+const loginUser = async (user, password, res, next) => {
+  const isMatch = await bcrypt.compare(password, user.password);
 
-//   if(!isMatch) {
-//     let msgError = user.type === 'register'
-//       ? 'Password is incorrect.'
-//       : `Password is incorrect. This account login with ${user.type}`
+  if (!isMatch) {
+    let msgError =
+      user?.type === "register"
+        ? "Password is incorrect."
+        : `Password is incorrect. This account login with ${user?.type}`;
 
-//     return res.status(400).json({ msg: msgError })
-//   }
+    return next(CustomErrorHandler.wrongValidation(msgError));
+  }
 
-//   const access_token = generateAccessToken({id: user._id})
-//   const refresh_token = generateRefreshToken({id: user._id}, res)
+  const access_token = generateAccessToken({ id: user._id });
+  const refresh_token = generateRefreshToken({ id: user._id }, res);
+  // console.log("login refresh", refresh_token);
 
-//   await Users.findOneAndUpdate({_id: user._id}, {
-//     rf_token:refresh_token
-//   })
+  await Users.findOneAndUpdate(
+    { _id: user._id },
+    {
+      rf_token: refresh_token,
+    }
+  );
 
-//   res.json({
-//     msg: 'Login Success!',
-//     access_token,
-//     user: { ...user._doc, password: '' }
-//   })
-
-// }
+  res.json({
+    message: "Login Success!",
+    access_token,
+    user: { ...user._doc, password: "" },
+  });
+};
 
 // const registerUser = async (user, res) => {
 //   const newUser = new Users(user)
