@@ -1,0 +1,17 @@
+import dotenv from "dotenv";
+dotenv.config();
+
+export const {
+  DEBUG_MODE,
+  MONGODB_URL,
+  JWT_SECRET,
+  REFRESH_SECRET,
+  ACTIVE_TOKEN_SECRET,
+  ACCESS_TOKEN_SECRET,
+  REFRESH_TOKEN_SECRET,
+  BASE_URL,
+  MAIL_CLIENT_ID,
+  MAIL_CLIENT_SECRET,
+  MAIL_REFRESH_TOKEN,
+  SENDER_EMAIL_ADDRESS,
+} = process.env;

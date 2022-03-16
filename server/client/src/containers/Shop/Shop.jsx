@@ -1,7 +1,7 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+
 import SelectOption from "../../components/Common/SelectOption/SelectOption";
-import FeaturedSingle from "../FeaturedProduct/FeaturedSingle/FeaturedSingle";
+
 import ShopProduct from "./ShopProduct";
 
 const Shop = ({ props }) => {
