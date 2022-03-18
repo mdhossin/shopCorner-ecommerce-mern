@@ -1,12 +1,12 @@
-// import { ALERT } from "../constants/alertType";
+import { ALERT } from "../constants/alertConstants";
 
-// const alertReducer = (state = {}, action) => {
-//   switch (action.type) {
-//     case ALERT:
-//       return action.payload;
-//     default:
-//       return state;
-//   }
-// };
+const alertReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ALERT:
+      return action.payload;
+    default:
+      return state;
+  }
+};
 
-// export default alertReducer;
+export default alertReducer;

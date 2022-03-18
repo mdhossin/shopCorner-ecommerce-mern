@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/actions/userActions";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Spinner } from "react-bootstrap";
 
-const SignIn = ({ location }) => {
+const SignIn = () => {
   // const { pathname } = location;
-  // const history = useNavigate();
+  const navigate = useNavigate();
+  let location = useLocation();
+
   const [userLogin, setUserLogin] = useState({ email: "", password: "" });
 
   const { addToast } = useToasts();
 
-  // const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirect = location.search ? location.search.split("=")[1] : "/";
 
   const user = useSelector((state) => state.userLogin);
   const { email, password } = userLogin;
@@ -23,6 +25,7 @@ const SignIn = ({ location }) => {
   const dispatch = useDispatch();
 
   const { loading, error, userInfo } = user;
+
   const handleChangeInput = (e) => {
     setUserLogin({ ...userLogin, [e.target.name]: e.target.value });
   };
@@ -40,9 +43,9 @@ const SignIn = ({ location }) => {
         appearance: "success",
         autoDismiss: true,
       });
-      // history.push(redirect);
+      navigate(redirect);
     }
-  }, [userInfo, error, addToast]);
+  }, [userInfo, error, addToast, navigate, redirect]);
 
   return (
     <section className="section">

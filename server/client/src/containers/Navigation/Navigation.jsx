@@ -8,14 +8,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { NavDropdown } from "react-bootstrap";
 import Cart from "../Cart/Cart";
 import WishList from "../WishList/WishList";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/actions/userActions";
+import { useToasts } from "react-toast-notifications";
 
 const Navigation = () => {
   const navigate = useNavigate();
   const headerRef = useRef(null);
+  const dispatch = useDispatch();
+  const { addToast } = useToasts();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [isCartOpen, setCartOpen] = useState(false);
   const [isWishListOpen, setisWishListOpen] = useState(false);
+
+  const user = useSelector((state) => state.userLogin);
+  const { userInfo } = user;
+  console.log(userInfo);
 
   const toggleCart = () => {
     setCartOpen(false);
@@ -40,6 +49,17 @@ const Navigation = () => {
       window.removeEventListener("scroll", shrinkHeader);
     };
   }, []);
+
+  const handleLogout = () => {
+    if (!user?.userInfo?.access_token) return;
+    dispatch(logout(userInfo?.access_token));
+
+    addToast("Logout Successfully done.", {
+      appearance: "success",
+      autoDismiss: true,
+    });
+  };
+
   return (
     <header className="header" ref={headerRef}>
       <nav className="nav container-div">
@@ -107,21 +127,46 @@ const Navigation = () => {
             </li>
 
             <NavDropdown
-              title={<AiOutlineUser className="nav__dropdown-icon" />}
+              title={
+                userInfo ? (
+                  <img width={24} src={user?.userInfo?.user?.avatar} alt="" />
+                ) : (
+                  <AiOutlineUser className="nav__dropdown-icon" />
+                )
+              }
               id="collasible-nav-dropdown"
             >
-              <NavDropdown.Item
-                className="nav__dropdown__item"
-                onClick={() => navigate("/signin")}
-              >
-                Sign in
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                className="nav__dropdown__item"
-                onClick={() => navigate("/signup")}
-              >
-                Sign Up
-              </NavDropdown.Item>
+              {userInfo ? (
+                <>
+                  <NavDropdown.Item
+                    className="nav__dropdown__item"
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    Dashboard
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    className="nav__dropdown__item"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </NavDropdown.Item>
+                </>
+              ) : (
+                <>
+                  <NavDropdown.Item
+                    className="nav__dropdown__item"
+                    onClick={() => navigate("/signin")}
+                  >
+                    Sign in
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    className="nav__dropdown__item"
+                    onClick={() => navigate("/signup")}
+                  >
+                    Sign Up
+                  </NavDropdown.Item>
+                </>
+              )}
             </NavDropdown>
 
             <li className="nav__item">

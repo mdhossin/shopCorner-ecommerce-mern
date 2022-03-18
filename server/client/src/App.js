@@ -13,8 +13,16 @@ import ScrollToTop from "./helpers/ScrollToTop";
 import Shop from "./containers/Shop/Shop";
 import { ToastProvider } from "react-toast-notifications";
 import ActivationEmail from "./containers/ActivationEmail/ActivationEmail";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { refreshToken } from "./redux/actions/userActions";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshToken());
+  }, [dispatch]);
   return (
     <ToastProvider placement="top-right">
       <ScrollToTop>

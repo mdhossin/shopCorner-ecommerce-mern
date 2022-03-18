@@ -18,7 +18,7 @@ const Gallery = () => {
   return (
     <section className="gallery container-div section">
       <h3 className="featured__title">Gallery</h3>
-      <div class="gallery__container hover">
+      <div className="gallery__container hover">
         <div>
           <figure>
             <img src={gallery1} alt="" />

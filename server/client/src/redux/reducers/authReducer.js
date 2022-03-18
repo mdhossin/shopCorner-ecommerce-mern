@@ -1,12 +1,12 @@
-// import { AUTH } from "../constants/authType";
+import { AUTH } from "../constants/authConstants";
 
-// const authReducer = (state = {}, action) => {
-//   switch (action.type) {
-//     case AUTH:
-//       return action.payload;
-//     default:
-//       return state;
-//   }
-// };
+const authReducer = (state = {}, action) => {
+  switch (action.type) {
+    case AUTH:
+      return action.payload;
+    default:
+      return state;
+  }
+};
 
-// export default authReducer;
+export default authReducer;

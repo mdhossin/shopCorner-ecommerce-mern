@@ -120,7 +120,7 @@ const FeaturedProduct = () => {
               <>
                 {products &&
                   products?.map((product, i) => {
-                    return <FeaturedSingle product={product} />;
+                    return <FeaturedSingle key={i} product={product} />;
                   })}
               </>
             )}

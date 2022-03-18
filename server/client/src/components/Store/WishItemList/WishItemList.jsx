@@ -2,7 +2,7 @@ import React from "react";
 import { HiX } from "react-icons/hi";
 
 const WishItemList = ({ cartItems }) => {
-  console.log(cartItems, "whist");
+  // console.log(cartItems, "whist");
   return (
     <div className="wishlist">
       {cartItems.map((item, index) => (

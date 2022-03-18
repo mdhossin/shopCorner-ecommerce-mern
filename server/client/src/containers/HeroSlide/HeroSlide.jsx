@@ -68,7 +68,7 @@ const HeroSlide = () => {
 };
 
 const HeroSlideItem = ({ item, className }) => {
-  console.log(item);
+  // console.log(item);
   return (
     <section>
       <div

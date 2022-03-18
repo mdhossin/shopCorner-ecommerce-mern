@@ -187,7 +187,7 @@ const authCtrl = {
           rf_token: refresh_token,
         }
       );
-      console.log(access_token, user, "reresh token router");
+      // console.log(access_token, user, "reresh token router");
 
       res.json({ access_token, user });
     } catch (err) {
