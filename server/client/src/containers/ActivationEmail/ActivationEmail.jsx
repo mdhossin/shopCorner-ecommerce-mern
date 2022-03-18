@@ -1,13 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 
 const ActivationEmail = () => {
   const { activation_token } = useParams();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  console.log(activation_token, "token");
+  const { addToast } = useToasts();
+  // console.log(activation_token, "token");
   useEffect(() => {
     if (activation_token) {
       const activationEmail = async () => {
@@ -15,37 +17,45 @@ const ActivationEmail = () => {
           const res = await axios.post("/api/active", {
             activation_token,
           });
-          console.log(res, "res");
+          // console.log(res, "res");
           setSuccess(res.data.message);
-        } catch (err) {
-          err.response.data.message && setError(err.response.data.message);
+        } catch (error) {
+          error.response &&
+            setError(
+              error.response.data.message
+                ? error.response.data.message
+                : error.message
+            );
         }
       };
       activationEmail();
     }
-  }, [activation_token]);
+  }, [activation_token, error.response, error.message]);
+
+  useEffect(() => {
+    if (error) {
+      addToast(error, { appearance: "error", autoDismiss: true });
+    } else if (success) {
+      addToast(success, {
+        appearance: "success",
+        autoDismiss: true,
+      });
+      // history.push(redirect);
+    }
+  }, [success, error, addToast]);
   return (
-    <div className="active_page section">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere incidunt
-      impedit, cumque, voluptatem sapiente sunt nulla nisi reprehenderit nobis
-      voluptates neque perferendis quos obcaecati culpa non ipsa, molestias
-      debitis ipsam? Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-      Ex reprehenderit, corporis, officiis quia perferendis ullam nemo vel dolor
-      earum unde placeat cupiditate, ipsa doloremque pariatur veritatis
-      asperiores deleniti debitis molestias? Lorem ipsum dolor sit amet
-      consectetur adipisicing elit. Facere incidunt impedit, cumque, voluptatem
-      sapiente sunt nulla nisi reprehenderit nobis voluptates neque perferendis
-      quos obcaecati culpa non ipsa, molestias debitis ipsam? Lorem, ipsum dolor
-      sit amet consectetur adipisicing elit. Ex reprehenderit, corporis,
-      officiis quia perferendis ullam nemo vel dolor earum unde placeat
-      cupiditate, ipsa doloremque pariatur veritatis asperiores deleniti debitis
-      molestias? Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
-      incidunt impedit, cumque, voluptatem sapiente sunt nulla nisi
-      reprehenderit nobis voluptates neque perferendis quos obcaecati culpa non
-      ipsa, molestias debitis ipsam? Lorem, ipsum dolor sit amet consectetur
-      adipisicing elit. Ex reprehenderit, corporis, officiis quia perferendis
-      ullam nemo vel dolor earum unde placeat cupiditate, ipsa doloremque
-      pariatur veritatis asperiores deleniti debitis molestias?
+    <div className="activation section">
+      <div>
+        <h1 className="activation__error">{error && error}</h1>
+        <h1 className="activation__success">{success && success}</h1>
+
+        <div>
+          <Link to="/signin">
+            {" "}
+            <button className="button-secondary">Back to Login Page</button>
+          </Link>
+        </div>
+      </div>
       {/* {error && showErrorMessage(error)}
       {success && showSuccessMessage(success)} */}
     </div>

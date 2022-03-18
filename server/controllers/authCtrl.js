@@ -91,7 +91,7 @@ const authCtrl = {
     }
   },
   async activeAccount(req, res, next) {
-    console.log(req.body, "active backend");
+    // console.log(req.body, "active backend");
     try {
       const { activation_token } = req.body;
 
