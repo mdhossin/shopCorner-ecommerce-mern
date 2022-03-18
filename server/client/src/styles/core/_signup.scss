@@ -61,6 +61,32 @@
       display: none;
     }
 
+    .social button {
+      width: 100%;
+      margin: 10px 0;
+      height: 50px;
+      text-transform: capitalize;
+      box-shadow: 0 2px 4px #777;
+
+      span {
+        display: block;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #fff;
+        font-size: 14px;
+        margin-left: 10px;
+
+        @include breakpoint-up("medium") {
+          margin-left: 60px;
+        }
+
+        @include breakpoint-up("large") {
+          margin-left: 95px;
+        }
+      }
+    }
+
     // forgot text singup page
     &__forgot {
       text-align: end;

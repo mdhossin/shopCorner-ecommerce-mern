@@ -22,4 +22,7 @@ router.get("/logout", auth, authCtrl.logout);
 
 router.get("/refresh_token", authCtrl.refreshToken);
 
+// google login route
+router.post("/google_login", authCtrl.googleLogin);
+
 export default router;

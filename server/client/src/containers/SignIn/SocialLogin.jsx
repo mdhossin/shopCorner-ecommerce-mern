@@ -2,8 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { GoogleLogin } from "react-google-login-lite";
-
-import { googleLogin } from "../../redux/actions/authAction";
+import { googleLogin } from "../../redux/actions/userActions";
 
 const SocialLogin = () => {
   const dispatch = useDispatch();

@@ -54,7 +54,7 @@ const Navigation = () => {
     if (!user?.userInfo?.access_token) return;
     dispatch(logout(userInfo?.access_token));
 
-    addToast("Logout Successfully done.", {
+    addToast("Logout Success.", {
       appearance: "success",
       autoDismiss: true,
     });
@@ -129,7 +129,13 @@ const Navigation = () => {
             <NavDropdown
               title={
                 userInfo ? (
-                  <img width={24} src={user?.userInfo?.user?.avatar} alt="" />
+                  <img
+                    style={{ borderRadius: "50%" }}
+                    width="22"
+                    height="22"
+                    src={userInfo?.user?.avatar}
+                    alt=""
+                  />
                 ) : (
                   <AiOutlineUser className="nav__dropdown-icon" />
                 )

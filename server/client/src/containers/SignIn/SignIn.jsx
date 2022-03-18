@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/actions/userActions";
+import { googleLogin, login } from "../../redux/actions/userActions";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Spinner } from "react-bootstrap";
-
+import { GoogleLogin } from "react-google-login";
 const SignIn = () => {
   // const { pathname } = location;
   const navigate = useNavigate();
@@ -35,11 +35,20 @@ const SignIn = () => {
     dispatch(login(email, password));
   };
 
+  const responseGoogle = async (response) => {
+    // console.log(response.tokenId);
+    try {
+      dispatch(googleLogin(response.tokenId));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (error) {
       addToast(error, { appearance: "error", autoDismiss: true });
     } else if (userInfo) {
-      addToast("Login Successfully", {
+      addToast(userInfo.message, {
         appearance: "success",
         autoDismiss: true,
       });
@@ -82,6 +91,16 @@ const SignIn = () => {
               <small onClick={() => setTypePass(!typePass)}>
                 {typePass ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
               </small>
+            </div>
+
+            <div className="social">
+              <GoogleLogin
+                clientId="356056525525-h8hfjsn3h0sslu93ht6gika63gqcoahk.apps.googleusercontent.com"
+                buttonText="Signin with google"
+                onSuccess={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+                theme="dark"
+              />
             </div>
             <div className="contact__form__forgot">
               <Link to="/forgotpassword">Forgot your password?</Link>

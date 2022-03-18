@@ -126,7 +126,7 @@ export const refreshToken = () => async (dispatch) => {
     localStorage.removeItem("logged");
   }
 };
-
+// user logout action
 export const logout = (token) => async (dispatch) => {
   const result = await checkTokenExp(token, dispatch);
   // console.log("logout action ", result, token);
@@ -164,7 +164,10 @@ export const logout = (token) => async (dispatch) => {
   }
 };
 
+// user google login
+
 export const googleLogin = (id_token) => async (dispatch) => {
+  console.log(id_token);
   try {
     dispatch({
       type: USER_LOGIN_REQUEST,
@@ -177,7 +180,8 @@ export const googleLogin = (id_token) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get("/api/google_login", config);
+    const { data } = await axios.post("/api/google_login", config);
+    console.log(data, " data");
 
     // const res = await postAPI('google_login', { id_token })
 
