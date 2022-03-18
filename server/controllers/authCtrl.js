@@ -28,7 +28,11 @@ const authCtrl = {
       name: Joi.string().min(3).max(30).required(),
       email: Joi.string().email().required(),
       password: Joi.string()
-        .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+        .pattern(
+          new RegExp(
+            "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,20}$"
+          )
+        )
         .required(),
       repeat_password: Joi.ref("password"),
     });
@@ -74,7 +78,7 @@ const authCtrl = {
       const active_token = generateActiveToken({ newUser });
 
       const url = `${CLIENT_URL}/active/${active_token}`;
-      console.log(url, "url");
+      // console.log(url, "url");
 
       if (validateEmail(email)) {
         sendMail(email, url, "Verify your email address");
@@ -87,10 +91,11 @@ const authCtrl = {
     }
   },
   async activeAccount(req, res, next) {
+    console.log(req.body, "active backend");
     try {
-      const { active_token } = req.body;
+      const { activation_token } = req.body;
 
-      const decoded = jwt.verify(active_token, `${ACTIVE_TOKEN_SECRET}`);
+      const decoded = jwt.verify(activation_token, `${ACTIVE_TOKEN_SECRET}`);
       console.log(decoded, "decoded");
       const { newUser } = decoded;
 

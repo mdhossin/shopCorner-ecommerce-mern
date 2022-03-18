@@ -1,33 +1,95 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Input from "../../components/Common/Input/Input";
+import { useToasts } from "react-toast-notifications";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/actions/userActions";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Spinner } from "react-bootstrap";
 
-const SignIn = () => {
+const SignIn = ({ location }) => {
+  // const { pathname } = location;
+  // const history = useNavigate();
+  const [userLogin, setUserLogin] = useState({ email: "", password: "" });
+
+  const { addToast } = useToasts();
+
+  // const redirect = location.search ? location.search.split("=")[1] : "/";
+
+  const user = useSelector((state) => state.userLogin);
+  const { email, password } = userLogin;
+
+  const [typePass, setTypePass] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const { loading, error, userInfo } = user;
+  const handleChangeInput = (e) => {
+    setUserLogin({ ...userLogin, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(email, password));
+  };
+
+  useEffect(() => {
+    if (error) {
+      addToast(error, { appearance: "error", autoDismiss: true });
+    } else if (userInfo) {
+      addToast("Login Successfully", {
+        appearance: "success",
+        autoDismiss: true,
+      });
+      // history.push(redirect);
+    }
+  }, [userInfo, error, addToast]);
+
   return (
     <section className="section">
       <div className="contact">
         <div className="contact__container">
           <h3 className="contact__title">Sign In</h3>
 
-          <form action="" className="contact__form">
+          <form className="contact__form" onSubmit={handleSubmit}>
             <div className="contact__form__div">
               <label htmlFor="email" className="contact__form__div-tag">
                 Email
               </label>
-              <Input type="email" placeholder="Your Email" />
+              <input
+                className="contact__form__div-input"
+                type="email"
+                name="email"
+                value={email}
+                onChange={handleChangeInput}
+                placeholder="Your Email"
+              />
             </div>
-            <div className="contact__form__div">
+            <div className="contact__form__div pass">
               <label htmlFor="email" className="contact__form__div-tag">
                 Password
               </label>
-              <Input type="password" placeholder="Your Password" />
+              <input
+                className="contact__form__div-input"
+                type={typePass ? "text" : "password"}
+                name="password"
+                value={password}
+                onChange={handleChangeInput}
+                placeholder="Your Password"
+              />
+              <small onClick={() => setTypePass(!typePass)}>
+                {typePass ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+              </small>
             </div>
             <div className="contact__form__forgot">
               <Link to="/forgotpassword">Forgot your password?</Link>
             </div>
 
-            <button className="button" type="button">
-              Sign In
+            <button
+              className="button"
+              type="submit"
+              disabled={email && password ? false : true}
+            >
+              {loading ? <Spinner animation="border" size="sm" /> : "Sign In"}
             </button>
             <Link to="/signup">
               {" "}

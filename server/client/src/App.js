@@ -11,25 +11,35 @@ import "./styles/styles.scss";
 import Contact from "./containers/Contact/Contact";
 import ScrollToTop from "./helpers/ScrollToTop";
 import Shop from "./containers/Shop/Shop";
+import { ToastProvider } from "react-toast-notifications";
+import ActivationEmail from "./containers/ActivationEmail/ActivationEmail";
 
 function App() {
   return (
-    <ScrollToTop>
-      <BrowserRouter>
-        <Navigation />
+    <ToastProvider placement="top-right">
+      <ScrollToTop>
+        <BrowserRouter>
+          <Navigation />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="forgotpassword" element={<ForgotPassword />}></Route>
-          <Route path="signup" element={<SignUp />}></Route>
-          <Route path="signin" element={<SignIn />}></Route>
-          <Route path="contact" element={<Contact />}></Route>
-          <Route path="shop" element={<Shop />}></Route>
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="forgotpassword" element={<ForgotPassword />}></Route>
+            <Route path="signup" element={<SignUp />}></Route>
+            <Route path="signin" element={<SignIn />}></Route>
 
-        <Footer />
-      </BrowserRouter>
-    </ScrollToTop>
+            <Route
+              path="/active/:activation_token"
+              element={<ActivationEmail />}
+            />
+
+            <Route path="contact" element={<Contact />}></Route>
+            <Route path="shop" element={<Shop />}></Route>
+          </Routes>
+
+          <Footer />
+        </BrowserRouter>
+      </ScrollToTop>
+    </ToastProvider>
   );
 }
 

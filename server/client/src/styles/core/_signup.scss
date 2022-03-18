@@ -46,6 +46,21 @@
       }
     }
 
+    input:invalid[focused="true"] {
+      border: 1px solid red;
+    }
+
+    input:invalid[focused="true"] ~ span {
+      display: block;
+    }
+
+    span {
+      font-size: 12px;
+      padding: 3px;
+      color: red;
+      display: none;
+    }
+
     // forgot text singup page
     &__forgot {
       text-align: end;
@@ -67,5 +82,20 @@
         flex: 1;
       }
     }
+  }
+}
+
+.pass {
+  position: relative;
+}
+.pass small {
+  position: absolute;
+  top: 70%;
+  right: 8px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0.5;
+  svg {
+    font-size: 16px;
   }
 }
