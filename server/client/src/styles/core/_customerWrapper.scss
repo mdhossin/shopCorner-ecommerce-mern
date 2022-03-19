@@ -1,0 +1,38 @@
+@use "./utils/" as *;
+
+.dashboard-wrapper {
+  @include flex(stretch, center);
+  @include breakpoint-up("xxlarge") {
+    flex-direction: column;
+  }
+
+  &__main {
+    flex-grow: 1;
+    padding-right: var(--sideBarWidth);
+
+    @include breakpoint-up("xxlarge") {
+      padding-right: 0;
+    }
+  }
+
+  &__right {
+    width: var(--sideBarWidth);
+    background-color: var(--mainBg);
+    height: 100vh;
+    padding: var(--spacing);
+    border-top-left-radius: var(--borderRadius);
+    border-bottom-left-radius: var(--borderRadius);
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    @include breakpoint-up("xxlarge") {
+      position: relative;
+      padding: var(--mobileSpacing);
+      margin-top: var(--mobileSpacing);
+      border-radius: var(--borderRadius);
+      width: 100%;
+      height: max-content;
+    }
+  }
+}

@@ -16,6 +16,9 @@ import ActivationEmail from "./containers/ActivationEmail/ActivationEmail";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { refreshToken } from "./redux/actions/userActions";
+import Dashboard from "./containers/Dashboard/Dashboard";
+import Customer from "./components/Admin/Dashboard/Customer";
+import Blank from "./components/Admin/Dashboard/Blank";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,9 +45,20 @@ function App() {
 
             <Route path="contact" element={<Contact />}></Route>
             <Route path="shop" element={<Shop />}></Route>
+            <Route path="dashboard" element={<Customer />}>
+              {/* <Route path="/" element={<MainLayout />}> */}
+              {/* <Route path="/" element={<Dashboard />} /> same working index and root when i need to render same root use index or root path */}
+              {/* <Route index element={<Dashboard />} /> */}
+              <Route path="orders" element={<Blank />} />
+              <Route path="products" element={<Blank />} />
+              <Route path="customers" element={<Blank />} />
+              <Route path="settings" element={<Blank />} />
+              <Route path="stats" element={<Blank />} />
+              {/* </Route> */}
+            </Route>
           </Routes>
 
-          <Footer />
+          {/* <Footer /> */}
         </BrowserRouter>
       </ScrollToTop>
     </ToastProvider>

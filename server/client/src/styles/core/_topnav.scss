@@ -1,0 +1,38 @@
+@use "./utils/" as *;
+
+.topNav {
+  @include flex(center, space-between);
+  margin-bottom: var(--spacing);
+
+  @include tablet {
+    margin-bottom: var(--mobileSpacing);
+  }
+
+  &__title {
+    color: #333;
+    font-weight: 600;
+    font-size: 24px;
+
+    @include breakpoint-up("xxlarge") {
+      display: none;
+    }
+  }
+}
+
+.sidebar-toggle {
+  --size: 40px;
+  width: var(--size);
+  height: var(--size);
+  @include flex(center, center);
+  cursor: pointer;
+  display: none;
+
+  @include tablet {
+    display: block;
+  }
+
+  svg {
+    font-size: 2rem;
+    color: #333;
+  }
+}

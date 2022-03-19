@@ -1,0 +1,102 @@
+@use "./utils/" as *;
+@use "sass:math";
+.sidebar {
+  margin-top: 5rem;
+  padding-top: 1rem;
+  @include flex(stretch, flex-start);
+  flex-direction: column;
+  color: var(--txtColor);
+  width: var(--sideBarWidth);
+  background-color: #fff;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+
+  @include tablet {
+    width: 100vw;
+    background-color: #fff;
+    color: var(--color-black);
+    z-index: 1;
+  }
+
+  &__logo {
+    @include flex(center, center);
+    margin-bottom: 2rem;
+    @include breakpoint-up("xxlarge") {
+      margin-top: 1.7rem;
+    }
+
+    @include tablet {
+      justify-content: space-between;
+      height: math.div(var(--sideBarLogoHeight), 1.8);
+      padding: 0 var(--mobileSpacing);
+    }
+
+    h1 {
+      font-weight: 600;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .sidebar-close {
+      cursor: pointer;
+      display: none;
+
+      svg {
+        font-size: 1.5rem;
+      }
+
+      @include tablet {
+        display: block;
+      }
+    }
+  }
+
+  &__menu {
+    margin-top: 3rem;
+    @include flex(stretch, flex-start);
+    flex-direction: column;
+    flex-grow: 1;
+    @include breakpoint-up("xxlarge") {
+      margin-top: 0;
+    }
+    &__item {
+      @include flex(center, flex-start);
+      position: relative;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      padding-left: 25%;
+      transition: color 0.3s ease-in-out;
+
+      @include tablet {
+        padding-left: var(--mobileSpacing);
+      }
+
+      &:hover {
+        color: var(--theme-color);
+      }
+
+      &__icon {
+        --size: 40px;
+        width: var(--size);
+        height: var(--size);
+        margin-right: 1rem;
+        @include flex(center, center);
+
+        @include tablet {
+          margin-right: 1rem;
+        }
+
+        svg {
+          font-size: 1.3rem;
+        }
+      }
+
+      &:last-child {
+        margin-top: auto;
+        cursor: pointer;
+      }
+    }
+  }
+}
