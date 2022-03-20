@@ -47,7 +47,7 @@ const Sidebar = () => {
             <div className="sidebar__menu__item__icon">
               <BiReceipt />
             </div>
-            <div className="sidebar__menu__item__txt">Orders</div>
+            <div className="sidebar__menu__item__txt">My Orders</div>
           </Link>
           <Link
             to="/dashboard/logout"

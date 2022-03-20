@@ -1,8 +1,53 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Input from "../../components/Common/Input/Input";
 
+import { isEmail } from "../../utils/validation";
+import { useToasts } from "react-toast-notifications";
+import { Spinner } from "react-bootstrap";
 const ForgotPassword = () => {
+  const [data, setData] = useState({
+    email: "",
+    error: "",
+    success: "",
+  });
+  const { addToast } = useToasts();
+
+  const { email, error, success } = data;
+  const [loading, setLoading] = useState(false);
+  console.log(loading);
+
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value, error: "", success: "" });
+  };
+
+  const forgotPassword = async () => {
+    if (!isEmail(email))
+      return setData({ ...data, error: "Invalid emails.", success: "" });
+
+    try {
+      setLoading(true);
+      const res = await axios.post("/user/forgot_password", { email });
+      setLoading(false);
+      return setData({ ...data, error: "", success: res.data.message });
+    } catch (error) {
+      setLoading(false);
+      error.response.data.message &&
+        setData({ ...data, error: error.response.data.message, success: "" });
+    }
+  };
+
+  useEffect(() => {
+    if (error) {
+      addToast(error, { appearance: "error", autoDismiss: true });
+    } else if (success) {
+      addToast(success, {
+        appearance: "success",
+        autoDismiss: true,
+      });
+    }
+  }, [error, success, addToast]);
   return (
     <section className="section">
       <div className="contact">
@@ -17,15 +62,27 @@ const ForgotPassword = () => {
               <label htmlFor="email" className="contact__form__div-tag">
                 Email
               </label>
-              <Input type="email" placeholder="Your Email" />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                className="contact__form__div-input"
+                value={email}
+                onChange={handleChangeInput}
+              />
             </div>
 
             <div className="contact__form__reset">
               <button
                 className="button contact__form__reset-submit"
                 type="button"
+                onClick={forgotPassword}
               >
-                Submit
+                {loading ? (
+                  <Spinner animation="border" size="sm" />
+                ) : (
+                  "Verify your email"
+                )}
               </button>
 
               <Link to="/signin" className="contact__form__reset-cancel">

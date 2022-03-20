@@ -20,6 +20,7 @@ import WelcomeUser from "./components/Manager/WelcomeUser/WelcomeUser";
 import Customer from "./components/Manager/UserDashboard/Customer";
 import Blank from "./components/Manager/UserDashboard/Blank";
 import Profile from "./components/Manager/Profile/Profile";
+import ResetPassword from "./containers/ResetPassword/ResetPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ function App() {
               path="/active/:activation_token"
               element={<ActivationEmail />}
             />
+            <Route path="/user/reset/:token" element={<ResetPassword />} />
 
             <Route path="contact" element={<Contact />}></Route>
             <Route path="shop" element={<Shop />}></Route>

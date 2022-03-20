@@ -9,4 +9,8 @@ router.patch("/update", auth, authCtrl.updateUser);
 // reset password
 router.post("/reset", auth, authCtrl.resetPassword);
 
+// forgot password route
+
+router.post("/forgot_password", authCtrl.forgotPassword);
+
 export default router;

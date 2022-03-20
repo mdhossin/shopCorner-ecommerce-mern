@@ -277,36 +277,33 @@ const authCtrl = {
     }
   },
 
-  // forgotPassword: async(req, res) => {
-  //   try {
-  //     const { account } = req.body
+  async forgotPassword(req, res, next) {
+    try {
+      const { email } = req.body;
 
-  //     const user = await Users.findOne({account})
-  //     if(!user)
-  //       return res.status(400).json({msg: 'This account does not exist.'})
+      const user = await Users.findOne({ email });
+      if (!user)
+        return res
+          .status(400)
+          .json({ message: "This account does not exist." });
 
-  //     if(user.type !== 'register')
-  //       return res.status(400).json({
-  //         msg: `Quick login account with ${user.type} can't use this function.`
-  //       })
+      if (user.type !== "register")
+        return res.status(400).json({
+          message: `Quick login account with ${user.type} can't use this function.`,
+        });
 
-  //     const access_token = generateAccessToken({id: user._id})
+      const access_token = generateAccessToken({ id: user._id });
 
-  //     const url = `${CLIENT_URL}/reset_password/${access_token}`
+      const url = `${CLIENT_URL}/user/reset/${access_token}`;
 
-  //     if(validPhone(account)){
-  //       sendSms(account, url, "Forgot password?")
-  //       return res.json({msg: "Success! Please check your phone."})
-
-  //     }else if(validateEmail(account)){
-  //       sendMail(account, url, "Forgot password?")
-  //       return res.json({msg: "Success! Please check your email."})
-  //     }
-
-  //   } catch (err) {
-  //     return res.status(500).json({msg: err.message})
-  //   }
-  // },
+      if (validateEmail(email)) {
+        sendMail(email, url, "Forgot password?");
+        return res.json({ message: "Success! Please check your email." });
+      }
+    } catch (err) {
+      return next(err);
+    }
+  },
 };
 
 const loginUser = async (user, password, res) => {

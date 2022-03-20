@@ -105,36 +105,6 @@ const SignUp = () => {
                 onChange={onChange}
               />
             ))}
-            {/* <div className="contact__form__div">
-              <label htmlFor="name" className="contact__form__div-tag">
-                Name
-              </label>
-              <input
-                type="text"
-                placeholder="Your name"
-                className="contact__form__div-input"
-              />
-            </div> */}
-
-            {/* <div className="contact__form__div">
-              <label htmlFor="email" className="contact__form__div-tag">
-                Email
-              </label>
-              <Input type="email" placeholder="Your Email" />
-            </div>
-            <div className="contact__form__div">
-              <label htmlFor="email" className="contact__form__div-tag">
-                Password
-              </label>
-              <Input type="password" placeholder="Your Password" />
-            </div>
-
-            <div className="contact__form__div">
-              <label htmlFor="name" className="contact__form__div-tag">
-                Confirm Password
-              </label>
-              <Input type="password2" placeholder="Confirm Password" />
-            </div> */}
 
             <button className="button" type="submit">
               {regLoading ? (

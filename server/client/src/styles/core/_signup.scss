@@ -40,6 +40,19 @@
     &__div {
       margin: 1rem 0;
 
+      position: relative;
+      small {
+        position: absolute;
+        top: 70%;
+        right: 15px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        opacity: 0.5;
+        svg {
+          font-size: 16px;
+        }
+      }
+
       &-tag {
         display: block;
         margin: 0.5rem 0;
