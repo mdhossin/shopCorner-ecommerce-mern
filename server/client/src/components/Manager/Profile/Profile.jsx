@@ -5,6 +5,7 @@ import axios from "axios";
 import { useToasts } from "react-toast-notifications";
 import { isLength, isMatch } from "../../../utils/validation";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+
 const Profile = () => {
   const { addToast } = useToasts();
   const auth = useSelector((state) => state.userLogin.userInfo);

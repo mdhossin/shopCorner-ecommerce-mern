@@ -180,7 +180,7 @@ export const googleLogin = (id_token) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post("/api/google_login", config);
+    const { data } = await axios.post("api/google_login", config);
     console.log(data, " data");
 
     // const res = await postAPI('google_login', { id_token })

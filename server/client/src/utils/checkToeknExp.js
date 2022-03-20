@@ -1,6 +1,6 @@
-import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { USER_LOGIN_SUCCESS } from "../redux/constants/userConstants";
+import axios from "axios";
 
 export const checkTokenExp = async (token, dispatch) => {
   const decoded = jwt_decode(token);

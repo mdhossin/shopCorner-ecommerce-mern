@@ -1,10 +1,10 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { isLength, isMatch } from "../../utils/validation";
 import { useToasts } from "react-toast-notifications";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Spinner } from "react-bootstrap";
+import axios from "axios";
 const ResetPassword = () => {
   const [data, setData] = useState({
     password: "",

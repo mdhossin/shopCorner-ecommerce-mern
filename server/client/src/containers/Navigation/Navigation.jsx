@@ -24,7 +24,7 @@ const Navigation = () => {
 
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user;
-  console.log(userInfo);
+  // console.log(userInfo);
 
   const toggleCart = () => {
     setCartOpen(false);

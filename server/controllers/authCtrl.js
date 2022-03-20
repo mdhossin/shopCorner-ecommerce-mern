@@ -16,7 +16,7 @@ import { OAuth2Client } from "google-auth-library";
 // import fetch from 'node-fetch'
 
 const client = new OAuth2Client(`${process.env.MAIL_CLIENT_ID}`);
-const CLIENT_URL = `${BASE_URL}`;
+const CLIENT_URL = `http://localhost:3000`;
 
 const authCtrl = {
   async register(req, res, next) {

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { isEmail } from "../../utils/validation";
 import { useToasts } from "react-toast-notifications";
 import { Spinner } from "react-bootstrap";
+
 const ForgotPassword = () => {
   const [data, setData] = useState({
     email: "",

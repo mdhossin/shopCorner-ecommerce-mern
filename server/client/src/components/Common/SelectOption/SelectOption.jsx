@@ -6,25 +6,7 @@
 
 import React from "react";
 
-import Select from "react-select";
-import makeAnimated from "react-select/animated";
-
 const SelectOption = (props) => {
-  const {
-    disabled,
-    error,
-    label,
-    multi,
-    options,
-    defaultValue,
-    value,
-    handleSelectChange,
-  } = props;
-
-  const _handleSelectChange = (value) => {
-    handleSelectChange(value);
-  };
-
   return (
     <select
       className="shop__heading__filter__product__select"

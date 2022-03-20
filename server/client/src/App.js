@@ -16,7 +16,7 @@ import ActivationEmail from "./containers/ActivationEmail/ActivationEmail";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { refreshToken } from "./redux/actions/userActions";
-import WelcomeUser from "./components/Manager/WelcomeUser/WelcomeUser";
+
 import Customer from "./components/Manager/UserDashboard/Customer";
 import Blank from "./components/Manager/UserDashboard/Blank";
 import Profile from "./components/Manager/Profile/Profile";
@@ -64,7 +64,7 @@ function App() {
             )}
           </Routes>
 
-          {/* <Footer /> */}
+          <Footer />
         </BrowserRouter>
       </ScrollToTop>
     </ToastProvider>

@@ -1,4 +1,5 @@
 import React from "react";
+
 import Loading from "../../components/Common/Loading/Loading";
 import Entertained from "../Entairtained/Entertained";
 
@@ -15,8 +16,7 @@ const Home = () => {
       <SupportArea />
 
       <FeaturedProduct />
-      {/* <Loader /> */}
-      {/* <Loading /> */}
+
       <Entertained />
       <Gallery />
     </>
