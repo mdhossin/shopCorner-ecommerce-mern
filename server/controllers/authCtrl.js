@@ -206,7 +206,7 @@ const authCtrl = {
       if (!email_verified)
         return res.status(500).json({ message: "Email verification failed." });
 
-      const password = email + "your google secrect password";
+      const password = email + process.env.GOOGLE_SECRET;
       const passwordHash = await bcrypt.hash(password, 12);
 
       const user = await Users.findOne({ email });
@@ -224,6 +224,54 @@ const authCtrl = {
         };
         registerUser(user, res);
       }
+    } catch (err) {
+      return next(err);
+    }
+  },
+
+  // user routes start here
+  async updateUser(req, res, next) {
+    console.log(req.body, "update user route");
+    try {
+      const { name, avatar } = req.body;
+      await Users.findOneAndUpdate(
+        { _id: req.user.id },
+        {
+          name,
+          avatar,
+        },
+        {
+          new: true,
+        }
+      );
+      res.json({ message: "Update Success!" });
+    } catch (err) {
+      return next(err);
+    }
+  },
+
+  async resetPassword(req, res, next) {
+    if (!req.user)
+      return res.status(400).json({ message: "Invalid Authentication." });
+
+    if (req.user.type !== "register")
+      return res.status(400).json({
+        message: `Quick login account with ${req.user.type} can't use this function.`,
+      });
+    try {
+      const { password } = req.body;
+
+      const passwordHash = await bcrypt.hash(password, 12);
+      // console.log(passwordHash);
+      await Users.findOneAndUpdate(
+        {
+          _id: req.user.id,
+        },
+        {
+          password: passwordHash,
+        }
+      );
+      res.json({ message: "Password successfully changed!" });
     } catch (err) {
       return next(err);
     }

@@ -93,15 +93,6 @@ const SignIn = () => {
               </small>
             </div>
 
-            <div className="social">
-              <GoogleLogin
-                clientId="356056525525-h8hfjsn3h0sslu93ht6gika63gqcoahk.apps.googleusercontent.com"
-                buttonText="Signin with google"
-                onSuccess={responseGoogle}
-                cookiePolicy={"single_host_origin"}
-                theme="dark"
-              />
-            </div>
             <div className="contact__form__forgot">
               <Link to="/forgotpassword">Forgot your password?</Link>
             </div>
@@ -113,6 +104,16 @@ const SignIn = () => {
             >
               {loading ? <Spinner animation="border" size="sm" /> : "Sign In"}
             </button>
+
+            <div className="social">
+              <GoogleLogin
+                clientId="356056525525-h8hfjsn3h0sslu93ht6gika63gqcoahk.apps.googleusercontent.com"
+                buttonText="Signin with google"
+                onSuccess={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+                theme="dark"
+              />
+            </div>
             <Link to="/signup">
               {" "}
               <button

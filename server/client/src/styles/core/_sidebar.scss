@@ -64,7 +64,7 @@
     &__item {
       @include flex(center, flex-start);
       position: relative;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       margin-bottom: 1.5rem;
       padding-left: 25%;
       transition: color 0.3s ease-in-out;
@@ -89,7 +89,7 @@
         }
 
         svg {
-          font-size: 1.3rem;
+          font-size: 1.2rem;
         }
       }
 

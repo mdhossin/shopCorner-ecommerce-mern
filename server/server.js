@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import fileUpload from "express-fileupload";
 import errorHandler from "./middlewares/errorHandler.js";
 import path from "path";
 dotenv.config();
@@ -9,19 +10,29 @@ dotenv.config();
 const app = express();
 
 import authRoutes from "./routes/auth.js";
+import uploadRoutes from "./routes/upload.js";
+
+import userRoutes from "./routes/user.js";
 
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
+app.use(
+  fileUpload({
+    useTempFiles: true,
+  })
+);
 
-// user routes
+// auth routes
 app.use("/api", authRoutes);
 
-// upload routes
+// upload routes// upload routes
+app.use("/api", uploadRoutes);
 
-//
+// user routes
+app.use("/user", userRoutes);
 
 // Database connection
 import "./config/database.js";
