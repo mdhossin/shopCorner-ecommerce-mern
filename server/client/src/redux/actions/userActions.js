@@ -6,7 +6,6 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_RESET,
   USER_REGISTER_SUCCESS,
-  USER_UPDATE_REQUEST,
 } from "../constants/userConstants";
 import axios from "axios";
 import { checkTokenExp } from "../../utils/checkToeknExp";
