@@ -24,7 +24,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "/api/login",
+      "https://quick-shop-mern.herokuapp.com/api/login",
       { email, password },
       config
     );
@@ -51,7 +51,7 @@ export const login = (email, password) => async (dispatch) => {
 export const register = (name, email, password) => async (dispatch) => {
   try {
     dispatch({
-      type: USER_REGISTER_REQUEST,
+      type: USER_LOGIN_REQUEST,
     });
 
     const config = {
@@ -61,28 +61,24 @@ export const register = (name, email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "/api/register",
+      "https://quick-shop-mern.herokuapp.com/api/register",
       { name, email, password },
       config
     );
 
     dispatch({
-      type: USER_REGISTER_SUCCESS,
-      payload: data,
-    });
-
-    setTimeout(() => {
-      dispatch({
-        type: USER_REGISTER_RESET,
-      });
-    }, 3000);
-    dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
+
+    // setTimeout(() => {
+    //   dispatch({
+    //     type: USER_REGISTER_RESET,
+    //   });
+    // }, 3000);
   } catch (error) {
     dispatch({
-      type: USER_REGISTER_FAIL,
+      type: USER_LOGIN_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -108,7 +104,10 @@ export const refreshToken = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get("/api/refresh_token", config);
+    const { data } = await axios.get(
+      "https://quick-shop-mern.herokuapp.com/api/refresh_token",
+      config
+    );
     // console.log(data, "refresh token action");
 
     dispatch({
@@ -145,7 +144,10 @@ export const logout = (token) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get("/api/logout", config);
+    const { data } = await axios.get(
+      "https://quick-shop-mern.herokuapp.com/api/logout",
+      config
+    );
     // console.log(data, access_token, "logout action");
 
     dispatch({
@@ -180,7 +182,10 @@ export const googleLogin = (id_token) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post("api/google_login", config);
+    const { data } = await axios.post(
+      "https://quick-shop-mern.herokuapp.com/api/google_login",
+      config
+    );
     console.log(data, " data");
 
     // const res = await postAPI('google_login', { id_token })

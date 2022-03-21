@@ -61,13 +61,9 @@ const SignUp = () => {
       required: true,
     },
   ];
-  const userRegister = useSelector((state) => state.userRegister);
+  const userLogin = useSelector((state) => state.userLogin);
 
-  const {
-    loading: regLoading,
-    error: regError,
-    userInfo: regInfo,
-  } = userRegister;
+  const { loading, error, userInfo } = userLogin;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,16 +75,16 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (regError) {
-      addToast(regError, { appearance: "error", autoDismiss: true });
-    } else if (regInfo) {
-      addToast(regInfo.message, {
+    if (error) {
+      addToast(error, { appearance: "error", autoDismiss: true });
+    } else if (userInfo) {
+      addToast(userInfo?.message, {
         appearance: "success",
         autoDismiss: true,
       });
       // history.push("/");
     }
-  }, [regInfo, regError, addToast]);
+  }, [userInfo, error, addToast]);
 
   return (
     <section className="section">
@@ -107,11 +103,7 @@ const SignUp = () => {
             ))}
 
             <button className="button" type="submit">
-              {regLoading ? (
-                <Spinner animation="border" size="sm" />
-              ) : (
-                "Sign Up"
-              )}
+              {loading ? <Spinner animation="border" size="sm" /> : "Sign Up"}
             </button>
 
             <Link to="/signin">

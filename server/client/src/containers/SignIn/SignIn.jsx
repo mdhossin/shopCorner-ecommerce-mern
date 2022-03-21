@@ -36,7 +36,7 @@ const SignIn = () => {
   };
 
   const responseGoogle = async (response) => {
-    // console.log(response.tokenId);
+    console.log(response, "google");
     try {
       dispatch(googleLogin(response.tokenId));
     } catch (error) {
@@ -107,7 +107,7 @@ const SignIn = () => {
 
             <div className="social">
               <GoogleLogin
-                clientId="356056525525-h8hfjsn3h0sslu93ht6gika63gqcoahk.apps.googleusercontent.com"
+                clientId="994706260185-sodif49ii1913oaisttos5htu1b5rsio.apps.googleusercontent.com"
                 buttonText="Signin with google"
                 onSuccess={responseGoogle}
                 cookiePolicy={"single_host_origin"}

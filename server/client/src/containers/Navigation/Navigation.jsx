@@ -128,7 +128,7 @@ const Navigation = () => {
 
             <NavDropdown
               title={
-                userInfo ? (
+                user?.userInfo?.access_token ? (
                   <img
                     style={{ borderRadius: "50%" }}
                     width="22"
@@ -142,7 +142,7 @@ const Navigation = () => {
               }
               id="collasible-nav-dropdown"
             >
-              {userInfo ? (
+              {user?.userInfo?.access_token ? (
                 <>
                   <NavDropdown.Item
                     className="nav__dropdown__item"
