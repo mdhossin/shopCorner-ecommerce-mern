@@ -48,7 +48,7 @@ const SignIn = () => {
     if (error) {
       addToast(error, { appearance: "error", autoDismiss: true });
     } else if (userInfo) {
-      addToast(userInfo.message, {
+      addToast(userInfo?.message, {
         appearance: "success",
         autoDismiss: true,
       });

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Footer from "./containers/Footer/Footer";
 import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import Home from "./containers/Home/Home";
@@ -26,9 +26,16 @@ import Page404 from "./components/Common/Page404/Page404";
 import AdminDashboard from "./components/Manager/AdminDashboard/AdminDashboard";
 import HomeAdmin from "./components/Manager/HomeAdmin/HomeAdmin";
 import AddProduct from "./components/Manager/AddProduct/AddProduct";
+import ProductDetail from "./containers/ProductDetail/ProductDetail";
+import { fetchProducts } from "./redux/actions/productAction";
+import AdminProductList from "./components/Manager/AdminProductList/AdminProductList";
 
 function App() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(refreshToken());
@@ -45,7 +52,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="forgotpassword" element={<ForgotPassword />}></Route>
             <Route path="signup" element={<SignUp />}></Route>
-            <Route path="signin" element={<SignIn />}></Route>
+            <Route
+              path="signin"
+              element={user?.access_token ? <Navigate to="/" /> : <SignIn />}
+            ></Route>
 
             <Route
               path="/active/:activation_token"
@@ -55,6 +65,10 @@ function App() {
 
             <Route path="contact" element={<Contact />}></Route>
             <Route path="shop" element={<Shop />}></Route>
+            <Route
+              path="product/:productId"
+              element={<ProductDetail />}
+            ></Route>
 
             {user?.access_token && user?.user?.role === "user" && (
               <Route
@@ -82,6 +96,7 @@ function App() {
                 <Route index element={<HomeAdmin />} />
                 <Route path="users" element={<Profile />} />
                 <Route path="addproduct" element={<AddProduct />} />
+                <Route path="products" element={<AdminProductList />} />
 
                 <Route path="orders" element={<Blank />} />
               </Route>

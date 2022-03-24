@@ -4,7 +4,7 @@ const ProductRating = ({ ratingValue }) => {
   let rating = [];
 
   for (let i = 0; i < 5; i++) {
-    rating.push(<AiOutlineStar className="fa fa-star-o" key={i} />);
+    rating.push(<AiOutlineStar style={{ color: "#f3b632" }} key={i} />);
   }
   if (ratingValue && ratingValue > 0) {
     for (let i = 0; i <= ratingValue - 1; i++) {

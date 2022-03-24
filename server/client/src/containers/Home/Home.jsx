@@ -13,10 +13,6 @@ import HeroSlide from "../HeroSlide/HeroSlide";
 import SupportArea from "../SupportArea/SupportArea";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
   return (
     <div>
       <HeroSlide />
