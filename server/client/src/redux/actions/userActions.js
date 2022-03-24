@@ -2,10 +2,6 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
-  USER_REGISTER_FAIL,
-  USER_REGISTER_REQUEST,
-  USER_REGISTER_RESET,
-  USER_REGISTER_SUCCESS,
 } from "../constants/userConstants";
 import axios from "axios";
 import { checkTokenExp } from "../../utils/checkToeknExp";
@@ -24,7 +20,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "https://quick-shop-mern.herokuapp.com/api/login",
+      "/api/login",
       { email, password },
       config
     );
@@ -61,7 +57,7 @@ export const register = (name, email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "https://quick-shop-mern.herokuapp.com/api/register",
+      "/api/register",
       { name, email, password },
       config
     );
@@ -104,10 +100,7 @@ export const refreshToken = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(
-      "https://quick-shop-mern.herokuapp.com/api/refresh_token",
-      config
-    );
+    const { data } = await axios.get("/api/refresh_token", config);
     // console.log(data, "refresh token action");
 
     dispatch({
@@ -144,10 +137,7 @@ export const logout = (token) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(
-      "https://quick-shop-mern.herokuapp.com/api/logout",
-      config
-    );
+    const { data } = await axios.get("/api/logout", config);
     // console.log(data, access_token, "logout action");
 
     dispatch({
@@ -159,8 +149,8 @@ export const logout = (token) => async (dispatch) => {
     dispatch({
       type: USER_LOGIN_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
+        error.response && error.response.data
+          ? error.response.data
           : error.message,
     });
   }
@@ -182,10 +172,7 @@ export const googleLogin = (id_token) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(
-      "https://quick-shop-mern.herokuapp.com/api/google_login",
-      config
-    );
+    const { data } = await axios.post("/api/google_login", config);
     console.log(data, " data");
 
     // const res = await postAPI('google_login', { id_token })

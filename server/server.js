@@ -17,6 +17,8 @@ const app = express();
 
 import authRoutes from "./routes/auth.js";
 import uploadRoutes from "./routes/upload.js";
+import productRoutes from "./routes/product.js";
+// import adminUpload from "./routes/adminUpload.js";
 
 import userRoutes from "./routes/user.js";
 
@@ -32,10 +34,16 @@ app.use(
 );
 
 // auth routes
-app.use("/api", authRoutes);
+app.use("/api", authRoutes, uploadRoutes);
 
-// upload routes// upload routes
-app.use("/api", uploadRoutes);
+// upload routes// user imgae upload routes
+// app.use("/api", uploadRoutes);
+
+// admin upload image route
+// app.use("/api", adminUpload);
+
+// products routes
+app.use("/api", productRoutes);
 
 // user routes
 app.use("/user", userRoutes);

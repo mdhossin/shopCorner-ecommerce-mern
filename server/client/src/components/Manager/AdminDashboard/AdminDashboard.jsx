@@ -1,15 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar/Sidebar";
-import Topnav from "./Topnav/Topnav";
+import AdminSidebar from "./AdminSidbar/AdminSidebar";
+import AdminTopnav from "./AdminTopnav/AdminTopnav";
 
-const UserDashboard = () => {
+const AdminDashboard = () => {
   return (
     <div className="customer">
-      <Sidebar />
+      <AdminSidebar />
+
       <div className="main">
         <div className="main__content">
-          <Topnav />
+          <AdminTopnav />
           {/* used nested route data show here */}
           <Outlet />
         </div>
@@ -18,4 +19,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default AdminDashboard;

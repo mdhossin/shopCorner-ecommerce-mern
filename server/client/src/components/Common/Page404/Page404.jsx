@@ -3,7 +3,7 @@ import React from "react";
 const Page404 = (props) => {
   return (
     <div className="page-404 section">
-      The page you are looking for was not found.
+      <h1>The page you are looking for was not found.</h1>
     </div>
   );
 };

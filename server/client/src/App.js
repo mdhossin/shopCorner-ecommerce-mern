@@ -17,10 +17,15 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { refreshToken } from "./redux/actions/userActions";
 
-import Customer from "./components/Manager/UserDashboard/Customer";
 import Blank from "./components/Manager/UserDashboard/Blank";
 import Profile from "./components/Manager/Profile/Profile";
 import ResetPassword from "./containers/ResetPassword/ResetPassword";
+import UserDashboard from "./components/Manager/UserDashboard/Customer";
+import PrivateRoute from "./containers/ProtectedRoute/PrivateRoute";
+import Page404 from "./components/Common/Page404/Page404";
+import AdminDashboard from "./components/Manager/AdminDashboard/AdminDashboard";
+import HomeAdmin from "./components/Manager/HomeAdmin/HomeAdmin";
+import AddProduct from "./components/Manager/AddProduct/AddProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,20 +56,40 @@ function App() {
             <Route path="contact" element={<Contact />}></Route>
             <Route path="shop" element={<Shop />}></Route>
 
-            {user?.access_token && (
-              <Route path="dashboard" element={<Customer />}>
-                {/* <Route path="/" element={<MainLayout />}> */}
-                {/* <Route path="/" element={<Dashboard />} /> same working index and root when i need to render same root use index or root path */}
+            {user?.access_token && user?.user?.role === "user" && (
+              <Route
+                path="dashboard"
+                element={
+                  <PrivateRoute>
+                    <UserDashboard />
+                  </PrivateRoute>
+                }
+              >
                 <Route index element={<Profile />} />
 
                 <Route path="orders" element={<Blank />} />
-
-                {/* </Route> */}
               </Route>
             )}
+            {user?.access_token && user?.user?.role === "admin" && (
+              <Route
+                path="dashboard"
+                element={
+                  <PrivateRoute>
+                    <AdminDashboard />
+                  </PrivateRoute>
+                }
+              >
+                <Route index element={<HomeAdmin />} />
+                <Route path="users" element={<Profile />} />
+                <Route path="addproduct" element={<AddProduct />} />
+
+                <Route path="orders" element={<Blank />} />
+              </Route>
+            )}
+            <Route path="*" element={<Page404 />}></Route>
           </Routes>
 
-          <Footer />
+          {/* <Footer /> */}
         </BrowserRouter>
       </ScrollToTop>
     </ToastProvider>

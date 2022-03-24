@@ -9,14 +9,14 @@ import {
 } from "../config/generateToken.js";
 import sendMail from "../config/sendMail.js";
 
-import { ACTIVE_TOKEN_SECRET, BASE_URL } from "../config/index.js";
+import { ACTIVE_TOKEN_SECRET } from "../config/index.js";
 import CustomErrorHandler from "../services/CustomErrorHandler.js";
 
 import { OAuth2Client } from "google-auth-library";
 // import fetch from 'node-fetch'
 
 const client = new OAuth2Client(`${process.env.MAIL_CLIENT_ID}`);
-const CLIENT_URL = `https://quick-shop-mern.herokuapp.com`;
+const CLIENT_URL = `http://localhost:3000`;
 
 const authCtrl = {
   async register(req, res, next) {

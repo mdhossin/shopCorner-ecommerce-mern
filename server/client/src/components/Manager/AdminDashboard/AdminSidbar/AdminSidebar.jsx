@@ -1,15 +1,14 @@
 import React from "react";
-import { CgProfile } from "react-icons/cg";
-import { BiReceipt } from "react-icons/bi";
+import { CgProfile, CgAdd } from "react-icons/cg";
+import { BiReceipt, BiCube } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { MdAddBox } from "react-icons/md";
 
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineHome } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import Loading from "../../../Common/Loading/Loading";
-const Sidebar = () => {
+const AdminSidebar = () => {
   const user = useSelector((state) => state?.userLogin?.userInfo);
-
-  console.log(user?.access_token);
 
   const closeSidebar = () => {
     document.querySelector(".main__content").style.transform =
@@ -26,7 +25,7 @@ const Sidebar = () => {
         <div className="sidebar-close" onClick={closeSidebar}>
           <AiOutlineClose />
         </div>
-        <h1>Dashboard</h1>
+        <h1>Admin</h1>
       </div>
 
       {user?.access_token ? (
@@ -37,9 +36,30 @@ const Sidebar = () => {
             onClick={closeSidebar}
           >
             <div className="sidebar__menu__item__icon">
-              <CgProfile />
+              <AiOutlineHome />
             </div>
-            <div className="sidebar__menu__item__txt">Profile</div>
+            <div className="sidebar__menu__item__txt">Home</div>
+          </Link>
+
+          <Link
+            to="/dashboard/products"
+            className={`sidebar__menu__item`}
+            onClick={closeSidebar}
+          >
+            <div className="sidebar__menu__item__icon">
+              <BiCube />
+            </div>
+            <div className="sidebar__menu__item__txt">Products</div>
+          </Link>
+          <Link
+            to="/dashboard/addproduct"
+            className={`sidebar__menu__item`}
+            onClick={closeSidebar}
+          >
+            <div className="sidebar__menu__item__icon">
+              <CgAdd />
+            </div>
+            <div className="sidebar__menu__item__txt">Add Products</div>
           </Link>
           <Link
             to="/dashboard/orders"
@@ -49,7 +69,17 @@ const Sidebar = () => {
             <div className="sidebar__menu__item__icon">
               <BiReceipt />
             </div>
-            <div className="sidebar__menu__item__txt">My Orders</div>
+            <div className="sidebar__menu__item__txt">Orders</div>
+          </Link>
+          <Link
+            to="/dashboard/users"
+            className={`sidebar__menu__item`}
+            onClick={closeSidebar}
+          >
+            <div className="sidebar__menu__item__icon">
+              <CgProfile />
+            </div>
+            <div className="sidebar__menu__item__txt">Users</div>
           </Link>
           <Link
             to="/dashboard/logout"
@@ -71,4 +101,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default AdminSidebar;

@@ -1,5 +1,11 @@
 .page-404 {
-  text-align: center;
-  color: #2c2c2c;
-  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  h1 {
+    color: #2c2c2c;
+    font-size: 36px;
+  }
 }

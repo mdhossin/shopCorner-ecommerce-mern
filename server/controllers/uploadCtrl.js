@@ -9,9 +9,10 @@ cloudinary.config({
 
 const uploadController = {
   async uploadAvatar(req, res, next) {
+    console.log(process.env.CLOUD_API_KEY);
     try {
       const file = req.files.file;
-      //   console.log("file", file);
+      // console.log("file", file);
 
       cloudinary.v2.uploader.upload(
         file.tempFilePath,
@@ -19,13 +20,37 @@ const uploadController = {
           folder: "quickshop",
         },
         async (err, result) => {
-          if (err) throw err;
+          try {
+            if (err) throw err;
 
-          removeTmp(file.tempFilePath);
+            removeTmp(file.tempFilePath);
 
-          res.json({ url: result.secure_url });
+            res.json({ url: result.secure_url, public_id: result.public_id });
+          } catch (err) {
+            return next(err);
+          }
         }
       );
+    } catch (err) {
+      return next(err);
+    }
+  },
+
+  async destroy(req, res, next) {
+    try {
+      const { public_id } = req.body;
+      if (!public_id)
+        return next(CustomErrorHandler.wrongValidation("No images Selected"));
+
+      cloudinary.v2.uploader.destroy(public_id, async (err, result) => {
+        try {
+          if (err) throw err;
+          console.log(result);
+          res.json({ messge: "Deleted Image" });
+        } catch (err) {
+          return next(err);
+        }
+      });
     } catch (err) {
       return next(err);
     }
