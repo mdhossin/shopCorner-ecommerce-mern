@@ -3,8 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 
 import { useSelector, useDispatch } from "react-redux";
-import { createProduct } from "../../../redux/actions/productAction";
+import {
+  createProduct,
+  updateProduct,
+} from "../../../redux/actions/productAction";
 import Loader from "../../Common/Loader/Loader";
+import { useParams } from "react-router-dom";
 
 const initialstate = {
   name: "",
@@ -13,19 +17,44 @@ const initialstate = {
   price: 0,
 };
 const AddProduct = () => {
+  const { productId } = useParams();
+
   const [product, setProduct] = useState(initialstate);
 
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.userLogin.userInfo.access_token);
   const { products, error } = useSelector((state) => state.products);
+  const productData = useSelector((state) => state.allProducts);
+
+  const [onEdit, setOnEdit] = useState(false);
+
+  console.log(onEdit, productId, product, "onedit");
 
   const { name, description, quantity, price } = product;
 
   const [images, setImages] = useState(false);
+  console.log(images, "images");
   const [isLoading, setIsLoading] = useState(false);
 
   const { addToast } = useToasts();
+
+  useEffect(() => {
+    if (productId) {
+      setOnEdit(true);
+      productData?.products?.products?.forEach((product) => {
+        if (product?._id === productId) {
+          setProduct(product);
+          setImages(product?.images);
+        }
+      });
+    } else {
+      setOnEdit(false);
+      setProduct(initialstate);
+      setImages(false);
+    }
+  }, [productId, productData?.products?.products]);
+
   // image upload here
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -71,12 +100,23 @@ const AddProduct = () => {
     setProduct({ ...product, [name]: value });
   };
 
-  const { url: imageUrl } = images;
+  const clear = () => {
+    setImages();
+    setProduct({ name: "", description: "", quantity: "", price: "" });
+  };
+
+  const { _id } = product;
   // submit the product
   const handleSubmit = async (e) => {
     e.preventDefault();
     // create product api call here
-    dispatch(createProduct({ ...product, imageUrl }, token));
+    if (onEdit) {
+      dispatch(updateProduct({ ...product, images }, token, _id));
+      clear();
+    } else {
+      dispatch(createProduct({ ...product, images }, token));
+      clear();
+    }
   };
 
   // show the toast message error or succes
@@ -100,7 +140,9 @@ const AddProduct = () => {
 
   return (
     <section className="addproduct">
-      <h3 className="addproduct__title">Add Product</h3>
+      <h3 className="addproduct__title">
+        {onEdit ? "Update Product" : "Add Product"}
+      </h3>
       <div className="addproduct__container">
         <form className="addproduct__form  grid" onSubmit={handleSubmit}>
           <div className="addproduct__form__left">
@@ -192,7 +234,7 @@ const AddProduct = () => {
               className="button-secondary"
               type="submit"
             >
-              Public Now
+              {onEdit ? "Update" : "Public Now"}
             </button>
           </div>
         </form>

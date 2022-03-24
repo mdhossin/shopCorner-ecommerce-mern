@@ -71,17 +71,10 @@ const productCtrl = {
   },
   async createProduct(req, res, next) {
     try {
-      const {
-        name,
-        description,
-        quantity,
-        price,
-        isActive,
-        imageUrl,
-        ratings,
-      } = req.body;
+      const { name, description, quantity, price, isActive, images, ratings } =
+        req.body;
 
-      if (!imageUrl) {
+      if (!images) {
         return next(
           CustomErrorHandler.wrongValidation("You must upload image.")
         );
@@ -107,7 +100,7 @@ const productCtrl = {
         quantity,
         price,
         isActive,
-        imageUrl,
+        images,
         ratings,
       });
 
@@ -119,6 +112,33 @@ const productCtrl = {
       });
     } catch (error) {
       return next(error);
+    }
+  },
+  async updateProducts(req, res, next) {
+    try {
+      const { name, description, quantity, price, isActive, images, ratings } =
+        req.body;
+      if (!images) {
+        return next(CustomErrorHandler.wrongValidation("No image upload"));
+      }
+
+      await Products.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          name,
+          description,
+          quantity,
+          price,
+          isActive,
+          images,
+          ratings,
+        },
+        { new: true }
+      );
+
+      res.json({ message: "Updated a Product" });
+    } catch (err) {
+      return next(err);
     }
   },
 };

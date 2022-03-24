@@ -50,8 +50,8 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="forgotpassword" element={<ForgotPassword />}></Route>
-            <Route path="signup" element={<SignUp />}></Route>
+            <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
+            <Route path="/signup" element={<SignUp />}></Route>
             <Route
               path="signin"
               element={user?.access_token ? <Navigate to="/" /> : <SignIn />}
@@ -63,16 +63,16 @@ function App() {
             />
             <Route path="/user/reset/:token" element={<ResetPassword />} />
 
-            <Route path="contact" element={<Contact />}></Route>
-            <Route path="shop" element={<Shop />}></Route>
+            <Route path="/contact" element={<Contact />}></Route>
+            <Route path="/shop" element={<Shop />}></Route>
             <Route
-              path="product/:productId"
+              path="/product/:productId"
               element={<ProductDetail />}
             ></Route>
 
             {user?.access_token && user?.user?.role === "user" && (
               <Route
-                path="dashboard"
+                path="/dashboard"
                 element={
                   <PrivateRoute>
                     <UserDashboard />
@@ -86,7 +86,7 @@ function App() {
             )}
             {user?.access_token && user?.user?.role === "admin" && (
               <Route
-                path="dashboard"
+                path="/dashboard"
                 element={
                   <PrivateRoute>
                     <AdminDashboard />
@@ -96,6 +96,8 @@ function App() {
                 <Route index element={<HomeAdmin />} />
                 <Route path="users" element={<Profile />} />
                 <Route path="addproduct" element={<AddProduct />} />
+                <Route path="edit/:productId" element={<AddProduct />} />
+
                 <Route path="products" element={<AdminProductList />} />
 
                 <Route path="orders" element={<Blank />} />

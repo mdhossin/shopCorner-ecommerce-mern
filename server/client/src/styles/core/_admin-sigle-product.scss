@@ -1,0 +1,16 @@
+@use "./utils/" as *;
+.details {
+  &__price {
+    h3 {
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--theme-color);
+    }
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+}

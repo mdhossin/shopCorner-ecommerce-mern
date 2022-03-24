@@ -19,18 +19,6 @@ const FeaturedSingle = ({
   sliderClassName,
   spaceBottomClass,
 }) => {
-  //   const { addToast } = useToasts();
-  const discountedPrice = product.price;
-  //   const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(
-    product.price * /* currency.currencyRate */ 12
-  ).toFixed(2);
-  const finalDiscountedPrice = +(
-    discountedPrice * /* currency.currencyRate */ 3
-  ).toFixed(2);
-
-  console.log(product);
-
   return (
     <>
       <div
@@ -38,7 +26,7 @@ const FeaturedSingle = ({
       >
         <div className="product-img">
           <Link to={`/product/${product._id}`}>
-            <img className="default-img" src={product.imageUrl} alt="" />
+            <img className="default-img" src={product?.images?.url} alt="" />
           </Link>
           {product.discount || product.newProduct ? (
             <div className="product-img-badges">
@@ -64,20 +52,7 @@ const FeaturedSingle = ({
               </button>
             </div>
             <div className="pro-same-action pro-cart">
-              {product.affiliateLink ? (
-                <a
-                  href={product.affiliateLink}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {" "}
-                  Buy now{" "}
-                </a>
-              ) : product?.variation && product?.variation.length >= 1 ? (
-                <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
-                  Select Option
-                </Link>
-              ) : product?.quantity && product?.quantity > 0 ? (
+              {product?.quantity && product?.quantity > 0 ? (
                 <button
                   // onClick={() => addToCart(product, addToast)}
                   className={
@@ -117,17 +92,8 @@ const FeaturedSingle = ({
           <div className="product-rating">
             <ProductRating ratingValue={product.ratings} />({product.ratings})
           </div>
-
           <div className="product-price">
-            {discountedPrice !== null ? (
-              <>
-                {/* <span>{currency.currencySymbol + finalDiscountedPrice}</span> */}
-                <span>$ {finalDiscountedPrice}</span>
-                <span className="old"> $ {finalProductPrice}</span>
-              </>
-            ) : (
-              <span>৳ {finalProductPrice} </span>
-            )}
+            <h3>${product.price}.00</h3>
           </div>
         </div>
       </div>

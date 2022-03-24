@@ -11,4 +11,9 @@ router
   .get(productCtrl.getProducts)
   .post(auth, authAdmin, productCtrl.createProduct);
 
+router
+  .route("/products/:id")
+  // .delete(auth, authAdmin, deleteProducts)
+  .put(auth, authAdmin, productCtrl.updateProducts);
+
 export default router;

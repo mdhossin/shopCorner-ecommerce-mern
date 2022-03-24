@@ -62,3 +62,34 @@ export const createProduct = (product, token) => async (dispatch) => {
     });
   }
 };
+// update product action
+export const updateProduct = (product, token, id) => async (dispatch) => {
+  // console.log(product, "product");
+  try {
+    dispatch({
+      type: CREATE_PRODUCT_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    };
+
+    const { data } = await axios.put(`/api/products/${id}`, product, config);
+    // console.log(data, access_token, "logout action");
+
+    dispatch({
+      type: CREATE_PRODUCT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CREATE_PRODUCT_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

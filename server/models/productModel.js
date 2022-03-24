@@ -9,8 +9,9 @@ const productSchema = new Schema(
       trim: true,
     },
 
-    imageUrl: {
-      type: String,
+    images: {
+      type: Object,
+      required: true,
     },
 
     description: {
