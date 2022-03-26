@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { register } from "../../redux/actions/userActions";
+import { USER_REGISTER_RESET } from "../../redux/constants/userConstants";
 import Input from "./Input";
 
 const SignUp = () => {
@@ -78,13 +79,14 @@ const SignUp = () => {
     if (error) {
       addToast(error, { appearance: "error", autoDismiss: true });
     } else if (userInfo) {
+      dispatch({ type: USER_REGISTER_RESET });
       addToast(userInfo?.message, {
         appearance: "success",
         autoDismiss: true,
       });
       // history.push("/");
     }
-  }, [userInfo, error, addToast]);
+  }, [userInfo, error, addToast, dispatch]);
 
   return (
     <section className="section">

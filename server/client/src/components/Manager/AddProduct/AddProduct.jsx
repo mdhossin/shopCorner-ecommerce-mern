@@ -8,7 +8,8 @@ import {
   updateProduct,
 } from "../../../redux/actions/productAction";
 import Loader from "../../Common/Loader/Loader";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { CREATE_PRODUCT_RESET } from "../../../redux/constants/productConstants";
 
 const initialstate = {
   name: "",
@@ -18,23 +19,24 @@ const initialstate = {
 };
 const AddProduct = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState(initialstate);
 
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.userLogin.userInfo.access_token);
-  const { products, error } = useSelector((state) => state.products);
-  const productData = useSelector((state) => state.allProducts);
+  const { products, error } = useSelector((state) => state.createProduct);
+  const productData = useSelector((state) => state.adminProducts);
 
   const [onEdit, setOnEdit] = useState(false);
-
-  console.log(onEdit, productId, product, "onedit");
 
   const { name, description, quantity, price } = product;
 
   const [images, setImages] = useState(false);
-  console.log(images, "images");
+  const [uploadError, setUploadError] = useState("");
+  const [uploadSuccess, setUploadSuccess] = useState("");
+
   const [isLoading, setIsLoading] = useState(false);
 
   const { addToast } = useToasts();
@@ -42,7 +44,8 @@ const AddProduct = () => {
   useEffect(() => {
     if (productId) {
       setOnEdit(true);
-      productData?.products?.products?.forEach((product) => {
+
+      productData?.products?.forEach((product) => {
         if (product?._id === productId) {
           setProduct(product);
           setImages(product?.images);
@@ -53,7 +56,7 @@ const AddProduct = () => {
       setProduct(initialstate);
       setImages(false);
     }
-  }, [productId, productData?.products?.products]);
+  }, [productId, productData?.products]);
 
   // image upload here
   const handleUpload = async (e) => {
@@ -63,6 +66,7 @@ const AddProduct = () => {
       let formData = new FormData();
       formData.append("file", file);
       setIsLoading(true);
+      setUploadError("");
       const res = await axios.post("/api/upload_image", formData, {
         headers: {
           "content-type": "multipart/form-data",
@@ -71,8 +75,15 @@ const AddProduct = () => {
       });
       setIsLoading(false);
       setImages(res.data);
+      setUploadSuccess(res.data.message);
     } catch (error) {
-      console.log(error);
+      setUploadSuccess("");
+      setIsLoading(false);
+      setUploadError(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
     }
   };
 
@@ -80,7 +91,8 @@ const AddProduct = () => {
   const handleDestroy = async () => {
     try {
       setIsLoading(true);
-      await axios.post(
+      setUploadError("");
+      const res = await axios.post(
         "/api/destroy",
         { public_id: images.public_id },
         {
@@ -89,8 +101,15 @@ const AddProduct = () => {
       );
       setIsLoading(false);
       setImages(false);
+      setUploadSuccess(res.data.message);
     } catch (error) {
-      console.log(error);
+      setIsLoading(false);
+      setUploadSuccess("");
+      setUploadError(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
     }
   };
 
@@ -100,37 +119,50 @@ const AddProduct = () => {
     setProduct({ ...product, [name]: value });
   };
 
-  const clear = () => {
-    setImages();
-    setProduct({ name: "", description: "", quantity: "", price: "" });
-  };
+  // const clear = () => {
+  //   setImages();
+  //   setProduct({ name: "", description: "", quantity: "", price: "" });
+  // };
 
   const { _id } = product;
   // submit the product
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // create product api call here
     if (onEdit) {
+      // update prduct call here
       dispatch(updateProduct({ ...product, images }, token, _id));
-      clear();
     } else {
-      dispatch(createProduct({ ...product, images }, token));
-      clear();
+      // create product api call here
+      dispatch(createProduct({ ...product, images }, token, navigate));
     }
   };
 
   // show the toast message error or succes
   useEffect(() => {
     if (error) {
+      dispatch({ type: CREATE_PRODUCT_RESET });
       addToast(error, { appearance: "error", autoDismiss: true });
     } else if (products) {
+      dispatch({ type: CREATE_PRODUCT_RESET });
       addToast(products.message, {
         appearance: "success",
         autoDismiss: true,
       });
       // navigate(redirect);
     }
-  }, [products, addToast, error]);
+  }, [products, addToast, error, dispatch]);
+
+  useEffect(() => {
+    if (uploadError) {
+      addToast(uploadError, { appearance: "error", autoDismiss: true });
+    } else if (uploadSuccess) {
+      addToast(uploadSuccess, {
+        appearance: "success",
+        autoDismiss: true,
+      });
+      // navigate(redirect);
+    }
+  }, [addToast, uploadSuccess, uploadError]);
 
   // clear();
 

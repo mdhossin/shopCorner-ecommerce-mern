@@ -60,6 +60,12 @@ const productCtrl = {
         .paginating();
       const products = await features.query;
 
+      if (products.length < 0) {
+        return res.status(404).json({
+          message: "No product found.",
+        });
+      }
+
       res.json({
         status: "success",
         result: products.length,
@@ -95,7 +101,7 @@ const productCtrl = {
       }
 
       const product = new Products({
-        name,
+        name: name.toLowerCase(),
         description,
         quantity,
         price,
@@ -141,6 +147,44 @@ const productCtrl = {
       return next(err);
     }
   },
+  async deleteProducts(req, res, next) {
+    try {
+      try {
+        await Products.findByIdAndDelete(req.params.id);
+        res.json({ message: "Deleted a Product" });
+      } catch (err) {
+        return next(err);
+      }
+    } catch (err) {
+      return next(err);
+    }
+  },
+  async getByIdProduct(req, res, next) {
+    let product;
+    try {
+      product = await Products.findOne({ _id: req.params.id }).select(
+        "-updatedAt -__v"
+      );
+    } catch (err) {
+      return next(err);
+    }
+
+    res.json(product);
+  },
+  async getAllProducts(req, res, next) {
+    let products;
+    try {
+      products = await Products.find()
+        .select("-updatedAt -__v")
+        .sort({ _id: -1 });
+    } catch (err) {
+      return next(err);
+    }
+
+    res.json(products);
+  },
+  // search api
+  // fetch  product name search api
 };
 
 export default productCtrl;

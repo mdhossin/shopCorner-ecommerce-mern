@@ -11,23 +11,23 @@ const SignIn = () => {
   const navigate = useNavigate();
   let location = useLocation();
 
-  const [userLogin, setUserLogin] = useState({ email: "", password: "" });
+  const [newUser, setNewUser] = useState({ email: "", password: "" });
 
   const { addToast } = useToasts();
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
-  const user = useSelector((state) => state.userLogin);
-  const { email, password } = userLogin;
+  const userLogin = useSelector((state) => state?.userLogin);
+  const { email, password } = newUser;
 
   const [typePass, setTypePass] = useState(false);
 
   const dispatch = useDispatch();
 
-  const { loading, error, userInfo } = user;
+  const { loading, error, userInfo } = userLogin;
 
   const handleChangeInput = (e) => {
-    setUserLogin({ ...userLogin, [e.target.name]: e.target.value });
+    setNewUser({ ...newUser, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {

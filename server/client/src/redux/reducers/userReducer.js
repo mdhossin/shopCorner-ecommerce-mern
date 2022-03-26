@@ -3,6 +3,7 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
+  USER_REGISTER_RESET,
   // USER_REGISTER_SUCCESS,
   // USER_REGISTER_REQUEST,
   // USER_REGISTER_FAIL,
@@ -29,7 +30,7 @@ import {
   //   USER_DELETE_RESET,
 } from "../constants/userConstants";
 
-// user login action
+// user login action reuse action bot login and register
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
@@ -48,6 +49,9 @@ export const userLoginReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+
+    case USER_REGISTER_RESET:
+      return {};
 
     case USER_LOGOUT:
       return {};

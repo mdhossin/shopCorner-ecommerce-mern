@@ -1,17 +1,28 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getAdminProduct } from "../../../redux/actions/productAction";
 
 import Loading from "../../Common/Loading/Loading";
 import AdminSingleProduct from "../AdminSingleProduct/AdminSingleProduct";
 
 const AdminProductList = () => {
-  const { products, loading } = useSelector((state) => state.allProducts);
+  const dispatch = useDispatch();
+  const { products, loading } = useSelector((state) => state.adminProducts);
+
+  // const { loading } = useSelector((state) => state?.createProduct);
+  const { loading: deleteLoading } = useSelector(
+    (state) => state?.deleteProduct
+  );
+
+  useEffect(() => {
+    dispatch(getAdminProduct());
+  }, [dispatch, deleteLoading]);
   return (
     // reuse css class
     <section className="featured container-div">
       <div className="featured__container">
-        <h2>All Products</h2>
+        <h2 style={{ marginBottom: "2rem" }}>All Products</h2>
 
         <div className="featured__products grid">
           <>
@@ -19,8 +30,8 @@ const AdminProductList = () => {
               <Loading />
             ) : (
               <>
-                {products.products &&
-                  products?.products?.map((product, i) => {
+                {products &&
+                  products?.map((product, i) => {
                     return <AdminSingleProduct key={i} product={product} />;
                   })}
               </>

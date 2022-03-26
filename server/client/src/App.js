@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Footer from "./containers/Footer/Footer";
+
 import ForgotPassword from "./containers/ForgotPassword/ForgotPassword";
 import Home from "./containers/Home/Home";
 import Navigation from "./containers/Navigation/Navigation";
@@ -27,21 +27,17 @@ import AdminDashboard from "./components/Manager/AdminDashboard/AdminDashboard";
 import HomeAdmin from "./components/Manager/HomeAdmin/HomeAdmin";
 import AddProduct from "./components/Manager/AddProduct/AddProduct";
 import ProductDetail from "./containers/ProductDetail/ProductDetail";
-import { fetchProducts } from "./redux/actions/productAction";
+
 import AdminProductList from "./components/Manager/AdminProductList/AdminProductList";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(refreshToken());
   }, [dispatch]);
 
-  const user = useSelector((state) => state.userLogin.userInfo);
+  const user = useSelector((state) => state?.userLogin?.userInfo);
   return (
     <ToastProvider placement="top-right">
       <ScrollToTop>
@@ -50,8 +46,16 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
-            <Route path="/signup" element={<SignUp />}></Route>
+            <Route
+              path="/forgotpassword"
+              element={
+                user?.access_token ? <Navigate to="/" /> : <ForgotPassword />
+              }
+            ></Route>
+            <Route
+              path="/signup"
+              element={user?.access_token ? <Navigate to="/" /> : <SignUp />}
+            ></Route>
             <Route
               path="signin"
               element={user?.access_token ? <Navigate to="/" /> : <SignIn />}
@@ -59,9 +63,16 @@ function App() {
 
             <Route
               path="/active/:activation_token"
-              element={<ActivationEmail />}
+              element={
+                user?.access_token ? <Navigate to="/" /> : <ActivationEmail />
+              }
             />
-            <Route path="/user/reset/:token" element={<ResetPassword />} />
+            <Route
+              path="/user/reset/:token"
+              element={
+                user?.access_token ? <Navigate to="/" /> : <ResetPassword />
+              }
+            />
 
             <Route path="/contact" element={<Contact />}></Route>
             <Route path="/shop" element={<Shop />}></Route>

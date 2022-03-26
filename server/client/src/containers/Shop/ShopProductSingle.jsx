@@ -19,38 +19,17 @@ const ShopProductSingle = ({
   sliderClassName,
   spaceBottomClass,
 }) => {
-  //   const { addToast } = useToasts();
-  const discountedPrice = product.price;
-  //   const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(
-    product.price * /* currency.currencyRate */ 12
-  ).toFixed(2);
-  const finalDiscountedPrice = +(
-    discountedPrice * /* currency.currencyRate */ 3
-  ).toFixed(2);
-
-  //col-xl-3 col-md-6 col-lg-4 col-sm-6
-
   return (
     <>
       <div
         className={`product-wrap ${spaceBottomClass ? spaceBottomClass : ""}`}
       >
         <div className="product-img">
-          <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
-            <img
-              className="default-img"
-              src={process.env.PUBLIC_URL + product.image}
-              alt=""
-            />
+          <Link to={`/product/${product._id}`}>
+            <img className="default-img" src={product?.images?.url} alt="" />
           </Link>
           {product.discount || product.newProduct ? (
             <div className="product-img-badges">
-              {product.discount ? (
-                <span className="pink">-{product.discount}%</span>
-              ) : (
-                ""
-              )}
               {product.newProduct ? <span className="purple">New</span> : ""}
             </div>
           ) : (
@@ -73,20 +52,7 @@ const ShopProductSingle = ({
               </button>
             </div>
             <div className="pro-same-action pro-cart">
-              {product.affiliateLink ? (
-                <a
-                  href={product.affiliateLink}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {" "}
-                  Buy now{" "}
-                </a>
-              ) : product?.variation && product?.variation.length >= 1 ? (
-                <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
-                  Select Option
-                </Link>
-              ) : product?.stock && product?.stock > 0 ? (
+              {product?.quantity && product?.quantity > 0 ? (
                 <button
                   // onClick={() => addToCart(product, addToast)}
                   className={
@@ -120,27 +86,14 @@ const ShopProductSingle = ({
         </div>
         <div className="product-content text-center">
           <h3>
-            <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
-              {product.name}
-            </Link>
+            <Link to={"/product/" + product._id}>{product.name}</Link>
           </h3>
-          {product.rating && product.rating > 0 ? (
-            <div className="product-rating">
-              <ProductRating ratingValue={product.rating} />
-            </div>
-          ) : (
-            ""
-          )}
+
+          <div className="product-rating">
+            <ProductRating ratingValue={product.ratings} />({product.ratings})
+          </div>
           <div className="product-price">
-            {discountedPrice !== null ? (
-              <>
-                {/* <span>{currency.currencySymbol + finalDiscountedPrice}</span> */}
-                <span>$ {finalDiscountedPrice}</span>
-                <span className="old"> $ {finalProductPrice}</span>
-              </>
-            ) : (
-              <span>৳ {finalProductPrice} </span>
-            )}
+            <h3>${product.price}.00</h3>
           </div>
         </div>
       </div>

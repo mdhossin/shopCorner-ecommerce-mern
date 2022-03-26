@@ -25,7 +25,11 @@ const uploadController = {
 
             removeTmp(file.tempFilePath);
 
-            res.json({ url: result.secure_url, public_id: result.public_id });
+            res.json({
+              url: result.secure_url,
+              public_id: result.public_id,
+              message: "Image upload successfull!",
+            });
           } catch (err) {
             return next(err);
           }
@@ -46,7 +50,7 @@ const uploadController = {
         try {
           if (err) throw err;
           console.log(result);
-          res.json({ messge: "Deleted Image" });
+          res.json({ message: "Deleted Image" });
         } catch (err) {
           return next(err);
         }

@@ -2,6 +2,45 @@
 .shop {
   padding-top: 7rem;
 
+  &__filter {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    // align-items: center;
+    // justify-content: space-between;
+    // gap: 1rem;
+
+    @include breakpoint-up("medium") {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    input {
+      height: 42px;
+      @include breakpoint-up("medium") {
+        flex: 1;
+      }
+    }
+
+    &__select {
+      display: flex;
+      align-items: center;
+
+      @include breakpoint-up("medium") {
+        flex: 1;
+        justify-content: flex-end;
+      }
+      @include breakpoint-up("xlarge") {
+        flex: 2;
+      }
+
+      select {
+        padding: 0.3rem 0.6rem;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
   &__heading {
     display: flex;
     justify-content: space-between;

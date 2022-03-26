@@ -5,6 +5,13 @@
   &__products {
     gap: 2rem;
 
+    h4 {
+      text-align: center;
+
+      color: #333;
+      font-weight: 600;
+      font-size: 24px;
+    }
     @include breakpoint-up("medium") {
       grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
@@ -14,6 +21,7 @@
     }
     @include breakpoint-up("xlarge") {
       grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
     }
   }
 

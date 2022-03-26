@@ -25,7 +25,9 @@ class CustomErrorHandler extends Error {
     return new CustomErrorHandler(404, message);
   }
 
-  static serverError(message = "Internal server error") {
+  static serverError(
+    message = "Your request could not be processed. Please try again."
+  ) {
     return new CustomErrorHandler(500, message);
   }
 }

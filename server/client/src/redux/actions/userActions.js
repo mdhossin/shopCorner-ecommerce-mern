@@ -2,6 +2,7 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_REGISTER_RESET,
 } from "../constants/userConstants";
 import axios from "axios";
 import { checkTokenExp } from "../../utils/checkToeknExp";
@@ -67,11 +68,9 @@ export const register = (name, email, password) => async (dispatch) => {
       payload: data,
     });
 
-    // setTimeout(() => {
-    //   dispatch({
-    //     type: USER_REGISTER_RESET,
-    //   });
-    // }, 3000);
+    dispatch({
+      type: USER_REGISTER_RESET,
+    });
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
