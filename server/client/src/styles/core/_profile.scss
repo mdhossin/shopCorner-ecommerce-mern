@@ -118,5 +118,18 @@
 
   &__button {
     width: 160px;
+    margin-bottom: 3rem;
+  }
+
+  &__admin {
+    margin-top: 3rem;
+    &__users {
+      &-title {
+        color: #333;
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 3rem;
+      }
+    }
   }
 }

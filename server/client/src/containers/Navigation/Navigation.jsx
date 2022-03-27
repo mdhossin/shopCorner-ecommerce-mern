@@ -11,7 +11,10 @@ import WishList from "../WishList/WishList";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/userActions";
 import { useToasts } from "react-toast-notifications";
-import { USER_LOGOUT } from "../../redux/constants/userConstants";
+import {
+  USER_LOGOUT,
+  USER_LOGOUT_RESET,
+} from "../../redux/constants/userConstants";
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -24,8 +27,10 @@ const Navigation = () => {
   const [isWishListOpen, setisWishListOpen] = useState(false);
 
   const user = useSelector((state) => state.userLogin);
-  const { userInfo, error } = user;
+  const { userInfo } = user;
   // console.log(userInfo);
+  const logoutUser = useSelector((state) => state.userLogout);
+  const { userLogout, error } = logoutUser;
 
   const toggleCart = () => {
     setCartOpen(false);
@@ -70,17 +75,18 @@ const Navigation = () => {
 
   useEffect(() => {
     if (error) {
+      dispatch({ type: USER_LOGOUT_RESET });
       addToast(error, { appearance: "error", autoDismiss: true });
-    } else if (userInfo?.message === "Logged out!") {
-      // dispatch({ type: USER_REGISTER_RESET });
-      dispatch({ type: USER_LOGOUT });
-      addToast(userInfo?.message, {
+    } else if (userLogout) {
+      dispatch({ type: USER_LOGOUT_RESET });
+
+      addToast(userLogout?.message, {
         appearance: "success",
         autoDismiss: true,
       });
-      // navigate("/");
+      navigate("/");
     }
-  }, [userInfo, error, addToast, dispatch, navigate]);
+  }, [userLogout, error, addToast, dispatch, navigate]);
 
   return (
     <header className="header" ref={headerRef}>

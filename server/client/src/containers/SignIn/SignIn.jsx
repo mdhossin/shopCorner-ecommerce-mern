@@ -6,16 +6,16 @@ import { googleLogin, login } from "../../redux/actions/userActions";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Spinner } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
+import { USER_LOGIN_RESET } from "../../redux/constants/userConstants";
 const SignIn = () => {
-  // const { pathname } = location;
   const navigate = useNavigate();
-  // let location = useLocation();
+  let location = useLocation();
 
   const [newUser, setNewUser] = useState({ email: "", password: "" });
 
   const { addToast } = useToasts();
 
-  // const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirect = location.state?.path || "/";
 
   const userLogin = useSelector((state) => state?.userLogin);
   const { email, password } = newUser;
@@ -32,11 +32,11 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     dispatch(login(email, password));
   };
 
   const responseGoogle = async (response) => {
-    console.log(response, "google");
     try {
       dispatch(googleLogin(response.tokenId));
     } catch (error) {
@@ -46,15 +46,18 @@ const SignIn = () => {
 
   useEffect(() => {
     if (error) {
+      dispatch({ type: USER_LOGIN_RESET });
       addToast(error, { appearance: "error", autoDismiss: true });
     } else if (userInfo) {
-      addToast(userInfo?.message, {
-        appearance: "success",
-        autoDismiss: true,
-      });
-      // navigate(redirect);
+      if (userInfo.message !== undefined) {
+        addToast(userInfo?.message, {
+          appearance: "success",
+          autoDismiss: true,
+        });
+      }
+      navigate(redirect, { replace: true });
     }
-  }, [userInfo, error, addToast, navigate]);
+  }, [userInfo, error, addToast, navigate, dispatch, redirect]);
 
   return (
     <section className="section">

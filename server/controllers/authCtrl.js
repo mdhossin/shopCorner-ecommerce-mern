@@ -17,6 +17,7 @@ import { OAuth2Client } from "google-auth-library";
 
 const client = new OAuth2Client(`${process.env.MAIL_CLIENT_ID}`);
 const CLIENT_URL = `http://localhost:3000`;
+// const CLIENT_URL = `https://quick-shop-mern.herokuapp.com`;
 
 const authCtrl = {
   async register(req, res, next) {
@@ -224,6 +225,16 @@ const authCtrl = {
         };
         registerUser(user, res);
       }
+    } catch (err) {
+      return next(err);
+    }
+  },
+  // get all user
+  async getAllUser(req, res, next) {
+    try {
+      const users = await Users.find().select("-password");
+
+      res.json(users);
     } catch (err) {
       return next(err);
     }

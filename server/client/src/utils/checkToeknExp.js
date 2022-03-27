@@ -13,7 +13,7 @@ export const checkTokenExp = async (token, dispatch) => {
     },
   };
 
-  const res = await axios.get("/api/google_logi/api/refresh_token", config);
+  const res = await axios.get("/api/refresh_token", config);
   console.log(res, "check token expire");
 
   dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });

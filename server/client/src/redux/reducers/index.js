@@ -1,7 +1,11 @@
 import { combineReducers } from "redux";
 import auth from "./authReducer";
 import alert from "./alertReducer";
-import { userLoginReducer } from "./userReducer";
+import {
+  userLoginReducer,
+  userLogoutReducer,
+  userRegisterReducer,
+} from "./userReducer";
 import {
   adminProductReducer,
   createProductReducer,
@@ -14,6 +18,8 @@ export default combineReducers({
   alert,
   auth,
   userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
+  userLogout: userLogoutReducer,
   createProduct: createProductReducer,
   allProducts: productReducer,
   deleteProduct: productDeleteReducer,

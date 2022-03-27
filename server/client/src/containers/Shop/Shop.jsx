@@ -48,7 +48,7 @@ const Shop = ({ props }) => {
             type="text"
             value={search}
             placeholder="Enter your search!"
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value.toLowerCase())}
           />
 
           <div className="shop__filter__select">

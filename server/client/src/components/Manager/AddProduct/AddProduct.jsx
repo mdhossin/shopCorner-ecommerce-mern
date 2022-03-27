@@ -66,12 +66,16 @@ const AddProduct = () => {
       formData.append("file", file);
       setIsLoading(true);
       setUploadError("");
-      const res = await axios.post("/api/upload_image", formData, {
-        headers: {
-          "content-type": "multipart/form-data",
-          Authorization: token,
-        },
-      });
+      const res = await axios.post(
+        "/api/upload_image",
+        formData,
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+            Authorization: token,
+          },
+        }
+      );
       setIsLoading(false);
       setImages(res.data);
       setUploadSuccess(res.data.message);

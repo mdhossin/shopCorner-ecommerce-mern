@@ -2,7 +2,13 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGOUT_FAIL,
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_SUCCESS,
+  USER_REGISTER_FAIL,
+  USER_REGISTER_REQUEST,
   USER_REGISTER_RESET,
+  USER_REGISTER_SUCCESS,
 } from "../constants/userConstants";
 import axios from "axios";
 import { checkTokenExp } from "../../utils/checkToeknExp";
@@ -48,7 +54,7 @@ export const login = (email, password) => async (dispatch) => {
 export const register = (name, email, password) => async (dispatch) => {
   try {
     dispatch({
-      type: USER_LOGIN_REQUEST,
+      type: USER_REGISTER_REQUEST,
     });
 
     const config = {
@@ -64,16 +70,12 @@ export const register = (name, email, password) => async (dispatch) => {
     );
 
     dispatch({
-      type: USER_LOGIN_SUCCESS,
+      type: USER_REGISTER_SUCCESS,
       payload: data,
-    });
-
-    dispatch({
-      type: USER_REGISTER_RESET,
     });
   } catch (error) {
     dispatch({
-      type: USER_LOGIN_FAIL,
+      type: USER_REGISTER_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -117,6 +119,7 @@ export const refreshToken = () => async (dispatch) => {
     localStorage.removeItem("logged");
   }
 };
+
 // user logout action
 export const logout = (token, navigate) => async (dispatch) => {
   const result = await checkTokenExp(token, dispatch);
@@ -126,7 +129,7 @@ export const logout = (token, navigate) => async (dispatch) => {
   try {
     localStorage.removeItem("logged");
     dispatch({
-      type: USER_LOGIN_REQUEST,
+      type: USER_LOGOUT_REQUEST,
     });
 
     const config = {
@@ -140,13 +143,13 @@ export const logout = (token, navigate) => async (dispatch) => {
     // console.log(data, access_token, "logout action");
 
     dispatch({
-      type: USER_LOGIN_SUCCESS,
+      type: USER_LOGOUT_SUCCESS,
       payload: data,
     });
     window.location.href = "/";
   } catch (error) {
     dispatch({
-      type: USER_LOGIN_FAIL,
+      type: USER_LOGOUT_FAIL,
       payload:
         error.response && error.response.data
           ? error.response.data

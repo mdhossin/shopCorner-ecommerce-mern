@@ -1,9 +1,17 @@
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
+  USER_LOGIN_RESET,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
+  USER_LOGOUT_FAIL,
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_RESET,
+  USER_LOGOUT_SUCCESS,
+  USER_REGISTER_FAIL,
+  USER_REGISTER_REQUEST,
   USER_REGISTER_RESET,
+  USER_REGISTER_SUCCESS,
   // USER_REGISTER_SUCCESS,
   // USER_REGISTER_REQUEST,
   // USER_REGISTER_FAIL,
@@ -50,10 +58,7 @@ export const userLoginReducer = (state = {}, action) => {
         error: action.payload,
       };
 
-    case USER_REGISTER_RESET:
-      return {};
-
-    case USER_LOGOUT:
+    case USER_LOGIN_RESET:
       return {};
 
     default:
@@ -62,32 +67,55 @@ export const userLoginReducer = (state = {}, action) => {
 };
 
 // user register action
-// export const userRegisterReducer = (state = {}, action) => {
-//   switch (action.type) {
-//     case USER_REGISTER_REQUEST:
-//       return {
-//         loading: true,
-//       };
+export const userRegisterReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_REGISTER_REQUEST:
+      return {
+        loading: true,
+      };
 
-//     case USER_REGISTER_SUCCESS:
-//       return {
-//         loading: false,
-//         userInfo: action.payload,
-//       };
+    case USER_REGISTER_SUCCESS:
+      return {
+        loading: false,
+        userInfo: action.payload,
+      };
 
-//     case USER_REGISTER_FAIL:
-//       return {
-//         loading: false,
-//         error: action.payload,
-//       };
+    case USER_REGISTER_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
 
-//     case USER_REGISTER_RESET:
-//       return {};
+    case USER_REGISTER_RESET:
+      return {};
 
-//     case USER_LOGOUT:
-//       return {};
+    default:
+      return state;
+  }
+};
+// user register action
+export const userLogoutReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_LOGOUT_REQUEST:
+      return {
+        loading: true,
+      };
 
-//     default:
-//       return state;
-//   }
-// };
+    case USER_LOGOUT_SUCCESS:
+      return {
+        loading: false,
+        userLogout: action.payload,
+      };
+
+    case USER_LOGOUT_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case USER_LOGOUT_RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};

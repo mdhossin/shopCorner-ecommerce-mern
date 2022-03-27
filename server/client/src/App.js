@@ -56,10 +56,7 @@ function App() {
               path="/signup"
               element={user?.access_token ? <Navigate to="/" /> : <SignUp />}
             ></Route>
-            <Route
-              path="signin"
-              element={user?.access_token ? <Navigate to="/" /> : <SignIn />}
-            ></Route>
+            <Route path="signin" element={<SignIn />}></Route>
 
             <Route
               path="/active/:activation_token"

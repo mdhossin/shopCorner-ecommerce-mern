@@ -62,9 +62,9 @@ const SignUp = () => {
       required: true,
     },
   ];
-  const userLogin = useSelector((state) => state.userLogin);
+  const userReg = useSelector((state) => state.userRegister);
 
-  const { loading, error, userInfo } = userLogin;
+  const { loading, error, userInfo: userRegInfo } = userReg;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,16 +77,17 @@ const SignUp = () => {
 
   useEffect(() => {
     if (error) {
-      addToast(error, { appearance: "error", autoDismiss: true });
-    } else if (userInfo) {
       dispatch({ type: USER_REGISTER_RESET });
-      addToast(userInfo?.message, {
+      addToast(error, { appearance: "error", autoDismiss: true });
+    } else if (userRegInfo) {
+      dispatch({ type: USER_REGISTER_RESET });
+      addToast(userRegInfo?.message, {
         appearance: "success",
         autoDismiss: true,
       });
       // history.push("/");
     }
-  }, [userInfo, error, addToast, dispatch]);
+  }, [userRegInfo, error, addToast, dispatch]);
 
   return (
     <section className="section">
