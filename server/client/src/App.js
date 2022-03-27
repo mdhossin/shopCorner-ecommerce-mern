@@ -74,7 +74,14 @@ function App() {
               }
             />
 
-            <Route path="/contact" element={<Contact />}></Route>
+            <Route
+              path="/contact"
+              element={
+                <PrivateRoute>
+                  <Contact />
+                </PrivateRoute>
+              }
+            ></Route>
             <Route path="/shop" element={<Shop />}></Route>
             <Route
               path="/product/:productId"

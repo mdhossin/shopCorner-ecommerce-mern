@@ -9,13 +9,13 @@ import { GoogleLogin } from "react-google-login";
 const SignIn = () => {
   // const { pathname } = location;
   const navigate = useNavigate();
-  let location = useLocation();
+  // let location = useLocation();
 
   const [newUser, setNewUser] = useState({ email: "", password: "" });
 
   const { addToast } = useToasts();
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  // const redirect = location.search ? location.search.split("=")[1] : "/";
 
   const userLogin = useSelector((state) => state?.userLogin);
   const { email, password } = newUser;
@@ -52,9 +52,9 @@ const SignIn = () => {
         appearance: "success",
         autoDismiss: true,
       });
-      navigate(redirect);
+      // navigate(redirect);
     }
-  }, [userInfo, error, addToast, navigate, redirect]);
+  }, [userInfo, error, addToast, navigate]);
 
   return (
     <section className="section">

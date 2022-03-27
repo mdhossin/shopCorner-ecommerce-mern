@@ -78,9 +78,11 @@ const ShopProductSingle = ({
               )}
             </div>
             <div className="pro-same-action pro-quickview">
-              <button title="Quick View">
-                <AiOutlineEye />
-              </button>
+              <Link to={`/product/${product._id}`}>
+                <button title="Quick View">
+                  <AiOutlineEye />
+                </button>
+              </Link>
             </div>
           </div>
         </div>

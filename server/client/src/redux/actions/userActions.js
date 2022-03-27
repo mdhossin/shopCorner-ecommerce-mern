@@ -118,7 +118,7 @@ export const refreshToken = () => async (dispatch) => {
   }
 };
 // user logout action
-export const logout = (token) => async (dispatch) => {
+export const logout = (token, navigate) => async (dispatch) => {
   const result = await checkTokenExp(token, dispatch);
   // console.log("logout action ", result, token);
   const access_token = result ? result : token;

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import Loading from "../../components/Common/Loading/Loading";
 
-const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ children }) => {
   const user = useSelector((state) => state?.userLogin);
   const { loading, userInfo } = user;
   // console.log(loading, userInfo);
@@ -12,9 +12,24 @@ const PrivateRoute = ({ children, ...rest }) => {
     return <Loading />;
   }
 
-  if (userInfo?.access_token) {
-    return children;
-  }
-  return <Navigate to="/signin" state={{ from: location }} />;
+  console.log(location, "private route");
+
+  // if (userInfo?.access_token) {
+  //   return children;
+  // }
+  // return <Navigate to="/signin" state={{ from: location }} />;
+
+  // const location = useLocation()
+
+  return userInfo?.access_token ? (
+    <>{children}</>
+  ) : (
+    <Navigate
+      replace={true}
+      to="/signin"
+      // state={{ from: `${location.pathname}${location.search}` }}
+      state={{ from: location }}
+    />
+  );
 };
 export default PrivateRoute;

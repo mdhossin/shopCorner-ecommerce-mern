@@ -2,11 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import Loading from "../../components/Common/Loading/Loading";
+import LoadMore from "./LoadMore";
 import ShopProductSingle from "./ShopProductSingle";
 
-const ShopProduct = () => {
+const ShopProduct = ({ page, setPage }) => {
   const { products, loading } = useSelector((state) => state.allProducts);
   return (
+    // reuse css class
     <section className="featured container-div">
       <div className="featured__container">
         <div className="featured__products grid">
@@ -21,9 +23,15 @@ const ShopProduct = () => {
                   })}
               </>
             )}
-            {products?.result === 0 && <h4>No Products Found.</h4>}
+
+            {products?.result === 0 && (
+              <h4 className="featured__products__notFound">
+                No Products Found.
+              </h4>
+            )}
           </>
         </div>
+        <LoadMore page={page} setPage={setPage} />
 
         {/* paignation */}
 
