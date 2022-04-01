@@ -1,31 +1,26 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const CheckOut = () => {
-  const authenticated = false;
+const CheckOut = ({ setCartOpen }) => {
   return (
     <div className="easy-checkout">
       <div className="checkout-actions">
-        {/* <Button
-          variant='primary'
-          text='Continue shopping'
-        //   onClick={() => handleShopping()}
-        /> */}
-        <button className="button">Continue shopping</button>
-        {authenticated ? (
-          //   <Button
-          //     variant='primary'
-          //     text='Place Order'
-          //     onClick={() => placeOrder()}
-          //   />
-          <button className="button-secondary">Place Order</button>
-        ) : (
-          //   <Button
-          //     variant='primary'
-          //     text='Proceed To Checkout'
-          //     onClick={() => handleCheckout()}
-          //   />
-          <button className="button-secondary">Proceed To Checkout</button>
-        )}
+        <div>
+          <Link to="/shop">
+            {" "}
+            <button onClick={() => setCartOpen(false)} className="button">
+              Continue shopping
+            </button>
+          </Link>
+        </div>
+
+        <div>
+          <Link to="/login?redirect=shipping">
+            <button onClick={() => setCartOpen(false)} className="button">
+              Proceed To Checkout
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

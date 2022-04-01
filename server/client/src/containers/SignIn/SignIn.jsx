@@ -110,7 +110,7 @@ const SignIn = () => {
 
             <div className="social">
               <GoogleLogin
-                clientId="994706260185-sodif49ii1913oaisttos5htu1b5rsio.apps.googleusercontent.com"
+                clientId="649886608461-2bepdbv7vetejfvem6pjh23406vdeip4.apps.googleusercontent.com"
                 buttonText="Signin with google"
                 onSuccess={responseGoogle}
                 cookiePolicy={"single_host_origin"}

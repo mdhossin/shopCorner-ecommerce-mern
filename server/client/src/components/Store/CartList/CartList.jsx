@@ -1,15 +1,21 @@
 import React from "react";
 
 import { FiTrash } from "react-icons/fi";
-import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineClose } from "react-icons/ai";
 
-const CartList = ({ cartItems }) => {
+const CartList = ({
+  cartItems,
+  decreaseQuantity,
+  increaseQuantity,
+  deleteCartItems,
+}) => {
+  console.log(cartItems);
   return (
     <div className="cart__header__body__list">
-      {cartItems.map((item, index) => (
+      {cartItems?.map((item, index) => (
         <div key={index} className="cart__header__body__list__item">
           <img
-            src={item.imageUrl}
+            src={item.image}
             className="cart__header__body__list__item-img"
             alt=""
           />
@@ -23,23 +29,44 @@ const CartList = ({ cartItems }) => {
                 {item.name}
               </a>
               <a href="#home">
-                <FiTrash className="cart__header__body__list__item__details__name-delete" />
+                <AiOutlineClose className="cart__header__body__list__item__details__name-delete" />
               </a>
             </div>
 
             <div className="cart__header__body__list__item__details__price">
               <div className="cart__header__body__list__item__details__price__wrapper">
-                <div className="cart__header__body__list__item__details__price__wrapper-quantity">
-                  <button className="cart__header__body__list__item__increase">
-                    <AiOutlinePlus />
-                  </button>
-                  <span>0</span>
-                  <button className="cart__header__body__list__item__decrease">
-                    <AiOutlineMinus />
-                  </button>
+                <div className="product__detail__info__buttons">
+                  <div className="product__detail__info__buttons-quantity">
+                    <button
+                      onClick={() =>
+                        decreaseQuantity(item.product, item.quantity)
+                      }
+                      className="minus"
+                    >
+                      -
+                    </button>
+                    <input
+                      className="input"
+                      readOnly
+                      type="number"
+                      value={item.quantity}
+                    />
+                    <button
+                      onClick={() =>
+                        increaseQuantity(
+                          item.product,
+                          item.quantity,
+                          item.stock
+                        )
+                      }
+                      className="add"
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
                 <div className="cart__header__body__list__item__details__price__wrapper-price">
-                  $120
+                  ${item.price * item.quantity}
                 </div>
               </div>
             </div>

@@ -63,7 +63,7 @@ const authCtrl = {
 
       if (password?.length < 6) {
         return next(
-          CustomErrorHandler.wrongValidation(
+          CustomErrorHandler.badRequest(
             "Password must be at least 6 charactor."
           )
         );
@@ -99,9 +99,7 @@ const authCtrl = {
       const { newUser } = decoded;
 
       if (!newUser)
-        return next(
-          CustomErrorHandler.wrongValidation("Invalid authentication.")
-        );
+        return next(CustomErrorHandler.badRequest("Invalid authentication."));
 
       const user = await Users.findOne({ email: newUser.email });
       if (user)
@@ -123,7 +121,7 @@ const authCtrl = {
       const user = await Users.findOne({ email });
       if (!user)
         return next(
-          CustomErrorHandler.wrongValidation("This account does not exits.")
+          CustomErrorHandler.badRequest("This account does not exits.")
         );
 
       // if user exists
@@ -134,9 +132,7 @@ const authCtrl = {
   },
   async logout(req, res, next) {
     if (!req.user)
-      return next(
-        CustomErrorHandler.wrongValidation("Invalid Authentication.")
-      );
+      return next(CustomErrorHandler.badRequest("Invalid Authentication."));
 
     try {
       res.clearCookie("refreshtoken", { path: `/api/refresh_token` });
@@ -157,25 +153,25 @@ const authCtrl = {
     try {
       const rf_token = req.cookies.refreshtoken;
       if (!rf_token)
-        return next(CustomErrorHandler.wrongValidation("Please login now!"));
+        return next(CustomErrorHandler.badRequest("Please login now!"));
 
       const decoded = jwt.verify(
         rf_token,
         `${process.env.REFRESH_TOKEN_SECRET}`
       );
       if (!decoded.id)
-        return next(CustomErrorHandler.wrongValidation("Please login now!"));
+        return next(CustomErrorHandler.badRequest("Please login now!"));
 
       const user = await Users.findById(decoded.id).select(
         "-password +rf_token"
       );
       if (!user)
         return next(
-          CustomErrorHandler.wrongValidation("This email does not exist.")
+          CustomErrorHandler.badRequest("This email does not exist.")
         );
 
       if (rf_token !== user.rf_token)
-        return next(CustomErrorHandler.wrongValidation("Please login now!"));
+        return next(CustomErrorHandler.badRequest("Please login now!"));
 
       const access_token = generateAccessToken({ id: user._id });
       const refresh_token = generateRefreshToken({ id: user._id }, res);
@@ -229,7 +225,7 @@ const authCtrl = {
       return next(err);
     }
   },
-  // get all user
+  // get all user user routes start here
   async getAllUser(req, res, next) {
     try {
       const users = await Users.find().select("-password");
@@ -256,6 +252,38 @@ const authCtrl = {
         }
       );
       res.json({ message: "Update Success!" });
+    } catch (err) {
+      return next(err);
+    }
+  },
+  // onley can admin do
+  async updateUsersRole(req, res, next) {
+    try {
+      const { role } = req.body;
+
+      await Users.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        {
+          role,
+        },
+        {
+          new: true,
+        }
+      );
+      res.json({ message: "Update Success!" });
+    } catch (err) {
+      return next(err);
+    }
+  },
+  // onley can admin do
+  async deleteUser(req, res, next) {
+    try {
+      await Users.findByIdAndDelete(req.params.id);
+      res.json({
+        message: "Deleted Successful!",
+      });
     } catch (err) {
       return next(err);
     }

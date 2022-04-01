@@ -80,6 +80,15 @@
         width: calc(100% - 48px - 48px);
 
         transition-delay: 0.1s;
+
+        .cart-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        svg {
+          margin-right: 0.5rem;
+        }
       }
       .pro-quickview {
         width: 48px;

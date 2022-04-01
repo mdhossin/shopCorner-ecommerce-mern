@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import SelectOption from "../../components/Common/SelectOption/SelectOption";
 import Footer from "../Footer/Footer";
 import { fetchProducts } from "../../redux/actions/productAction";
 import ShopProduct from "./ShopProduct";
 
 const Shop = ({ props }) => {
   const dispatch = useDispatch();
-  //   const { products, advancedFilters, filterProducts } = props;
-  //   const { totalProducts, pageNumber, pages, order } = advancedFilters;
-
-  // const totalProducts = 15;
-  // const pageNumber = 1;
 
   const [category, setCategory] = useState("");
   const [sort, setSort] = useState("");

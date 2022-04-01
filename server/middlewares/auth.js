@@ -20,7 +20,7 @@ const auth = async (req, res, next) => {
     const user = await Users.findOne({ _id: decoded.id }).select("-password");
 
     if (!user) {
-      return next(CustomErrorHandler.wrongValidation("User does not exist."));
+      return next(CustomErrorHandler.badRequest("User does not exist."));
     }
 
     req.user = user;

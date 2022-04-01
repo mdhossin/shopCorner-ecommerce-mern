@@ -15,6 +15,10 @@
 
     button {
       font-size: 14px;
+
+      @include breakpoint-up("medium") {
+        padding: 0 2.2rem;
+      }
     }
   }
 }

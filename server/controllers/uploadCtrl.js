@@ -44,7 +44,7 @@ const uploadController = {
     try {
       const { public_id } = req.body;
       if (!public_id)
-        return next(CustomErrorHandler.wrongValidation("No images Selected"));
+        return next(CustomErrorHandler.badRequest("No images Selected"));
 
       cloudinary.v2.uploader.destroy(public_id, async (err, result) => {
         try {

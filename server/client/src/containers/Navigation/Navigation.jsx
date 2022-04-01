@@ -11,10 +11,7 @@ import WishList from "../WishList/WishList";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/userActions";
 import { useToasts } from "react-toast-notifications";
-import {
-  USER_LOGOUT,
-  USER_LOGOUT_RESET,
-} from "../../redux/constants/userConstants";
+import { USER_LOGOUT_RESET } from "../../redux/constants/userConstants";
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -28,9 +25,11 @@ const Navigation = () => {
 
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user;
-  // console.log(userInfo);
+
   const logoutUser = useSelector((state) => state.userLogout);
   const { userLogout, error } = logoutUser;
+
+  const { cartItems } = useSelector((state) => state.cart);
 
   const toggleCart = () => {
     setCartOpen(false);
@@ -57,20 +56,8 @@ const Navigation = () => {
   }, []);
 
   const handleLogout = () => {
-    // dispatch({ typ: USER_LOGOUT });
     if (!user?.userInfo?.access_token) return;
     dispatch(logout(userInfo?.access_token));
-
-    // if (error) {
-    //   addToast(error, { appearance: "error", autoDismiss: true });
-    // } else if (userInfo?.message) {
-    //   dispatch({ type: USER_LOGOUT });
-    //   addToast(userInfo?.message, {
-    //     appearance: "success",
-    //     autoDismiss: true,
-    //   });
-    //   // navigate(redirect);
-    // }
   };
 
   useEffect(() => {
@@ -226,7 +213,7 @@ const Navigation = () => {
                 }}
               >
                 <BsHandbag />
-                <span className="nav__icons__cart">0</span>
+                <span className="nav__icons__cart">{cartItems?.length}</span>
               </a>
             </li>
           </ul>

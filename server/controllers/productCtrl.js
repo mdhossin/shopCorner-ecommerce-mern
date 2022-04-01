@@ -77,13 +77,11 @@ const productCtrl = {
   },
   async createProduct(req, res, next) {
     try {
-      const { name, description, quantity, price, isActive, images, ratings } =
+      const { name, description, Stock, price, isActive, images, ratings } =
         req.body;
 
       if (!images) {
-        return next(
-          CustomErrorHandler.wrongValidation("You must upload image.")
-        );
+        return next(CustomErrorHandler.badRequest("You must upload image."));
       }
 
       if (!description || !name) {
@@ -92,8 +90,8 @@ const productCtrl = {
           .json({ message: "You must enter description & name." });
       }
 
-      if (!quantity) {
-        return res.status(400).json({ message: "You must enter a quantity." });
+      if (!Stock) {
+        return res.status(400).json({ message: "You must enter a stock." });
       }
 
       if (!price) {
@@ -103,7 +101,7 @@ const productCtrl = {
       const product = new Products({
         name: name.toLowerCase(),
         description,
-        quantity,
+        Stock,
         price,
         isActive,
         images,
@@ -122,10 +120,10 @@ const productCtrl = {
   },
   async updateProducts(req, res, next) {
     try {
-      const { name, description, quantity, price, isActive, images, ratings } =
+      const { name, description, Stock, price, isActive, images, ratings } =
         req.body;
       if (!images) {
-        return next(CustomErrorHandler.wrongValidation("No image upload"));
+        return next(CustomErrorHandler.badRequest("No image upload"));
       }
 
       await Products.findOneAndUpdate(
@@ -133,7 +131,7 @@ const productCtrl = {
         {
           name,
           description,
-          quantity,
+          Stock,
           price,
           isActive,
           images,

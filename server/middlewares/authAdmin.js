@@ -4,7 +4,7 @@ const authAdmin = async (req, res, next) => {
   console.log(req.user, "auth admin");
   try {
     const user = await Users.findOne({ _id: req.user.id });
-    if (user.role === "admin") {
+    if (user.role === 1) {
       next();
     } else {
       return next(

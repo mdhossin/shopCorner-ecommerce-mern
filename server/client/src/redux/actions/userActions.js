@@ -1,4 +1,7 @@
 import {
+  USER_LIST_FAIL,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -7,7 +10,6 @@ import {
   USER_LOGOUT_SUCCESS,
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
-  USER_REGISTER_RESET,
   USER_REGISTER_SUCCESS,
 } from "../constants/userConstants";
 import axios from "axios";
@@ -188,6 +190,37 @@ export const googleLogin = (id_token) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+// user list for admin
+
+export const userList = (token) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_LIST_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    };
+
+    const { data } = await axios.get(`/user/users`, config);
+    dispatch({
+      type: USER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_LIST_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

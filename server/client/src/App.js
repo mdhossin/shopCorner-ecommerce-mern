@@ -29,6 +29,7 @@ import AddProduct from "./components/Manager/AddProduct/AddProduct";
 import ProductDetail from "./containers/ProductDetail/ProductDetail";
 
 import AdminProductList from "./components/Manager/AdminProductList/AdminProductList";
+import EditUser from "./components/Manager/EditUser/EditUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -85,7 +86,7 @@ function App() {
               element={<ProductDetail />}
             ></Route>
 
-            {user?.access_token && user?.user?.role === "user" && (
+            {user?.access_token && user?.user?.role === 0 && (
               <Route
                 path="/dashboard"
                 element={
@@ -99,7 +100,7 @@ function App() {
                 <Route path="orders" element={<Blank />} />
               </Route>
             )}
-            {user?.access_token && user?.user?.role === "admin" && (
+            {user?.access_token && user?.user?.role === 1 && (
               <Route
                 path="/dashboard"
                 element={
@@ -112,6 +113,7 @@ function App() {
                 <Route path="users" element={<Profile />} />
                 <Route path="addproduct" element={<AddProduct />} />
                 <Route path="edit/:productId" element={<AddProduct />} />
+                <Route path="edit_user/:id" element={<EditUser />} />
 
                 <Route path="products" element={<AdminProductList />} />
 

@@ -133,3 +133,71 @@
     }
   }
 }
+
+/* -------------- Edit User ----------------- */
+.edit_user {
+  margin-bottom: 7rem;
+
+  .go_back {
+    background: white;
+    margin: 20px;
+    font-size: 1.2rem;
+    text-align: start;
+    cursor: pointer;
+  }
+  .col-left {
+    margin-top: 50px;
+    @include breakpoint-up("large") {
+      width: 500px;
+      margin: 0 auto;
+    }
+
+    .edit {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 2rem;
+      font-weight: 600;
+    }
+
+    .form-group {
+      label {
+        margin-bottom: 0.8rem;
+      }
+
+      margin-bottom: 1rem;
+    }
+
+    input {
+      background: #eee;
+    }
+
+    #isAdmin {
+      width: 20px;
+      height: 20px;
+      transform: translateY(3px);
+      margin: 10px 0;
+    }
+
+    .update-btn {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1;
+
+      padding: 15px 52px;
+
+      text-transform: uppercase;
+
+      color: #fff;
+      border: none;
+      background-color: #404040;
+      &:hover {
+        background-color: var(--theme-color);
+      }
+    }
+  }
+}
+
+.edit_user .col-left #isAdmin + label {
+  display: inline-block;
+  margin-left: 5px;
+}

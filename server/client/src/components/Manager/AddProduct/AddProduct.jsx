@@ -13,7 +13,7 @@ import { CREATE_PRODUCT_RESET } from "../../../redux/constants/productConstants"
 const initialstate = {
   name: "",
   description: "",
-  quantity: 0,
+  Stock: 0,
   price: 0,
 };
 const AddProduct = () => {
@@ -30,7 +30,7 @@ const AddProduct = () => {
 
   const [onEdit, setOnEdit] = useState(false);
 
-  const { name, description, quantity, price } = product;
+  const { name, description, Stock, price } = product;
 
   const [images, setImages] = useState(false);
   const [uploadError, setUploadError] = useState("");
@@ -66,16 +66,12 @@ const AddProduct = () => {
       formData.append("file", file);
       setIsLoading(true);
       setUploadError("");
-      const res = await axios.post(
-        "/api/upload_image",
-        formData,
-        {
-          headers: {
-            "content-type": "multipart/form-data",
-            Authorization: token,
-          },
-        }
-      );
+      const res = await axios.post("/api/upload_image", formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+          Authorization: token,
+        },
+      });
       setIsLoading(false);
       setImages(res.data);
       setUploadSuccess(res.data.message);
@@ -215,10 +211,10 @@ const AddProduct = () => {
               <input
                 className="contact__form__div-input"
                 type="number"
-                name="quantity"
-                id="quantity"
+                name="Stock"
+                id="Stock"
                 placeholder="Product stock"
-                value={quantity}
+                value={Stock}
                 onChange={handleChangeInput}
               />
             </div>

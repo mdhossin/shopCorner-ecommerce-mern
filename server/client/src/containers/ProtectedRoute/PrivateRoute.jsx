@@ -1,12 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Navigate, useLocation, Route } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import Loading from "../../components/Common/Loading/Loading";
 
 const PrivateRoute = ({ children }) => {
   const user = useSelector((state) => state?.userLogin);
   const { userInfo, loading } = user;
-  // console.log(loading, userInfo);
   let location = useLocation();
   if (loading) {
     return <Loading />;
