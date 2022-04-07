@@ -24,7 +24,7 @@ const AddProduct = () => {
 
   const dispatch = useDispatch();
 
-  const token = useSelector((state) => state.userLogin.userInfo.access_token);
+  const token = useSelector((state) => state.userLogin?.userInfo?.access_token);
   const { products, error } = useSelector((state) => state.createProduct);
   const productData = useSelector((state) => state.adminProducts);
 

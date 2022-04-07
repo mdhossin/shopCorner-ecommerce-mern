@@ -43,3 +43,9 @@
 @use "./product-detail";
 @use "./admin-sigle-product";
 @use "./user-list-item";
+
+@use "./shipping";
+
+@use "./checkout-steps";
+
+@use "./confirm-order";

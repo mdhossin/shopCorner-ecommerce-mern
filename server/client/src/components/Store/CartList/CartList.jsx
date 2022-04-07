@@ -1,7 +1,6 @@
 import React from "react";
 
-import { FiTrash } from "react-icons/fi";
-import { AiOutlinePlus, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 
 const CartList = ({
   cartItems,
@@ -29,7 +28,10 @@ const CartList = ({
                 {item.name}
               </a>
               <a href="#home">
-                <AiOutlineClose className="cart__header__body__list__item__details__name-delete" />
+                <AiOutlineClose
+                  className="cart__header__body__list__item__details__name-delete"
+                  onClick={() => deleteCartItems(item.product)}
+                />
               </a>
             </div>
 

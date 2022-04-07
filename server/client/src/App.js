@@ -13,7 +13,7 @@ import ScrollToTop from "./helpers/ScrollToTop";
 import Shop from "./containers/Shop/Shop";
 import { ToastProvider } from "react-toast-notifications";
 import ActivationEmail from "./containers/ActivationEmail/ActivationEmail";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { refreshToken } from "./redux/actions/userActions";
 
@@ -30,9 +30,34 @@ import ProductDetail from "./containers/ProductDetail/ProductDetail";
 
 import AdminProductList from "./components/Manager/AdminProductList/AdminProductList";
 import EditUser from "./components/Manager/EditUser/EditUser";
+import Shipping from "./containers/Shipping/Shipping";
+import ConfirmOrder from "./containers/ConfirmOrder/ConfirmOrder";
+import axios from "axios";
 
 function App() {
   const dispatch = useDispatch();
+  const [stripeApiKey, setStripeApiKey] = useState("");
+  console.log(stripeApiKey, "stripeapiky");
+  const token = useSelector((state) => state.userLogin?.userInfo?.access_token);
+  useEffect(() => {
+    const getStripeApiKey = async () => {
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        };
+
+        const { data } = await axios.get("/api/stripeapikey", config);
+
+        setStripeApiKey(data.stripeApiKey);
+      } catch (error) {
+        console.log(error?.message);
+      }
+    };
+    getStripeApiKey();
+  }, [token]);
 
   useEffect(() => {
     dispatch(refreshToken());
@@ -58,6 +83,9 @@ function App() {
               element={user?.access_token ? <Navigate to="/" /> : <SignUp />}
             ></Route>
             <Route path="signin" element={<SignIn />}></Route>
+
+            <Route path="shipping" element={<Shipping />}></Route>
+            <Route path="/order/confirm" element={<ConfirmOrder />}></Route>
 
             <Route
               path="/active/:activation_token"

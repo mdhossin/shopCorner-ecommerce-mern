@@ -5,22 +5,21 @@ const CheckOut = ({ setCartOpen }) => {
   return (
     <div className="easy-checkout">
       <div className="checkout-actions">
-        <div>
-          <Link to="/shop">
-            {" "}
-            <button onClick={() => setCartOpen(false)} className="button">
-              Continue shopping
-            </button>
-          </Link>
-        </div>
+        <Link to="/shop" className="shopping">
+          {" "}
+          <button
+            onClick={() => setCartOpen(false)}
+            className="button-secondary"
+          >
+            Continue shopping
+          </button>
+        </Link>
 
-        <div>
-          <Link to="/login?redirect=shipping">
-            <button onClick={() => setCartOpen(false)} className="button">
-              Proceed To Checkout
-            </button>
-          </Link>
-        </div>
+        <Link to="/shipping" className="checkout">
+          <button onClick={() => setCartOpen(false)} className="button">
+            Proceed To Checkout
+          </button>
+        </Link>
       </div>
     </div>
   );
