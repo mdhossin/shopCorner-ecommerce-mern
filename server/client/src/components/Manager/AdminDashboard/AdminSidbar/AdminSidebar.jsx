@@ -2,9 +2,9 @@ import React from "react";
 import { CgProfile, CgAdd } from "react-icons/cg";
 import { BiReceipt, BiCube } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { MdAddBox } from "react-icons/md";
+import { FiGrid } from "react-icons/fi";
 
-import { AiOutlineClose, AiOutlineHome } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import Loading from "../../../Common/Loading/Loading";
 const AdminSidebar = () => {
@@ -36,9 +36,9 @@ const AdminSidebar = () => {
             onClick={closeSidebar}
           >
             <div className="sidebar__menu__item__icon">
-              <AiOutlineHome />
+              <FiGrid />
             </div>
-            <div className="sidebar__menu__item__txt">Home</div>
+            <div className="sidebar__menu__item__txt">Dashboard</div>
           </Link>
 
           <Link

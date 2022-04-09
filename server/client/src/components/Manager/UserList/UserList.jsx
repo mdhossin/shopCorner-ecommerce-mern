@@ -17,7 +17,7 @@ const UserList = () => {
 
   useEffect(() => {
     if (userInfo && userInfo?.user.role === 1) {
-      dispatch(userList(userInfo?.access_token));
+      dispatch(userList());
     } else {
       navigate("/");
     }

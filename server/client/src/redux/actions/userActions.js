@@ -200,7 +200,8 @@ export const googleLogin = (id_token) => async (dispatch) => {
 
 // user list for admin
 
-export const userList = (token) => async (dispatch) => {
+export const userList = () => async (dispatch, getState) => {
+  const token = getState().userLogin?.userInfo?.access_token;
   try {
     dispatch({
       type: USER_LIST_REQUEST,

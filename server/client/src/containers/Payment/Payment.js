@@ -26,7 +26,7 @@ const CheckoutForm = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMesssage] = useState("");
-  // console.log(errorMessage, successMessage, "payment messages");
+
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -45,10 +45,6 @@ const CheckoutForm = () => {
 
   const { error } = useSelector((state) => state.newOrder);
 
-  // const { error } = useSelector((state) => state.newOrder);
-
-  console.log(shippingInfo, orderInfo, "shipping inot");
-
   const paymentData = {
     amount: Math.round(orderInfo?.totalPrice * 100),
   };
@@ -64,7 +60,6 @@ const CheckoutForm = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(paymentData, "amout");
 
     payBtn.current.disabled = true;
 
@@ -81,7 +76,6 @@ const CheckoutForm = () => {
         paymentData,
         config
       );
-      console.log(data);
 
       const client_secret = data.client_secret;
 

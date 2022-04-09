@@ -19,7 +19,9 @@ const ShopProduct = ({ page, setPage }) => {
               <>
                 {products?.products &&
                   products?.products?.map((product, i) => {
-                    return <ShopProductSingle product={product} />;
+                    return (
+                      <ShopProductSingle key={product._id} product={product} />
+                    );
                   })}
               </>
             )}

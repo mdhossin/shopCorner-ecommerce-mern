@@ -6,7 +6,7 @@ import { useToasts } from "react-toast-notifications";
 import { isLength, isMatch } from "../../../utils/validation";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import UserList from "../UserList/UserList";
-import Loader from "../../Common/Loader/Loader";
+
 import Loading from "../../Common/Loading/Loading";
 
 const Profile = () => {
@@ -14,7 +14,6 @@ const Profile = () => {
   const auth = useSelector((state) => state.userLogin?.userInfo);
   const token = useSelector((state) => state.userLogin.userInfo?.access_token);
   const { user } = auth;
-  console.log(user, "profke");
 
   const [data, setData] = useState({
     name: "",

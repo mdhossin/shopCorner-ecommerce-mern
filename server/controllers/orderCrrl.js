@@ -106,6 +106,27 @@ const orderCtrl = {
 
     res.json(orders);
   },
+  // get admin all orders
+  async getAllOrders(req, res, next) {
+    console.log(req.user._id);
+    try {
+      const orders = await Order.find();
+
+      let totalAmount = 0;
+
+      orders.forEach((order) => {
+        totalAmount += order.totalPrice;
+      });
+
+      res.json({
+        success: true,
+        totalAmount,
+        orders,
+      });
+    } catch (err) {
+      return next(err);
+    }
+  },
   // search api
   // fetch  product name search api
 };

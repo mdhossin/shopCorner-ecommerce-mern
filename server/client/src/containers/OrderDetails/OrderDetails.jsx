@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-
+import { useToasts } from "react-toast-notifications";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Link, useParams } from "react-router-dom";
@@ -8,9 +8,10 @@ import { clearErrors, getOrderDetails } from "../../redux/actions/orderActions";
 
 const OrderDetails = () => {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
-  console.log(order, "single order");
+
   const dispatch = useDispatch();
   const { orderId } = useParams();
+  const { addToast } = useToasts();
 
   useEffect(() => {
     if (error) {
@@ -20,6 +21,14 @@ const OrderDetails = () => {
 
     dispatch(getOrderDetails(orderId));
   }, [dispatch, error, orderId]);
+
+  useEffect(() => {
+    if (error) {
+      addToast(error, { appearance: "error", autoDismiss: true });
+      dispatch(clearErrors());
+    }
+    dispatch(getOrderDetails(orderId));
+  }, [dispatch, error, addToast, orderId]);
   return (
     <Fragment>
       {loading ? (

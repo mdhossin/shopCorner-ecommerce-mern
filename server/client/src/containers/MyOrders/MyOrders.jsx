@@ -1,31 +1,27 @@
 import React, { Fragment, useEffect } from "react";
-
+import { useToasts } from "react-toast-notifications";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
-import { DataGrid } from "@mui/x-data-grid";
+
 import { BiEdit } from "react-icons/bi";
-import { Typography } from "@mui/material";
+
 import { clearErrors, myOrders } from "../../redux/actions/orderActions";
 import Loading from "../../components/Common/Loading/Loading";
 import { Table } from "react-bootstrap";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
-
+  const { addToast } = useToasts();
   const { loading, error, orders } = useSelector((state) => state.myOrders);
-  const auth = useSelector((state) => state.userLogin?.userInfo);
-  const { user } = auth;
-  console.log(orders);
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      addToast(error, { appearance: "error", autoDismiss: true });
       dispatch(clearErrors());
     }
-
     dispatch(myOrders());
-  }, [dispatch, error]);
+  }, [dispatch, error, addToast]);
 
   return (
     <section className="myorders container-div">
@@ -35,6 +31,7 @@ const MyOrders = () => {
           <thead>
             <tr className="myorders__header">
               <th>Order Id</th>
+              <th>Quantity</th>
               <th>Price</th>
               <th>Status</th>
               <th>Actions</th>
@@ -51,9 +48,10 @@ const MyOrders = () => {
               <h3>{error}</h3>
             ) : (
               <>
-                {orders?.map(({ _id, orderStatus, totalPrice }) => (
+                {orders?.map(({ _id, orderStatus, totalPrice, orderItems }) => (
                   <tr key={_id}>
                     <td>#{_id}</td>
+                    <td>{orderItems?.length}</td>
                     <td>{totalPrice}</td>
                     <td>
                       <button>{orderStatus}</button>
