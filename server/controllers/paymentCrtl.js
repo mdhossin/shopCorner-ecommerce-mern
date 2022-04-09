@@ -7,6 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const paymentConroller = {
   async processPayment(req, res, next) {
+    console.log(req.body);
     try {
       const myPayment = await stripe.paymentIntents.create({
         amount: req.body.amount,
@@ -15,17 +16,9 @@ const paymentConroller = {
           company: "Ecommerce",
         },
       });
-      res
-        .status(200)
-        .json({ success: true, client_secret: myPayment.client_secret });
+      res.json({ success: true, client_secret: myPayment.client_secret });
     } catch (error) {
-      return next(error);
-    }
-  },
-  async sendStripeApiKey(req, res, next) {
-    try {
-      res.status(200).json({ stripeApiKey: process.env.STRIPE_API_KEY });
-    } catch (error) {
+      console.log(error?.message);
       return next(error);
     }
   },

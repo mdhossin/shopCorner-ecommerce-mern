@@ -20,7 +20,7 @@ import uploadRoutes from "./routes/upload.js";
 import productRoutes from "./routes/product.js";
 // import adminUpload from "./routes/adminUpload.js";
 import paymentRoutes from "./routes/payment.js";
-
+import orderRoutes from "./routes/order.js";
 import userRoutes from "./routes/user.js";
 
 // middleware
@@ -46,6 +46,8 @@ app.use("/user", userRoutes);
 // payment routes
 app.use("/api", paymentRoutes);
 
+// order routes
+app.use("/api", orderRoutes);
 // Database connection
 import "./config/database.js";
 

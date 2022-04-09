@@ -13,7 +13,7 @@ import ScrollToTop from "./helpers/ScrollToTop";
 import Shop from "./containers/Shop/Shop";
 import { ToastProvider } from "react-toast-notifications";
 import ActivationEmail from "./containers/ActivationEmail/ActivationEmail";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { refreshToken } from "./redux/actions/userActions";
 
@@ -32,32 +32,11 @@ import AdminProductList from "./components/Manager/AdminProductList/AdminProduct
 import EditUser from "./components/Manager/EditUser/EditUser";
 import Shipping from "./containers/Shipping/Shipping";
 import ConfirmOrder from "./containers/ConfirmOrder/ConfirmOrder";
-import axios from "axios";
+import Payment from "./containers/Payment/Payment";
+import OrderSuccess from "./containers/OrderSuccess/OrderSuccess";
 
 function App() {
   const dispatch = useDispatch();
-  const [stripeApiKey, setStripeApiKey] = useState("");
-  console.log(stripeApiKey, "stripeapiky");
-  const token = useSelector((state) => state.userLogin?.userInfo?.access_token);
-  useEffect(() => {
-    const getStripeApiKey = async () => {
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        };
-
-        const { data } = await axios.get("/api/stripeapikey", config);
-
-        setStripeApiKey(data.stripeApiKey);
-      } catch (error) {
-        console.log(error?.message);
-      }
-    };
-    getStripeApiKey();
-  }, [token]);
 
   useEffect(() => {
     dispatch(refreshToken());
@@ -72,6 +51,13 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home />} />
+
+            {user?.access_token && (
+              <Route path="/process/payment" element={<Payment />} />
+            )}
+
+            <Route path="/success" element={<OrderSuccess />}></Route>
+
             <Route
               path="/forgotpassword"
               element={
@@ -109,6 +95,7 @@ function App() {
               }
             ></Route>
             <Route path="/shop" element={<Shop />}></Route>
+
             <Route
               path="/product/:productId"
               element={<ProductDetail />}

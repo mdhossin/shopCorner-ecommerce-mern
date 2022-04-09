@@ -11,8 +11,8 @@ import Loading from "../../Common/Loading/Loading";
 
 const Profile = () => {
   const { addToast } = useToasts();
-  const auth = useSelector((state) => state.userLogin.userInfo);
-  const token = useSelector((state) => state.userLogin.userInfo.access_token);
+  const auth = useSelector((state) => state.userLogin?.userInfo);
+  const token = useSelector((state) => state.userLogin.userInfo?.access_token);
   const { user } = auth;
   console.log(user, "profke");
 

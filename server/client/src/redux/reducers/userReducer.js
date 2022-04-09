@@ -6,7 +6,6 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_RESET,
   USER_LOGIN_SUCCESS,
-  USER_LOGOUT,
   USER_LOGOUT_FAIL,
   USER_LOGOUT_REQUEST,
   USER_LOGOUT_RESET,
@@ -22,6 +21,7 @@ export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -50,6 +50,7 @@ export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -77,6 +78,7 @@ export const userLogoutReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGOUT_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -104,6 +106,7 @@ export const userListReducer = (state = { users: [] }, action) => {
   switch (action.type) {
     case USER_LIST_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 

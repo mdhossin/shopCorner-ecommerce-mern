@@ -68,6 +68,7 @@ export const createProductReducer = (state = {}, action) => {
   switch (action.type) {
     case CREATE_PRODUCT_REQUEST:
       return {
+        ...state,
         loading: true,
       };
 
@@ -102,7 +103,7 @@ export const productReducer = (state = initState, action) => {
     case FETCH_PRODUCTS_LOADING:
       return {
         loading: true,
-        products: [],
+        ...state,
       };
     case ALL_PRODUCTS_SUCCESS:
     case FETCH_PRODUCTS_SUCCESS:
@@ -125,6 +126,7 @@ export const productDeleteReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_DELETE_REQUEST:
       return {
+        ...state,
         loading: true,
       };
     case PRODUCT_DELETE_SUCCESS:
@@ -178,7 +180,7 @@ export const adminProductReducer = (state = initState, action) => {
     case ALL_PRODUCTS_LOADING:
       return {
         loading: true,
-        products: [],
+        ...state,
       };
     case ALL_PRODUCTS_SUCCESS:
       return {

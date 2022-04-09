@@ -49,3 +49,7 @@
 @use "./checkout-steps";
 
 @use "./confirm-order";
+
+@use "./payment";
+
+@use "./order-success";
