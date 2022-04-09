@@ -34,6 +34,7 @@ import Shipping from "./containers/Shipping/Shipping";
 import ConfirmOrder from "./containers/ConfirmOrder/ConfirmOrder";
 import Payment from "./containers/Payment/Payment";
 import OrderSuccess from "./containers/OrderSuccess/OrderSuccess";
+import MyOrders from "./containers/MyOrders/MyOrders";
 
 function App() {
   const dispatch = useDispatch();
@@ -112,7 +113,14 @@ function App() {
               >
                 <Route index element={<Profile />} />
 
-                <Route path="orders" element={<Blank />} />
+                <Route
+                  path="orders"
+                  element={
+                    <PrivateRoute>
+                      <MyOrders />
+                    </PrivateRoute>
+                  }
+                ></Route>
               </Route>
             )}
             {user?.access_token && user?.user?.role === 1 && (

@@ -1,0 +1,43 @@
+@use "./utils/" as *;
+.myOrders {
+  width: 100vw;
+  max-width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 6rem;
+
+  &__table {
+    background-color: #fff;
+    > div {
+      font: 300 1vmax "Roboto";
+      color: rgba(0, 0, 0, 0.678);
+      border: none;
+    }
+
+    a {
+      color: rgba(0, 0, 0, 0.527);
+      transition: all 0.5s;
+    }
+  }
+}
+
+.myOrdersTable a:hover {
+  color: tomato;
+}
+
+.MuiDataGrid-columnHeader {
+  background-color: #2c2c2c;
+  padding: 1vmax !important;
+}
+
+.MuiDataGrid-columnHeader div {
+  color: rgb(255, 255, 255);
+  font: 500 1.1vmax "Roboto" !important;
+}
+
+.MuiDataGrid-iconSeparator {
+  display: none !important;
+}

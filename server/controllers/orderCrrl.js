@@ -86,18 +86,19 @@ const orderCtrl = {
 
   //     res.json(product);
   //   },
-  //   async getAllProducts(req, res, next) {
-  //     let products;
-  //     try {
-  //       products = await Products.find()
-  //         .select("-updatedAt -__v")
-  //         .sort({ _id: -1 });
-  //     } catch (err) {
-  //       return next(err);
-  //     }
+  async myOrders(req, res, next) {
+    console.log(req.user._id);
+    let orders;
+    try {
+      orders = await Order.find({ user: req.user._id })
+        .select("-updatedAt -__v")
+        .sort({ _id: -1 });
+    } catch (err) {
+      return next(err);
+    }
 
-  //     res.json(products);
-  //   },
+    res.json(orders);
+  },
   // search api
   // fetch  product name search api
 };

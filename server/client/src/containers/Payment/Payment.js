@@ -39,13 +39,12 @@ const CheckoutForm = () => {
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.userLogin?.userInfo);
-  console.log(cartItems, "cartitem");
+  const { user } = auth;
 
   const token = useSelector((state) => state.userLogin?.userInfo?.access_token);
 
   const { error } = useSelector((state) => state.newOrder);
 
-  const { user } = auth;
   // const { error } = useSelector((state) => state.newOrder);
 
   console.log(shippingInfo, orderInfo, "shipping inot");
