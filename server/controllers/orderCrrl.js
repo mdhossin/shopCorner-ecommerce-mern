@@ -127,8 +127,86 @@ const orderCtrl = {
       return next(err);
     }
   },
+  // admin can do that
+  async updateOrder(req, res, next) {
+    try {
+      const order = await Order.findById(req.params.id);
+
+      if (!order) {
+        return next(
+          CustomErrorHandler.badRequest("Order not found with this Id,")
+        );
+      }
+
+      if (order.orderStatus === "Delivered") {
+        return next(
+          CustomErrorHandler.badRequest("You have already delivered this order")
+        );
+      }
+
+      if (req.body.status === "Shipped") {
+        order?.orderItems?.forEach(async (o) => {
+          await updateStock(o.product, o.quantity);
+        });
+      }
+      order.orderStatus = req.body.status;
+
+      if (req.body.status === "Delivered") {
+        order.deliveredAt = Date.now();
+      }
+
+      await order.save({ validateBeforeSave: false });
+      res.status(200).json({
+        success: true,
+      });
+    } catch (error) {
+      return next(error);
+    }
+  },
+
+  async deleteOrder(req, res, next) {
+    try {
+      try {
+        await Order.findByIdAndDelete(req.params.id);
+        res.json({ success: true });
+      } catch (err) {
+        return next(err);
+      }
+    } catch (err) {
+      return next(err);
+    }
+  },
+  // async deleteOrder(req, res, next){
+  //   try {
+  //     const order = await Order.findById(req.params.id);
+
+  //     if (!order) {
+  //       return next(
+  //         CustomErrorHandler.badRequest("Order not found with this Id,")
+  //       );
+  //     }
+
+  //     await order.remove();
+
+  //     res.status(200).json({
+  //       success: true,
+  //     });
+
+  //   } catch (error) {
+  //     return next(error)
+
+  //   }
+  // }
   // search api
   // fetch  product name search api
 };
+
+async function updateStock(id, quantity) {
+  const product = await Product.findById(id);
+
+  product.Stock -= quantity;
+
+  await product.save({ validateBeforeSave: false });
+}
 
 export default orderCtrl;

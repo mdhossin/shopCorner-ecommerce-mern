@@ -7,8 +7,9 @@ import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 
 import { clearErrors, myOrders } from "../../redux/actions/orderActions";
-import Loading from "../../components/Common/Loading/Loading";
+
 import { Table } from "react-bootstrap";
+import Loader from "../../components/Common/Loader/Loader";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const MyOrders = () => {
             {loading ? (
               <tr>
                 <td className="order-loading">
-                  <Loading />
+                  <Loader inline />
                 </td>
               </tr>
             ) : error ? (
@@ -52,7 +53,7 @@ const MyOrders = () => {
                   <tr key={_id}>
                     <td>#{_id}</td>
                     <td>{orderItems?.length}</td>
-                    <td>{totalPrice}</td>
+                    <td>{totalPrice.toFixed(2)}</td>
                     <td>
                       <button>{orderStatus}</button>
                     </td>

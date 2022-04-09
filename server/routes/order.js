@@ -10,5 +10,9 @@ router.get("/orders/:id", auth, orderCtrl.getOrderById);
 
 // admin routes
 router.get("/admin/orders", auth, authAdmin, orderCtrl.getAllOrders);
+router
+  .route("/admin/order/:id")
+  .put(auth, authAdmin, orderCtrl.updateOrder)
+  .delete(auth, authAdmin, orderCtrl.deleteOrder);
 
 export default router;

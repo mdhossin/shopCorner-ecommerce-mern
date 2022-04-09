@@ -12,7 +12,7 @@ const UserList = () => {
 
   const { loading, error, users } = useSelector((state) => state.userList);
   const { userInfo } = useSelector((state) => state.userLogin);
-  console.log(users, userInfo, "users");
+
   const [callback, setCallback] = useState(false);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const UserList = () => {
           {loading ? (
             <Loading />
           ) : error ? (
-            alert(error)
+            <h3>{error}</h3>
           ) : (
             <UserListItem
               callback={callback}

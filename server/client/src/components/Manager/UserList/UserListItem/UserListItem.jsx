@@ -1,35 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete, AiOutlineCheck } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useToasts } from "react-toast-notifications";
 
 const UserListItem = ({ users, setCallback, callback }) => {
   const auth = useSelector((state) => state.userLogin.userInfo);
   const token = useSelector((state) => state.userLogin.userInfo.access_token);
   const { user } = auth;
-
+  const [errorMessage, setErrorMessage] = useState("");
+  const [success, setSuccess] = useState("");
+  const { addToast } = useToasts();
   const handleDelete = async (id) => {
     try {
       if (user._id !== id) {
         if (window.confirm("Are you sure you want to delete this account?")) {
-          const res = await axios.delete(`/user/delete/${id}`, {
+          const { data } = await axios.delete(`/user/delete/${id}`, {
             headers: { Authorization: token },
           });
 
           setCallback(!callback);
-          alert(res.data.message);
+          setSuccess(data.message);
+          setErrorMessage("");
         }
       }
     } catch (error) {
-      alert(
+      setErrorMessage(
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message
       );
+      setSuccess("");
     }
   };
+
+  useEffect(() => {
+    if (errorMessage) {
+      addToast(errorMessage, { appearance: "error", autoDismiss: true });
+    } else if (success) {
+      addToast(success, { appearance: "success", autoDismiss: true });
+    }
+  }, [errorMessage, success, addToast]);
 
   return (
     <>
@@ -37,7 +50,7 @@ const UserListItem = ({ users, setCallback, callback }) => {
         <table className="table__container__table">
           <thead>
             <tr>
-              <th scope="col">Id</th>
+              <th scope="col">User Id</th>
               <th scope="col">Name</th>
 
               <th scope="col">Email</th>
@@ -49,7 +62,7 @@ const UserListItem = ({ users, setCallback, callback }) => {
             {users &&
               users.map((user) => (
                 <tr key={user._id}>
-                  <td data-aria-label="Id">{user._id}</td>
+                  <td data-aria-label="Id">#{user._id}</td>
                   <td data-aria-label="Name"> {user.name} </td>
 
                   <td data-aria-label="Email">{user.email}</td>

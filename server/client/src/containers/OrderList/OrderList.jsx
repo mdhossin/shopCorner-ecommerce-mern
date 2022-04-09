@@ -1,0 +1,137 @@
+import React, { useEffect } from "react";
+import { Table } from "react-bootstrap";
+import { BiEdit } from "react-icons/bi";
+import { BsFillTrashFill } from "react-icons/bs";
+
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import Loader from "../../components/Common/Loader/Loader";
+import { useToasts } from "react-toast-notifications";
+import {
+  clearErrors,
+  deleteOrder,
+  getAllOrders,
+} from "../../redux/actions/orderActions";
+import { DELETE_ORDER_RESET } from "../../redux/constants/orderConstants";
+
+const OrderList = () => {
+  const dispatch = useDispatch();
+  const { addToast } = useToasts();
+
+  const { error, orders, loading } = useSelector((state) => state.allOrders);
+
+  const { error: deleteError, isDeleted } = useSelector((state) => state.order);
+
+  const deleteOrderHandler = (id) => {
+    if (window.confirm("Are you sure want to delete order ?")) {
+      dispatch(deleteOrder(id));
+    }
+  };
+
+  useEffect(() => {
+    if (error) {
+      addToast(error, { appearance: "error", autoDismiss: true });
+      dispatch(clearErrors());
+    }
+
+    if (deleteError) {
+      addToast(deleteError, { appearance: "error", autoDismiss: true });
+      dispatch(clearErrors());
+    }
+
+    if (isDeleted) {
+      addToast("Order Deleted Succssfully.", {
+        appearance: "success",
+        autoDismiss: true,
+      });
+      //   history.push("/admin/orders");
+      dispatch({ type: DELETE_ORDER_RESET });
+    }
+
+    dispatch(getAllOrders());
+  }, [dispatch, error, deleteError, isDeleted, addToast]);
+
+  return (
+    <>
+      {/* <MetaData title={`ALL ORDERS - Admin`} /> */}
+
+      <section className="myorders container-div">
+        <h2>All Orders</h2>
+        <div>
+          <Table responsive="md" style={{ overflowX: "auto" }}>
+            <thead>
+              <tr className="myorders__header">
+                <th>Order Id</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th style={{ textAlign: "end" }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td className="order-loading">
+                    <Loader inline />
+                  </td>
+                </tr>
+              ) : error ? (
+                <h3>{error}</h3>
+              ) : (
+                <>
+                  {orders?.map(
+                    ({ _id, orderStatus, totalPrice, orderItems }) => (
+                      <tr key={_id}>
+                        <td>#{_id}</td>
+                        <td>{orderItems?.length}</td>
+                        <td>{totalPrice.toFixed(2)}</td>
+                        <td>
+                          <button>{orderStatus}</button>
+                        </td>
+                        <td
+                          title="Update Order"
+                          style={{ textAlign: "center" }}
+                        >
+                          {" "}
+                          <Link to={`/dashboard/admin/order/${_id}`}>
+                            {" "}
+                            <BiEdit
+                              style={{
+                                color: "green",
+                                cursor: "pointer",
+                              }}
+                            />
+                          </Link>
+                        </td>
+                        <td title="Delete Order">
+                          <BsFillTrashFill
+                            onClick={() => deleteOrderHandler(_id)}
+                            style={{
+                              color: "rgb(165, 5, 29)",
+                              cursor: "pointer",
+                            }}
+                          />
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </>
+              )}
+            </tbody>
+          </Table>
+        </div>
+        <h2
+          style={{
+            marginTop: "2rem",
+            textAlign: "center",
+            color: "#333",
+          }}
+        >
+          {orders?.length === 0 && "No order found."}
+        </h2>
+      </section>
+    </>
+  );
+};
+
+export default OrderList;

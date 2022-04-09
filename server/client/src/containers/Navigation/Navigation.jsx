@@ -25,7 +25,7 @@ const Navigation = () => {
 
   const user = useSelector((state) => state.userLogin);
   const { userInfo } = user;
-
+  console.log(user, "user");
   const logoutUser = useSelector((state) => state.userLogout);
   const { userLogout, error } = logoutUser;
 
@@ -143,7 +143,7 @@ const Navigation = () => {
 
             <NavDropdown
               title={
-                user?.userInfo?.access_token ? (
+                user?.userInfo?.user ? (
                   <img
                     style={{ borderRadius: "50%" }}
                     width="22"
@@ -157,7 +157,7 @@ const Navigation = () => {
               }
               id="collasible-nav-dropdown"
             >
-              {user?.userInfo?.access_token ? (
+              {user?.userInfo?.user ? (
                 <>
                   <NavDropdown.Item
                     className="nav__dropdown__item"

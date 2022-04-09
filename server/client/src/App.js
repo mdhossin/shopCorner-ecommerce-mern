@@ -36,6 +36,8 @@ import Payment from "./containers/Payment/Payment";
 import OrderSuccess from "./containers/OrderSuccess/OrderSuccess";
 import MyOrders from "./containers/MyOrders/MyOrders";
 import OrderDetails from "./containers/OrderDetails/OrderDetails";
+import OrderList from "./containers/OrderList/OrderList";
+import ProcessOrder from "./components/Manager/ProcessOrder/ProcessOrder";
 
 function App() {
   const dispatch = useDispatch();
@@ -135,7 +137,8 @@ function App() {
 
                 <Route path="products" element={<AdminProductList />} />
 
-                <Route path="orders" element={<Blank />} />
+                <Route path="orders" element={<OrderList />} />
+                <Route path="admin/order/:id" element={<ProcessOrder />} />
               </Route>
             )}
             <Route path="*" element={<Page404 />}></Route>
