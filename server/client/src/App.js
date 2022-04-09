@@ -17,7 +17,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { refreshToken } from "./redux/actions/userActions";
 
-import Blank from "./components/Manager/UserDashboard/Blank";
 import Profile from "./components/Manager/Profile/Profile";
 import ResetPassword from "./containers/ResetPassword/ResetPassword";
 import UserDashboard from "./components/Manager/UserDashboard/Customer";

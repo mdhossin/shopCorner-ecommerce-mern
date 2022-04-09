@@ -86,7 +86,15 @@ const OrderList = () => {
                         <td>{orderItems?.length}</td>
                         <td>{totalPrice.toFixed(2)}</td>
                         <td>
-                          <button>{orderStatus}</button>
+                          <button
+                            className={
+                              orderStatus === "Delivered"
+                                ? "greenColor"
+                                : "redColor"
+                            }
+                          >
+                            {orderStatus}
+                          </button>
                         </td>
                         <td
                           title="Update Order"

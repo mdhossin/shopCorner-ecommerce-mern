@@ -15,15 +15,6 @@ const OrderDetails = () => {
 
   useEffect(() => {
     if (error) {
-      alert(error);
-      dispatch(clearErrors());
-    }
-
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch, error, orderId]);
-
-  useEffect(() => {
-    if (error) {
       addToast(error, { appearance: "error", autoDismiss: true });
       dispatch(clearErrors());
     }
