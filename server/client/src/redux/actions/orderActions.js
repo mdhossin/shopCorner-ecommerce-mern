@@ -1,4 +1,5 @@
 import {
+  CLEAR_ERRORS,
   CREATE_ORDER_FAIL,
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS,
@@ -6,7 +7,7 @@ import {
 import axios from "axios";
 
 // Create Order action
-export const createOrder = (order, token) => async (dispatch) => {
+export const createOrder = (order, token, navigate) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_ORDER_REQUEST });
 
@@ -19,6 +20,9 @@ export const createOrder = (order, token) => async (dispatch) => {
     const { data } = await axios.post("/api/order/new", order, config);
 
     dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
+
+    navigate("/success");
+    localStorage.removeItem("cartItems");
   } catch (error) {
     dispatch({
       type: CREATE_ORDER_FAIL,
@@ -28,4 +32,9 @@ export const createOrder = (order, token) => async (dispatch) => {
           : error.message,
     });
   }
+};
+
+// Clearing Errors
+export const clearErrors = () => async (dispatch) => {
+  dispatch({ type: CLEAR_ERRORS });
 };

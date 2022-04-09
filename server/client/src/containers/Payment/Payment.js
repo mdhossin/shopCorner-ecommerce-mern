@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -10,6 +10,7 @@ import {
   useElements,
   Elements,
 } from "@stripe/react-stripe-js";
+import { useToasts } from "react-toast-notifications";
 
 import { BsCreditCard, BsCalendar2Event, BsFillKeyFill } from "react-icons/bs";
 
@@ -17,13 +18,19 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CheckoutSteps from "../../components/Common/CheckoutSteps/CheckoutSteps";
 import { loadStripe } from "@stripe/stripe-js";
-import { createOrder } from "../../redux/actions/orderActions";
+import { clearErrors, createOrder } from "../../redux/actions/orderActions";
+import Loading from "../../components/Common/Loading/Loading";
 
 const CheckoutForm = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
 
-  const dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMesssage] = useState("");
+  // console.log(errorMessage, successMessage, "payment messages");
+  const [isLoading, setIsLoading] = useState(false);
 
+  const dispatch = useDispatch();
+  const { addToast } = useToasts();
   const navigate = useNavigate();
 
   const stripe = useStripe();
@@ -35,6 +42,8 @@ const CheckoutForm = () => {
   console.log(cartItems, "cartitem");
 
   const token = useSelector((state) => state.userLogin?.userInfo?.access_token);
+
+  const { error } = useSelector((state) => state.newOrder);
 
   const { user } = auth;
   // const { error } = useSelector((state) => state.newOrder);
@@ -61,6 +70,7 @@ const CheckoutForm = () => {
     payBtn.current.disabled = true;
 
     try {
+      setIsLoading(true);
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -97,28 +107,56 @@ const CheckoutForm = () => {
 
       if (result.error) {
         payBtn.current.disabled = false;
-
-        alert(result.error.message);
+        setErrorMessage(result?.error);
+        setSuccessMesssage("");
+        setIsLoading(false);
       } else {
         if (result.paymentIntent.status === "succeeded") {
+          setSuccessMesssage("Payment succssfully done.");
+          setErrorMessage("");
+          setIsLoading(false);
           order.paymentInfo = {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
           };
+          dispatch(createOrder(order, token, navigate));
 
-          dispatch(createOrder(order, token));
-
-          navigate("/success");
+          // setErrorMessage
         } else {
-          alert("There's some issue while processing payment ");
+          setIsLoading(false);
+          setSuccessMesssage("");
+          setErrorMessage("There's some issue while processing payment ");
         }
       }
     } catch (error) {
       payBtn.current.disabled = false;
-      alert(error.response.data.message);
-      console.log(error?.message);
+      setSuccessMesssage("");
+      setErrorMessage(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      addToast(error, { appearance: "error", autoDismiss: true });
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error, addToast]);
+
+  useEffect(() => {
+    if (errorMessage) {
+      addToast(errorMessage, { appearance: "error", autoDismiss: true });
+    } else if (successMessage) {
+      addToast(successMessage, {
+        appearance: "success",
+        autoDismiss: true,
+      });
+      // navigate(redirect);
+    }
+  }, [addToast, errorMessage, successMessage]);
 
   return (
     <div className="container-div payment-checkout">
@@ -141,12 +179,19 @@ const CheckoutForm = () => {
               <CardCvcElement className="payment__form__input" />
             </div>
 
-            <input
+            <button ref={payBtn} type="submit" className="button">
+              {isLoading ? (
+                <Loading />
+              ) : (
+                `Pay - $${orderInfo && orderInfo.totalPrice.toFixed(2)}`
+              )}
+            </button>
+            {/* <input
               type="submit"
               value={`Pay - $${orderInfo && orderInfo.totalPrice}`}
               ref={payBtn}
               className="button"
-            />
+            /> */}
           </form>
         </div>
       </>

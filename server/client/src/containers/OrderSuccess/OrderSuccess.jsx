@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { BsCheckLg } from "react-icons/bs";
 const OrderSuccess = () => {
   return (
-    <div className="orderSuccess">
+    <div className="orderSuccess container-div">
       <BsCheckLg />
-      <h1>Your Order has been Placed successfully </h1>
+      <h1>Your Order has been Placed successfully. </h1>
       <Link to="/orders">View Orders</Link>
     </div>
   );

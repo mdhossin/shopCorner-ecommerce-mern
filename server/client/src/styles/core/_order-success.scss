@@ -1,45 +1,43 @@
 @use "./utils/" as *;
 .orderSuccess {
   padding: 7rem 0;
-  margin: auto;
+
   text-align: center;
-  padding: 10vmax;
-  height: 50vh;
+
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.orderSuccess > svg {
-  font-size: 7vmax;
-  color: tomato;
-}
-.orderSuccess > p {
-  font-size: 2vmax;
-}
-.orderSuccess > a {
-  background-color: rgb(51, 51, 51);
-  color: white;
-  border: none;
-  padding: 1vmax 3vmax;
-  cursor: pointer;
-  font: 400 1vmax "Roboto";
-  text-decoration: none;
-  margin: 2vmax;
-}
 
-@media screen and (max-width: 600px) {
-  .orderSuccess > a {
-    padding: 3vw 6vw;
-    font: 400 4vw "Roboto";
-    margin: 2vmax;
+  > svg {
+    font-size: 3rem;
+    color: tomato;
+    @include breakpoint-up("large") {
+      font-size: 4rem;
+    }
   }
+  > h1 {
+    font-size: 2rem;
+    margin: 1.5rem 0;
 
-  .orderSuccess > svg {
-    font-size: 20vw;
+    @include breakpoint-up("large") {
+      font-size: 3rem;
+      line-height: 1.2;
+    }
   }
-  .orderSuccess > p {
-    margin: 2vmax;
-    font-size: 5vw;
+  > a {
+    background-color: rgb(51, 51, 51);
+    color: white;
+    border: none;
+    padding: 1rem 3rem;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      background-color: transparent;
+      border: 1px solid #2c2c2c;
+      color: #2c2c2c;
+    }
   }
 }

@@ -46,7 +46,9 @@ const Cart = ({ setCartOpen, isCartOpen }) => {
   return (
     <div className="cart">
       <div className="cart__header">
-        <h5 className="cart__header-title">Shopping Cart (0)</h5>
+        <h5 className="cart__header-title">
+          Shopping Cart ({cartItems?.length})
+        </h5>
         <AiOutlineClose
           className="cart__header-icon"
           onClick={() => setCartOpen(false)}
@@ -71,13 +73,7 @@ const Cart = ({ setCartOpen, isCartOpen }) => {
       {cartItems.length > 0 && (
         <div className="cart__checkout">
           <CartSummary cartTotal={cartTotal} />
-          <CheckOut
-            setCartOpen={setCartOpen}
-            // handleShopping={handleShopping}
-            // handleCheckout={handleCheckout}
-            // placeOrder={placeOrder}
-            // authenticated={authenticated}
-          />
+          <CheckOut setCartOpen={setCartOpen} />
         </div>
       )}
     </div>
