@@ -74,18 +74,25 @@ const orderCtrl = {
   //       return next(err);
   //     }
   //   },
-  //   async getByIdProduct(req, res, next) {
-  //     let product;
-  //     try {
-  //       product = await Products.findOne({ _id: req.params.id }).select(
-  //         "-updatedAt -__v"
-  //       );
-  //     } catch (err) {
-  //       return next(err);
-  //     }
+  async getOrderById(req, res, next) {
+    let order;
+    try {
+      order = await Order.findOne({ _id: req.params.id })
+        .populate("user", "name email")
+        .select("-updatedAt -__v");
 
-  //     res.json(product);
-  //   },
+      if (!order) {
+        return next(
+          CustomErrorHandler.badRequest("Order not found with this Id.")
+        );
+      }
+    } catch (err) {
+      return next(err);
+    }
+
+    res.json(order);
+  },
+  // get user all order
   async myOrders(req, res, next) {
     console.log(req.user._id);
     let orders;

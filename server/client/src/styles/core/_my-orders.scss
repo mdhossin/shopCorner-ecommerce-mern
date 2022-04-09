@@ -1,43 +1,25 @@
 @use "./utils/" as *;
-.myOrders {
-  width: 100vw;
-  max-width: 100%;
-  box-sizing: border-box;
-  background-color: #fff;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 6rem;
+.myorders {
+  font-family: "Roboto", sans-serif;
 
-  &__table {
-    background-color: #fff;
-    > div {
-      font: 300 1vmax "Roboto";
-      color: rgba(0, 0, 0, 0.678);
-      border: none;
-    }
-
-    a {
-      color: rgba(0, 0, 0, 0.527);
-      transition: all 0.5s;
+  &__header {
+    th {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #2c2c2c;
     }
   }
-}
 
-.myOrdersTable a:hover {
-  color: tomato;
-}
+  h2 {
+    font-size: 2rem;
+    color: #2c2c2c;
+    margin-bottom: 3rem;
+  }
+  button {
+    padding: 0.3rem 1rem;
+  }
 
-.MuiDataGrid-columnHeader {
-  background-color: #2c2c2c;
-  padding: 1vmax !important;
-}
-
-.MuiDataGrid-columnHeader div {
-  color: rgb(255, 255, 255);
-  font: 500 1.1vmax "Roboto" !important;
-}
-
-.MuiDataGrid-iconSeparator {
-  display: none !important;
+  svg {
+    font-size: 1.3rem;
+  }
 }

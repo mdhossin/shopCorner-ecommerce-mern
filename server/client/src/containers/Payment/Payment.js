@@ -77,7 +77,7 @@ const CheckoutForm = () => {
         },
       };
       const { data } = await axios.post(
-        "http://localhost:5000/api/payment/process",
+        "/api/payment/process",
         paymentData,
         config
       );

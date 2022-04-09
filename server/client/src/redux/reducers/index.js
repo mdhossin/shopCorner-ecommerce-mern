@@ -15,7 +15,11 @@ import {
   productReducer,
 } from "./productReducer";
 import { cartReducer } from "./cartReducer";
-import { myOrdersReducer, newOrderReducer } from "./orderReducer";
+import {
+  myOrdersReducer,
+  newOrderReducer,
+  orderDetailsReducer,
+} from "./orderReducer";
 
 export default combineReducers({
   alert,
@@ -32,4 +36,5 @@ export default combineReducers({
   cart: cartReducer,
   newOrder: newOrderReducer,
   myOrders: myOrdersReducer,
+  orderDetails: orderDetailsReducer,
 });
